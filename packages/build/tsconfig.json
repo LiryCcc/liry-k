@@ -1,0 +1,7 @@
+{
+  "extends": "@liry-k/tsconfig",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["build.ts"]
+}
