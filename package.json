@@ -1,5 +1,6 @@
 {
-  "name": "liry-k",
+  "name": "@liry-k/monorepo",
+  "private": true,
   "type": "module",
   "scripts": {
     "check-format": "prettier --check --cache .",
