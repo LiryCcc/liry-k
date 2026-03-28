@@ -6,6 +6,7 @@
     "check-format": "prettier --check --cache .",
     "check-spell": "cspell .",
     "format": "prettier --write --cache .",
+    "lint": "pnpm pre-commit",
     "pre-commit": "pnpm check-format && pnpm check-spell && pnpm -r lint",
     "prepare": "simple-git-hooks"
   },

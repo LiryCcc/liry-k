@@ -1,0 +1,45 @@
+# 在 Actions 里手动「Run workflow」触发；建议在 main 上运行（下方 job 在非 main 上会跳过）。
+# 需配置仓库 Secret：NPM_TOKEN。若某包 version 已在 registry 存在，npm 会报错，整步失败。
+name: Publish npm packages
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: publish-npm-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 供 pnpm / npm publish 写入认证信息（不写回仓库）
+      - name: Configure npm registry auth
+        run: printf '%s\n' "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # -r：按依赖顺序发布 workspace 内非 private 包；--no-git-checks：CI 无干净工作区校验
+      - name: Publish workspace packages
+        run: pnpm publish -r --access public --no-git-checks
