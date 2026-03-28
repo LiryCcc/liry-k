@@ -1,6 +1,7 @@
 {
   "name": "@liry-k/build",
   "version": "1.0.0",
+  "private": true,
   "type": "module",
   "bin": {
     "liry-build": "node build.ts"

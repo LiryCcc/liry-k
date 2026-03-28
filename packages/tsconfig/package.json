@@ -1,5 +1,8 @@
 {
   "name": "@liry-k/tsconfig",
   "version": "1.0.0",
-  "type": "module"
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  }
 }
