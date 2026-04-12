@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { resolve } from 'node:path';
 import { cwd } from 'node:process';
 import { build as defaultBuild, defineConfig, mergeConfig, type UserConfig } from 'tsdown';
