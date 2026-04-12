@@ -58,6 +58,21 @@ importers:
         specifier: ^6.0.2
         version: 6.0.2
 
+  packages/rigel:
+    devDependencies:
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../build
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: ^24.12.2
+        version: 24.12.2
+      typescript:
+        specifier: ^6.0.2
+        version: 6.0.2
+
   packages/tsconfig: {}
 
 packages:

@@ -1,0 +1,11 @@
+{
+  "extends": "@liry-k/tsconfig",
+  "compilerOptions": {
+    "types": ["node"],
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["./**/*.ts"]
+}
