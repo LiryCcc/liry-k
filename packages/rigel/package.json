@@ -4,7 +4,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "liry-build"
+    "build": "liry-build",
+    "lint": "pnpm lint:code && pnpm lint:type",
+    "lint:code": "echo lint:code",
+    "lint:type": "tsc -b"
   },
   "devDependencies": {
     "@liry-k/build": "workspace:*",
