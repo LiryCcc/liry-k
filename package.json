@@ -20,7 +20,9 @@
   "devDependencies": {
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
+    "@liry-k/tsconfig": "workspace:*",
     "@types/node": "^24.12.0",
+    "pkg-types": "^2.3.0",
     "prettier": "^3.8.1",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-packagejson": "^2.5.22",
