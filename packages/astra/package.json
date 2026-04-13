@@ -1,6 +1,7 @@
 {
   "name": "@liry-k/astra",
   "license": "MIT",
+  "sideEffects": false,
   "type": "module",
   "exports": {
     ".": {
