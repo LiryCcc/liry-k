@@ -11,7 +11,10 @@ const defaultConfig = defineConfig({
   dts: true,
   target: false,
   format: 'es',
-  outDir: resolve(c, 'dist')
+  outDir: resolve(c, 'dist'),
+  alias: {
+    dayjs: resolve(c, 'node_modules/dayjs/esm/index.js')
+  }
 });
 
 if (import.meta.main) {
