@@ -7,7 +7,7 @@
     "build": "pnpm lint:type && vite build",
     "dev": "vite dev",
     "lint": "pnpm lint:type && pnpm lint:code",
-    "lint:code": "echo lint:code",
+    "lint:code": "eslint . --cache",
     "lint:type": "tsc -b",
     "preview": "vite preview"
   },
@@ -17,8 +17,13 @@
     "solid-js": "^1.9.12"
   },
   "devDependencies": {
+    "@eslint/css": "^1.1.0",
+    "@eslint/js": "^10.0.1",
     "@types/node": "^24.12.2",
+    "eslint": "^10.2.0",
+    "globals": "^17.5.0",
     "typescript": "~6.0.2",
+    "typescript-eslint": "^8.58.1",
     "vite": "^8.0.4",
     "vite-plugin-solid": "^2.11.12"
   }
