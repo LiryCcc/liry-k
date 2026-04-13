@@ -1,8 +1,10 @@
 import { SignalWatcher } from '@lit-labs/signals';
 import { LitElement } from 'lit';
 
-// SignalWatcher 的返回类型会带上包内未导出的 SignalWatcherApi，直接导出会在生成 .d.ts 时触发 TS4023。
-// 对外标注为 LitElement 构造函数即可保持可继承，且不泄漏内部类型名。
+/**
+ * SignalWatcher 的返回类型会带上包内未导出的 SignalWatcherApi，直接导出会在生成 .d.ts 时触发 TS4023。
+ * 对外标注为 LitElement 构造函数即可保持可继承，且不泄漏内部类型名。
+ */
 export const LitSignalWatcherElement = SignalWatcher(LitElement) as ReturnType<typeof SignalWatcher>;
 /**
  * 组件库组件的基类

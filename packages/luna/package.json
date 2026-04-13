@@ -29,6 +29,7 @@
     "@tanstack/router-plugin": "^1.167.20",
     "@types/node": "^24.12.2",
     "eslint": "^10.2.0",
+    "eslint-plugin-react": "^7.37.5",
     "globals": "^17.5.0",
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.58.1",

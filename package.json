@@ -8,7 +8,8 @@
     "check-spell": "cspell .",
     "format": "prettier --write --cache .",
     "lint": "pnpm pre-commit",
-    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm -r lint",
+    "lint:comment-style": "eslint ./**/*",
+    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm lint:comment-style && pnpm -r lint",
     "prepare": "simple-git-hooks"
   },
   "simple-git-hooks": {
@@ -23,10 +24,12 @@
     "@commitlint/config-conventional": "^20.5.0",
     "@liry-k/tsconfig": "workspace:*",
     "@types/node": "^24.12.2",
+    "eslint": "^10.2.0",
     "pkg-types": "^2.3.0",
     "prettier": "^3.8.2",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-packagejson": "^2.5.22",
-    "simple-git-hooks": "^2.13.1"
+    "simple-git-hooks": "^2.13.1",
+    "typescript-eslint": "^8.58.1"
   }
 }

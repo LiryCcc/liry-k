@@ -1,5 +1,6 @@
 import css from '@eslint/css';
 import js from '@eslint/js';
+import react from 'eslint-plugin-react';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
@@ -9,7 +10,8 @@ const zodImportMessage = '仅允许使用 import { z } from "zod/v4"；禁止 zo
 const eslintConfig = defineConfig([
   globalIgnores(['.tanstack', 'dist', 'node_modules', 'route-tree.gen.ts']),
   {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
+    // 含 tsx/jsx，便于 TS + JSX 与下方 react/jsx-no-literals 共用同一解析链路。
+    files: ['**/*.{js,mjs,cjs,ts,mts,cts,tsx,jsx}'],
     extends: [js.configs.recommended, tseslint.configs.recommended],
     languageOptions: { globals: globals.browser },
     rules: {
@@ -37,6 +39,16 @@ const eslintConfig = defineConfig([
           ]
         }
       ]
+    }
+  },
+  {
+    // 禁止 JSX 子节点中的裸文本，须写成 {'…'}；仅用 react 插件这一条规则，不引入 React 专用推荐集。
+    files: ['**/*.{tsx,jsx}'],
+    plugins: { react },
+    settings: { react: { version: '18.2' } },
+    languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
+    rules: {
+      'react/jsx-no-literals': ['error', { ignoreProps: true, noAttributeStrings: false, noStrings: true }]
     }
   },
   {
