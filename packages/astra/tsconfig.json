@@ -1,0 +1,12 @@
+{
+  "extends": ["@liry-k/tsconfig"],
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@@/*": ["./*"]
+    }
+  },
+  "include": ["."]
+}

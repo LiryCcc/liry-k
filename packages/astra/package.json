@@ -1,0 +1,36 @@
+{
+  "name": "@liry-k/astra",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.js",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "liry-build",
+    "lint": "pnpm lint:code",
+    "lint:code": "eslint . --cache",
+    "lint:type": "tsc -b"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@liry-k/build": "workspace:*",
+    "@liry-k/tsconfig": "workspace:*",
+    "eslint": "^10.2.0",
+    "globals": "^17.5.0",
+    "typescript": "^6.0.2",
+    "typescript-eslint": "^8.58.1",
+    "unplugin-solid": "^1.0.0",
+    "vite": "^8.0.8",
+    "vitest": "^4.1.4"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.9.12"
+  }
+}

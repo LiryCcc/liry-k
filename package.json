@@ -8,8 +8,7 @@
     "check-spell": "cspell .",
     "format": "prettier --write --cache .",
     "lint": "pnpm pre-commit",
-    "lint:comment-style": "eslint ./**/*",
-    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm lint:comment-style && pnpm -r lint",
+    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm -r lint",
     "prepare": "simple-git-hooks"
   },
   "simple-git-hooks": {

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "main": "./build.ts",
+  "module": "./build.ts",
+  "types": "./build.ts",
   "bin": {
     "liry-build": "./build.ts"
   },
