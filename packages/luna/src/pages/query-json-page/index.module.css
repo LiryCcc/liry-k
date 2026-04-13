@@ -1,0 +1,24 @@
+.page {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.title {
+  margin: 0 0 8px;
+}
+
+.desc {
+  color: #1e3a8a;
+  margin: 0 0 12px;
+}
+
+.code {
+  background: #8594b7;
+  border-radius: 8px;
+  color: #e2e8f0;
+  margin: 0;
+  overflow-x: auto;
+  padding: 12px;
+}

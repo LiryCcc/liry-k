@@ -1,0 +1,15 @@
+.page {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.title {
+  margin: 0 0 8px;
+}
+
+.desc {
+  color: #7c2d12;
+  margin: 0;
+}
