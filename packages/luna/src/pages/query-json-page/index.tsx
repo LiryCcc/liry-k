@@ -9,14 +9,15 @@ export const QueryJsonPage = () => {
 
   const queryJson = createMemo(() => {
     // 页面展示使用已通过 validateSearch 校验后的强类型结果。
-    return JSON.stringify(search, null, 2);
+    return JSON.stringify(search(), null, 2);
   });
+  console.log(search());
 
   return (
     <div class={styles.page}>
       <h2 class={styles.title}>Query JSON</h2>
       <p class={styles.desc}>当前 URL 的 query 参数会转换为 JSON 字符串。</p>
-      <pre class={styles.code}>{queryJson()}</pre>
+      <div>{queryJson()}</div>
     </div>
   );
 };

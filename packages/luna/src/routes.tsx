@@ -8,7 +8,7 @@ import { QueryJsonPage } from './pages/query-json-page/index.js';
 import { RootLayout } from './pages/root-layout/index.js';
 
 const queryJsonSearchSchema = z.object({
-  keyword: z.string().optional(),
+  keyword: z.string().optional().catch(''),
   page: z.coerce.number().int().positive().catch(1),
   tags: z.array(z.string()).catch([])
 });
