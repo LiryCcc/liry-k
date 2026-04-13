@@ -69,6 +69,18 @@ importers:
       '@tanstack/solid-router-devtools':
         specifier: ^1.166.13
         version: 1.166.13(@tanstack/router-core@1.168.14)(@tanstack/solid-router@1.168.18(solid-js@1.9.12))(csstype@3.2.3)(solid-js@1.9.12)
+      '@tanstack/solid-store':
+        specifier: ^0.10.0
+        version: 0.10.0(solid-js@1.9.12)
+      '@tanstack/store':
+        specifier: ^0.10.0
+        version: 0.10.0
+      i18next:
+        specifier: ^26.0.4
+        version: 26.0.4(typescript@6.0.2)
+      i18next-browser-languagedetector:
+        specifier: ^8.2.1
+        version: 8.2.1
       normalize.css:
         specifier: ^8.0.1
         version: 8.0.1
@@ -246,6 +258,11 @@ packages:
     engines: { node: '>=6.9.0' }
     peerDependencies:
       '@babel/core': ^7.0.0-0
+
+  '@babel/runtime@7.29.2':
+    resolution:
+      { integrity: sha512-JiDShH45zKHWyGe4ZNVRrCjBz8Nh9TMmZG1kh4QTK8hCBTWBi8Da+i7s1fJw7/lYpM4ccepSNfqzZ/QvABBi5g== }
+    engines: { node: '>=6.9.0' }
 
   '@babel/template@7.28.6':
     resolution:
@@ -1407,6 +1424,16 @@ packages:
     peerDependencies:
       solid-js: ^1.9.10
 
+  '@tanstack/solid-store@0.10.0':
+    resolution:
+      { integrity: sha512-BUe5ZEMkci73P2R1r82GFkdtAX7cGGZ7tfWa0Hie1875RnSjI02iLUnSZKOTkW+2vGeM1AVB1grIOrmuwwGQ3g== }
+    peerDependencies:
+      solid-js: ^1.6.0
+
+  '@tanstack/store@0.10.0':
+    resolution:
+      { integrity: sha512-KXAPlXun5J9DjO5LYo+EVjVHGdHfOl5YWE9TVPh4MeHl6gIngIV0fC5rE22JTRZa9KCMiKidh5FG6ufE2usr7Q== }
+
   '@tanstack/virtual-file-routes@1.161.7':
     resolution:
       { integrity: sha512-olW33+Cn+bsCsZKPwEGhlkqS6w3M2slFv11JIobdnCFKMLG97oAI2kWKdx5/zsywTL8flpnoIgaZZPlQTFYhdQ== }
@@ -2111,6 +2138,19 @@ packages:
   html-entities@2.3.3:
     resolution:
       { integrity: sha512-DV5Ln36z34NNTDgnz0EWGBLZENelNAtkiFA4kyNOG2tDI6Mz1uSWiq1wAKdyjnJwyDiDO7Fa2SO1CTxPXL8VxA== }
+
+  i18next-browser-languagedetector@8.2.1:
+    resolution:
+      { integrity: sha512-bZg8+4bdmaOiApD7N7BPT9W8MLZG+nPTOFlLiJiT8uzKXFjhxw4v2ierCXOwB5sFDMtuA5G4kgYZ0AznZxQ/cw== }
+
+  i18next@26.0.4:
+    resolution:
+      { integrity: sha512-gXF7U9bfioXPLv7mw8Qt2nfO7vij5MyINvPgVv99pX3fL1Y01pw2mKBFrlYpRxRCl2wz3ISenj6VsMJT2isfuA== }
+    peerDependencies:
+      typescript: ^5 || ^6
+    peerDependenciesMeta:
+      typescript:
+        optional: true
 
   ignore@5.3.2:
     resolution:
@@ -3077,6 +3117,8 @@ snapshots:
       '@babel/core': 7.29.0
       '@babel/helper-plugin-utils': 7.28.6
 
+  '@babel/runtime@7.29.2': {}
+
   '@babel/template@7.28.6':
     dependencies:
       '@babel/code-frame': 7.29.0
@@ -3948,6 +3990,13 @@ snapshots:
       isbot: 5.1.38
       solid-js: 1.9.12
 
+  '@tanstack/solid-store@0.10.0(solid-js@1.9.12)':
+    dependencies:
+      '@tanstack/store': 0.10.0
+      solid-js: 1.9.12
+
+  '@tanstack/store@0.10.0': {}
+
   '@tanstack/virtual-file-routes@1.161.7': {}
 
   '@tybys/wasm-util@0.10.1':
@@ -4595,6 +4644,16 @@ snapshots:
   hookable@6.1.0: {}
 
   html-entities@2.3.3: {}
+
+  i18next-browser-languagedetector@8.2.1:
+    dependencies:
+      '@babel/runtime': 7.29.2
+
+  i18next@26.0.4(typescript@6.0.2):
+    dependencies:
+      '@babel/runtime': 7.29.2
+    optionalDependencies:
+      typescript: 6.0.2
 
   ignore@5.3.2: {}
 

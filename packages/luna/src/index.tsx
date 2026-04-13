@@ -1,11 +1,15 @@
 /* @refresh reload */
-import { RouterProvider } from '@tanstack/solid-router';
+import App from '@/app.js';
+import '@/index.css';
+import { init } from '@/init.js';
 import { render } from 'solid-js/web';
-import './index.css';
-import router from './routes.js';
 
 const root = document.createElement('div');
 
-render(() => <RouterProvider router={router} />, root);
+const main = async () => {
+  await init();
+  render(App, root);
+  document.body.append(root);
+};
 
-document.body.append(root);
+await main();

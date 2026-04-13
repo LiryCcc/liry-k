@@ -1,23 +1,34 @@
+import { useTranslation } from '@/i18n/use-translation.js';
 import { Link, Outlet } from '@tanstack/solid-router';
 import styles from './index.module.css';
 
 export const RootLayout = () => {
+  const { changeLanguage, t } = useTranslation();
+
   return (
     <main class={styles['layout']}>
       <header class={styles['header']}>
-        <h1 class={styles['title']}>Luna</h1>
+        <h1 class={styles['title']}>{t('app.title')}</h1>
+        <div class={styles['lang']}>
+          <button class={styles['langButton']} type='button' onClick={() => void changeLanguage('zh')}>
+            {t('ui.switchToZh')}
+          </button>
+          <button class={styles['langButton']} type='button' onClick={() => void changeLanguage('en')}>
+            {t('ui.switchToEn')}
+          </button>
+        </div>
         <nav class={styles['nav']}>
           <Link class={styles['link']} to='/'>
-            Home
+            {t('nav.home')}
           </Link>
           <Link class={styles['link']} to='/about'>
-            About
+            {t('nav.about')}
           </Link>
           <Link class={styles['link']} to='/query-json' search={{ page: 1, tags: [] }}>
-            Query JSON
+            {t('nav.queryJson')}
           </Link>
           <Link class={styles['link']} to='/path-demo/$postId' params={{ postId: '1' }}>
-            Path Param
+            {t('nav.pathParam')}
           </Link>
         </nav>
       </header>

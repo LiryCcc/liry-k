@@ -1,10 +1,13 @@
+import { useTranslation } from '@/i18n/use-translation.js';
 import styles from './index.module.css';
 
 export const AboutPage = () => {
+  const { t } = useTranslation();
+
   return (
     <div class={styles['page']}>
-      <h2 class={styles['title']}>About</h2>
-      <p class={styles['desc']}>这里是 luna 的关于页面。</p>
+      <h2 class={styles['title']}>{t('about.title')}</h2>
+      <p class={styles['desc']}>{t('about.desc')}</p>
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import { createRootRoute, createRoute, createRouter } from '@tanstack/solid-router';
 import { z } from 'zod/v4';
-import { AboutPage } from './pages/about-page/index.js';
-import { HomePage } from './pages/home-page/index.js';
-import { NotFoundPage } from './pages/not-found-page/index.js';
-import { PathParamPage } from './pages/path-param-page/index.js';
-import { QueryJsonPage } from './pages/query-json-page/index.js';
-import { RootLayout } from './pages/root-layout/index.js';
+import { AboutPage } from '@/pages/about-page/index.js';
+import { HomePage } from '@/pages/home-page/index.js';
+import { NotFoundPage } from '@/pages/not-found-page/index.js';
+import { PathParamPage } from '@/pages/path-param-page/index.js';
+import { QueryJsonPage } from '@/pages/query-json-page/index.js';
+import { RootLayout } from '@/pages/root-layout/index.js';
 
 const queryJsonSearchSchema = z.object({
   keyword: z.string().optional().catch(''),

@@ -1,5 +1,8 @@
+import router from '@/routes.js';
+import { RouterProvider } from '@tanstack/solid-router';
+
 const App = () => {
-  return <div>{'luna app'}</div>;
+  return <RouterProvider router={router} />;
 };
 
 export default App;
