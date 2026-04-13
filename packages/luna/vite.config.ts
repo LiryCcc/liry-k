@@ -7,7 +7,8 @@ const viteConfig = defineConfig({
   build: {
     target: false,
     minify: false,
-    cssMinify: false
+    cssMinify: false,
+    sourcemap: true
   },
   resolve: {
     alias: {
