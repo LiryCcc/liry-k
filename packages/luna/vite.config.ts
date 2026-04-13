@@ -5,7 +5,9 @@ import solid from 'vite-plugin-solid';
 const viteConfig = defineConfig({
   plugins: [solid()],
   build: {
-    target: false
+    target: false,
+    minify: false,
+    cssMinify: false
   },
   resolve: {
     alias: {
