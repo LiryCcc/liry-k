@@ -21,6 +21,7 @@
   "devDependencies": {
     "@eslint/css": "^1.1.0",
     "@eslint/js": "^10.0.1",
+    "@tanstack/router-plugin": "^1.167.20",
     "@types/node": "^24.12.2",
     "eslint": "^10.2.0",
     "globals": "^17.5.0",
