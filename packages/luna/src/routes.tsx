@@ -1,5 +1,5 @@
 import { createRootRoute, createRoute, createRouter } from '@tanstack/solid-router';
-import { z } from 'zod';
+import { z } from 'zod/v4';
 import { AboutPage } from './pages/about-page/index.js';
 import { HomePage } from './pages/home-page/index.js';
 import { NotFoundPage } from './pages/not-found-page/index.js';
@@ -18,36 +18,33 @@ const rootRoute = createRootRoute({
   notFoundComponent: NotFoundPage
 });
 
-const homeRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/',
-  component: HomePage
-});
-
-const aboutRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/about',
-  component: AboutPage
-});
-
-const queryJsonRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  path: '/query-json',
-  validateSearch: queryJsonSearchSchema,
-  component: QueryJsonPage
-});
-
-const pathParamRoute = createRoute({
-  getParentRoute: () => rootRoute,
-  // 仅通过路径声明动态段，TanStack 会自动推导 params 类型。
-  path: '/path-demo/$postId',
-  component: PathParamPage
-});
-
-const routeTree = rootRoute.addChildren([homeRoute, aboutRoute, queryJsonRoute, pathParamRoute]);
+// 类似 React Router 的 children：用「子路由数组」集中写表，不要用 .map() 生成，
+// 否则 TS 会丢失 path 字面量，整棵树的 Link / getRouteApi 强类型会失效。
+const routeTree = rootRoute.addChildren([
+  createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/',
+    component: HomePage
+  }),
+  createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/about',
+    component: AboutPage
+  }),
+  createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/query-json',
+    validateSearch: queryJsonSearchSchema,
+    component: QueryJsonPage
+  }),
+  createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/path-demo/$postId',
+    component: PathParamPage
+  })
+]);
 
 const router = createRouter({
-  // 统一维护配置式路由表，结构类似 React Router。
   routeTree,
   defaultPreload: 'intent'
 });
