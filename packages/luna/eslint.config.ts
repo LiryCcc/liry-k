@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import css from '@eslint/css';
 import js from '@eslint/js';
 import react from 'eslint-plugin-react';
@@ -13,7 +14,15 @@ const eslintConfig = defineConfig([
     // 含 tsx/jsx，便于 TS + JSX 与下方 react/jsx-no-literals 共用同一解析链路。
     files: ['**/*.{js,mjs,cjs,ts,mts,cts,tsx,jsx}'],
     extends: [js.configs.recommended, tseslint.configs.recommended],
-    languageOptions: { globals: globals.browser },
+    languageOptions: {
+      globals: globals.browser,
+      // 以本包为 TS 工程根，避免 monorepo 内多个 tsconfig 并列时解析歧义。
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname
+      }
+    },
     rules: {
       'no-restricted-imports': [
         'error',
@@ -46,7 +55,6 @@ const eslintConfig = defineConfig([
     files: ['**/*.{tsx,jsx}'],
     plugins: { react },
     settings: { react: { version: '18.2' } },
-    languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } },
     rules: {
       'react/jsx-no-literals': ['error', { ignoreProps: true, noAttributeStrings: false, noStrings: true }]
     }
