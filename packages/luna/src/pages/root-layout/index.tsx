@@ -1,4 +1,5 @@
 import { useTranslation } from '@/i18n/use-translation.js';
+import { Button } from '@liry-k/astra';
 import { Link, Outlet } from '@tanstack/solid-router';
 import styles from './index.module.css';
 
@@ -10,12 +11,12 @@ export const RootLayout = () => {
       <header class={styles['header']}>
         <h1 class={styles['title']}>{t('app.title')}</h1>
         <div class={styles['lang']}>
-          <button class={styles['langButton']} type='button' onClick={() => void changeLanguage('zh')}>
+          <Button class={styles['langButton']} type='button' onClick={() => void changeLanguage('zh')}>
             {t('ui.switchToZh')}
-          </button>
-          <button class={styles['langButton']} type='button' onClick={() => void changeLanguage('en')}>
+          </Button>
+          <Button class={styles['langButton']} type='button' onClick={() => void changeLanguage('en')}>
             {t('ui.switchToEn')}
-          </button>
+          </Button>
         </div>
         <nav class={styles['nav']}>
           <Link class={styles['link']} to='/'>

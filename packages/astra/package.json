@@ -13,7 +13,7 @@
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
-    "build": "liry-build",
+    "build": "node ./build.ts",
     "lint": "pnpm lint:code",
     "lint:code": "eslint . --cache",
     "lint:type": "tsc -b"
