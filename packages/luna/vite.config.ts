@@ -1,9 +1,20 @@
+import { tanstackRouter } from '@tanstack/router-plugin/vite';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
 
 const viteConfig = defineConfig({
-  plugins: [solid()],
+  plugins: [
+    tanstackRouter({
+      target: 'solid',
+      autoCodeSplitting: true,
+      routesDirectory: './src/routes',
+      generatedRouteTree: './src/route-tree.gen.ts',
+      routeFileIgnorePrefix: '-',
+      quoteStyle: 'single'
+    }),
+    solid()
+  ],
   build: {
     target: false
   },
