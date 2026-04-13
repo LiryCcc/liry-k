@@ -8,7 +8,7 @@ import tseslint from 'typescript-eslint';
 export default defineConfig([
   globalIgnores(['**/node_modules/**', '**/dist/**', 'packages/luna/.tanstack/**', '**/route-tree.gen.ts']),
   {
-    files: ['packages/**/*.{js,mjs,cjs,ts,mts,cts,tsx,jsx}'],
+    files: ['*/**/*.{js,mjs,cjs,ts,mts,cts,tsx,jsx}'],
     languageOptions: {
       parser: tseslint.parser,
       parserOptions: {
