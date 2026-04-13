@@ -103,6 +103,9 @@ importers:
 
   packages/luna:
     dependencies:
+      '@liry-k/astra':
+        specifier: workspace:*
+        version: link:../astra
       '@liry-k/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
