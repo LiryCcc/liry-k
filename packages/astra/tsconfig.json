@@ -1,6 +1,7 @@
 {
   "extends": ["@liry-k/tsconfig"],
   "compilerOptions": {
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
     "jsx": "preserve",
     "jsxImportSource": "solid-js",
     "paths": {
