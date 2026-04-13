@@ -1,0 +1,25 @@
+{
+  "name": "@liry-k/luna",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "pnpm lint:type && vite build",
+    "dev": "vite dev",
+    "lint": "pnpm lint:type && pnpm lint:code",
+    "lint:code": "echo lint:code",
+    "lint:type": "tsc -b",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@liry-k/tsconfig": "workspace:*",
+    "normalize.css": "^8.0.1",
+    "solid-js": "^1.9.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.12.2",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.4",
+    "vite-plugin-solid": "^2.11.12"
+  }
+}
