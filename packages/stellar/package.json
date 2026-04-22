@@ -26,9 +26,9 @@
     "@liry-k/tsconfig": "workspace:*",
     "@types/node": "^24.12.2",
     "dayjs": "^1.11.20",
-    "eslint": "^10.2.0",
+    "eslint": "^10.2.1",
     "globals": "^17.5.0",
-    "typescript": "^6.0.2",
-    "typescript-eslint": "^8.58.1"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.0"
   }
 }

@@ -1,0 +1,22 @@
+.root {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.cell {
+  font-family: 'Cascadia Code', Consolas, monospace;
+}
+
+.lineNumber {
+  text-align: right;
+}
+
+.hex {
+  margin-left: 40px;
+  font-variant-ligatures: none;
+}

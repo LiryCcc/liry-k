@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  outline-style: none;
+  overflow: hidden;
+}
+
+.header {
+  position: relative;
+}
+
+.body {
+  position: relative;
+  flex-grow: 1;
+  height: 0;
+  overflow: auto;
+}
+
+.placeholder {
+  min-height: 1px;
+}
+
+.row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  will-change: transform;
+}
+
+.cell {
+  position: absolute;
+  top: 0;
+  left: 0;
+  will-change: transform;
+}

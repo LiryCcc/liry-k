@@ -1,0 +1,10 @@
+.root {
+  box-sizing: border-box;
+  padding: 16px;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: auto;
+  position: relative;
+}

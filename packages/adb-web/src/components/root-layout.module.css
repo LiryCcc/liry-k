@@ -1,0 +1,70 @@
+.shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  min-height: 0;
+  line-height: 1.5;
+}
+
+.titleBar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-bottom: 1px solid var(--colorNeutralStroke2);
+  flex-shrink: 0;
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-size: 20px;
+  padding: 4px 0;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sidebar {
+  width: 270px;
+  flex-shrink: 0;
+  padding-right: 8px;
+  border-right: 1px solid var(--colorNeutralStroke2);
+  overflow-y: auto;
+}
+
+.sidebarHidden {
+  display: none;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  overflow: auto;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  gap: 2px;
+}
+
+.navLink {
+  text-decoration: none;
+  color: inherit;
+  padding: 8px 10px;
+  border-radius: 4px;
+}
+
+.navLink:hover {
+  background: var(--colorNeutralBackground3);
+}
+
+.navLinkActive {
+  background: var(--colorBrandBackground2);
+  font-weight: 600;
+}

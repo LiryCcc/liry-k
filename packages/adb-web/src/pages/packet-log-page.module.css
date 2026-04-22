@@ -1,0 +1,51 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.grid {
+  flex: 1;
+  min-height: 240px;
+}
+
+.grow {
+  flex: 1;
+  min-height: 200px;
+}
+
+.header {
+  text-align: center;
+  line-height: 32px;
+}
+
+.row:hover {
+  background: var(--colorNeutralBackground3);
+}
+
+.selected {
+  background: var(--colorBrandBackground2);
+}
+
+.code {
+  font-family: Consolas, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 32px;
+  cursor: default;
+  overflow: hidden;
+}
+
+.hex {
+  padding-top: 12px;
+  border-top: 1px solid var(--colorNeutralStroke2);
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}

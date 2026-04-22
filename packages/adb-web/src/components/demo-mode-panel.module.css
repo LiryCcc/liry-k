@@ -1,0 +1,9 @@
+.panel {
+  padding: 12px;
+  overflow: hidden auto;
+  box-sizing: border-box;
+}
+
+.field {
+  margin-top: 8px;
+}

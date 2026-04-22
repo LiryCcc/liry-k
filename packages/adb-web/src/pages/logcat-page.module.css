@@ -1,0 +1,63 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.toolbar label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+
+.grid {
+  flex: 1;
+  min-height: 240px;
+}
+
+.header {
+  text-align: center;
+  line-height: 32px;
+}
+
+.row:hover {
+  background: var(--colorNeutralBackground3);
+}
+
+.selected {
+  background: var(--colorBrandBackground2);
+}
+
+.code {
+  font-family: Consolas, monospace;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 32px;
+  cursor: default;
+  overflow: hidden;
+}
+
+.rowVerbose,
+.rowDebug,
+.rowInfo {
+  color: #000;
+}
+
+.rowWarn {
+  color: #645607;
+}
+
+.rowError,
+.rowFatal {
+  color: #cd0000;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
