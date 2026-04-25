@@ -4,7 +4,7 @@ console.log(`current node version is ${version}`);
 
 const numVer = Number(version.toLowerCase().replaceAll('v', '').split('.')[0]);
 
-if (numVer < 24) {
+if (numVer < 22) {
   console.log('this project requires node version 24 or higher');
   exit(1);
 }
