@@ -1,5 +1,5 @@
 {
-  "name": "stellar",
+  "name": "@liry-k/stellar",
   "version": "1.0.0",
   "sideEffects": false,
   "type": "module",

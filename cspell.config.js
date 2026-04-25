@@ -22,7 +22,11 @@ const cspellConfig = defineConfig({
     'clse',
     'cnxn',
     'addrs',
-    'wrte'
+    'wrte',
+    'liu',
+    'hengxuan',
+    'heng',
+    'xuan'
   ]
 });
 
