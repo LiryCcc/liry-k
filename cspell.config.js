@@ -1,7 +1,7 @@
 import { defineConfig } from 'cspell';
 
 const cspellConfig = defineConfig({
-  ignorePaths: ['node_modules', '**/package.json', '**/pnpm-lock.yaml', '**/dist'],
+  ignorePaths: ['node_modules', '**/package.json', '**/pnpm-lock.yaml', '**/dist', 'rust-packages/**/target'],
   version: '0.2',
   words: [
     'liry',
@@ -26,7 +26,10 @@ const cspellConfig = defineConfig({
     'liu',
     'hengxuan',
     'heng',
-    'xuan'
+    'xuan',
+    'rust',
+    'rustc',
+    'serde'
   ]
 });
 
