@@ -1,0 +1,8 @@
+{
+  "extends": "@liry-k/tsconfig",
+  "compilerOptions": {
+    "types": ["node"],
+    "tsBuildInfoFile": "./node_modules/.cache/tsconfig.tsbuildinfo"
+  },
+  "include": ["src"]
+}
