@@ -13,5 +13,5 @@
   "tabWidth": 2,
   "trailingComma": "none",
   "useTabs": false,
-  "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-packagejson"]
+  "plugins": ["prettier-plugin-organize-imports", "prettier-plugin-packagejson", "prettier-plugin-toml"]
 }
