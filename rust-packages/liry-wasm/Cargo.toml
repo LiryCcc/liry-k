@@ -1,7 +1,0 @@
-[package]
-name = "liry-wasm"
-version = "1.0.0"
-edition = "2024"
-license = "mit"
-
-[dependencies]
