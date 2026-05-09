@@ -9,3 +9,4 @@ axum = "0.8.9"
 serde = { version = "1.0.228", features = ["derive"] }
 rustfmt = "0.10.0"
 serde_json = "1.0.149"
+const_format = "0.2.36"

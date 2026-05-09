@@ -1,4 +1,4 @@
-use crate::constant::{APP_NAME, APP_VERSION};
+use crate::constant::{APP_NAME, APP_VERSION, BIND_ADDR, BIND_PORT};
 mod constant;
 mod typings;
 use crate::router::create_router;
@@ -9,8 +9,7 @@ mod router;
 async fn main() {
   println!("{} start version {}", APP_NAME, APP_VERSION);
   let app = create_router();
-  let listener = tokio::net::TcpListener::bind("0.0.0.0:14144")
-    .await
-    .unwrap();
+  let listener = tokio::net::TcpListener::bind(BIND_ADDR).await.unwrap();
+  println!("{} start at http://localhost:{}", APP_NAME, BIND_PORT);
   axum::serve(listener, app).await.unwrap();
 }

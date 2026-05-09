@@ -29,7 +29,8 @@ const cspellConfig = defineConfig({
     'xuan',
     'rust',
     'rustc',
-    'serde'
+    'serde',
+    'formatcp'
   ]
 });
 
