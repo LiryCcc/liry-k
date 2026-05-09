@@ -1,12 +1,26 @@
 [package]
 name = "sirius"
-version = "0.1.0"
+version = "1.0.0"
 edition = "2024"
 
 [dependencies]
 tokio = { "version" = "1.52.2", features = ["full"] }
 axum = "0.8.9"
 serde = { version = "1.0.228", features = ["derive"] }
-rustfmt = "0.10.0"
 serde_json = "1.0.149"
 const_format = "0.2.36"
+
+[dev-dependencies]
+clippy = "0.0.302"
+rustfmt = "0.10.0"
+
+[workspace.lints.rust]
+warnings = "deny" # 警告=错误，强制规范
+
+[workspace.lints.clippy]
+# 常用强规范配置（可直接用）
+unwrap_used = "deny"
+panic_in_result_fn = "deny"
+needless_borrow = "warn"
+unused_mut = "warn"
+too_many_arguments = "warn"

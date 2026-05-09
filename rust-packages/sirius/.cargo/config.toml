@@ -1,0 +1,11 @@
+[build]
+# 编译时自动运行 clippy 检查
+rustflags = ["-D", "warnings"]
+
+[alias]
+# 快捷命令：cargo lint
+lint = "clippy --all-targets --all-features -- -D warnings"
+# 自动修复简单问题
+lint-fix = "clippy --fix --all-targets --all-features"
+format = "fmt --all"
+format-check = "fmt --all --check"
