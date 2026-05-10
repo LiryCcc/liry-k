@@ -279,6 +279,55 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
 
+  packages/gomoku:
+    dependencies:
+      '@liry-k/astra':
+        specifier: workspace:*
+        version: link:../astra
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      normalize.css:
+        specifier: ^8.0.1
+        version: 8.0.1
+      solid-js:
+        specifier: ^1.9.12
+        version: 1.9.12
+      zod:
+        specifier: ^4.4.3
+        version: 4.4.3
+    devDependencies:
+      '@eslint/css':
+        specifier: ^1.2.0
+        version: 1.2.0
+      '@eslint/js':
+        specifier: ^10.0.1
+        version: 10.0.1(eslint@10.3.0(jiti@2.7.0))
+      '@types/node':
+        specifier: ^24.12.3
+        version: 24.12.3
+      eslint:
+        specifier: ^10.3.0
+        version: 10.3.0(jiti@2.7.0)
+      eslint-plugin-react:
+        specifier: ^7.37.5
+        version: 7.37.5(eslint@10.3.0(jiti@2.7.0))
+      globals:
+        specifier: ^17.6.0
+        version: 17.6.0
+      typescript:
+        specifier: ~6.0.3
+        version: 6.0.3
+      typescript-eslint:
+        specifier: ^8.59.2
+        version: 8.59.2(eslint@10.3.0(jiti@2.7.0))(typescript@6.0.3)
+      vite:
+        specifier: ^8.0.11
+        version: 8.0.11(@types/node@24.12.3)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.8.4)
+      vite-plugin-solid:
+        specifier: ^2.11.12
+        version: 2.11.12(solid-js@1.9.12)(vite@8.0.11(@types/node@24.12.3)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.8.4))
+
   packages/liry-cv:
     dependencies:
       '@liry-k/stellar':
