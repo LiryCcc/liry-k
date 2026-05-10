@@ -1,11 +1,12 @@
 use axum::Router;
 
-use crate::{
-  controllers::fallback::fallback_handler,
-  router::{v1::v1_routes, v2::v2_routes},
-};
+mod fallback;
 mod v1;
 mod v2;
+
+use fallback::fallback_handler;
+use v1::v1_routes;
+use v2::v2_routes;
 pub fn create_router() -> Router {
   Router::new()
     .nest("/v1", v1_routes())

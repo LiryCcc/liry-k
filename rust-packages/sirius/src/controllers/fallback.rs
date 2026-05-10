@@ -1,11 +1,34 @@
-use axum::{Json, extract::Request, http::Method};
-use serde_json::Value;
+use std::collections::BTreeMap;
 
-use crate::typings::ApiResponse;
+use axum::http::Method;
+use url::form_urlencoded::parse;
 
-pub async fn fallback_handler(method: Method, request: Request) -> Json<ApiResponse<String>> {
-  Json(ApiResponse::not_found(
-    format!("{} path {} not found", method, request.uri().path()),
-    Value::Null.to_string(),
-  ))
+use crate::typings::{QueryFieldValue, RouteNotFoundData};
+
+fn query_str_to_map(raw: &str) -> BTreeMap<String, QueryFieldValue> {
+  let mut grouped: BTreeMap<String, Vec<String>> = BTreeMap::new();
+  for (key, value) in parse(raw.as_bytes()).into_owned() {
+    grouped.entry(key).or_default().push(value);
+  }
+  grouped
+    .into_iter()
+    .map(|(key, values)| {
+      let value = match values.len() {
+        1 => QueryFieldValue::Single({
+          let mut values = values;
+          values.remove(0)
+        }),
+        _ => QueryFieldValue::Multiple(values),
+      };
+      (key, value)
+    })
+    .collect()
+}
+
+pub fn route_not_found_data(method: &Method, path: &str, query: Option<&str>) -> RouteNotFoundData {
+  RouteNotFoundData {
+    method: method.as_str().to_string(),
+    path: path.to_string(),
+    query: query.map(query_str_to_map),
+  }
 }

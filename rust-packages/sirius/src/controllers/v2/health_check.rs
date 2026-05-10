@@ -1,9 +1,9 @@
 use crate::{constant::APP_NAME, typings::InstanceInfo};
 
 /**
- * /v1/hello
+ * GET /v2/health-check
  * static route
- * return timestamp version and service instance info
+ * returns service instance info (envelope added in router)
  */
 pub fn health_check() -> InstanceInfo {
   InstanceInfo { name: APP_NAME }

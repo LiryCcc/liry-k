@@ -1,3 +1,9 @@
+use axum::{
+  Json,
+  response::{IntoResponse, Response},
+};
+use std::collections::BTreeMap;
+
 use serde::Serialize;
 
 #[derive(Serialize)]
@@ -22,5 +28,31 @@ impl<T> ApiResponse<T> {
       message,
       data,
     }
+  }
+}
+
+/// One query key's values (`application/x-www-form-urlencoded`): one pair → JSON string; repeated key → JSON array.
+#[derive(Serialize)]
+#[serde(untagged)]
+pub enum QueryFieldValue {
+  Single(String),
+  Multiple(Vec<String>),
+}
+
+/// Payload for [`ApiResponse`] when the service reports a missing route or resource (e.g. HTTP 404).
+#[derive(Serialize)]
+pub struct RouteNotFoundData {
+  pub method: String,
+  pub path: String,
+  /// Parsed query when the URI had `?…`: `a=1` → `{"a":"1"}`; `a=1&a=2` → `{"a":["1","2"]}`.
+  pub query: Option<BTreeMap<String, QueryFieldValue>>,
+}
+
+/// Wraps controller output so routes return [`ApiResponse`] through [`IntoResponse`] without repeating [`Json`].
+pub struct ApiOk<T>(pub T);
+
+impl<T: Serialize> IntoResponse for ApiOk<T> {
+  fn into_response(self) -> Response {
+    Json(ApiResponse::success(self.0)).into_response()
   }
 }

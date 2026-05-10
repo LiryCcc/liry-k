@@ -1,12 +1,9 @@
-use crate::{controllers, typings::ApiResponse};
-use axum::{Json, Router, routing::get};
+use crate::{controllers, typings::ApiOk};
+use axum::{Router, routing::get};
+
 pub fn v2_routes() -> Router {
   Router::new().route(
     "/health-check",
-    get(|| async {
-      Json(ApiResponse::success(
-        controllers::v2::health_check::health_check(),
-      ))
-    }),
+    get(|| async { ApiOk(controllers::v2::health_check::health_check()) }),
   )
 }
