@@ -17,7 +17,7 @@ const viteConfig = defineConfig({
     }
   },
   server: {
-    port: 26413
+    port: 26441
   }
 });
 
