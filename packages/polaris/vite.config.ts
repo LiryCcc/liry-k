@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
 
@@ -19,6 +20,12 @@ export default defineConfig({
     watch: {
       // 3. tell Vite to ignore watching `src-tauri`
       ignored: ['**/src-tauri/**']
+    }
+  },
+  resolve: {
+    alias: {
+      '@': resolve(import.meta.dirname, 'src'),
+      '@@': resolve(import.meta.dirname)
     }
   }
 });

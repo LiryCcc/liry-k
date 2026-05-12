@@ -19,6 +19,7 @@ fn open_devtools(app: tauri::AppHandle) -> Result<(), String> {
 pub fn run() {
   if let Err(err) = tauri::Builder::default()
     .plugin(tauri_plugin_opener::init())
+    .plugin(tauri_plugin_os::init())
     .invoke_handler(tauri::generate_handler![greet, open_devtools])
     .run(tauri::generate_context!())
   {
