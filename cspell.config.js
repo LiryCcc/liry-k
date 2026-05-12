@@ -1,7 +1,14 @@
 import { defineConfig } from 'cspell';
 
 const cspellConfig = defineConfig({
-  ignorePaths: ['node_modules', '**/package.json', '**/pnpm-lock.yaml', '**/dist', 'rust-packages/**/target'],
+  ignorePaths: [
+    'node_modules',
+    '**/package.json',
+    '**/pnpm-lock.yaml',
+    '**/dist',
+    'rust-packages/**/target',
+    'packages/polaris/src-tauri/**'
+  ],
   version: '0.2',
   words: [
     'liry',
@@ -32,7 +39,8 @@ const cspellConfig = defineConfig({
     'serde',
     'formatcp',
     'clippy',
-    'gomoku'
+    'gomoku',
+    'tauri'
   ]
 });
 
