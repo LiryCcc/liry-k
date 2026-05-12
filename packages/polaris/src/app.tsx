@@ -1,3 +1,4 @@
+import { IS_TAURI } from './constant.js';
 import { DevToolsFab } from './dev-tools-fab.js';
 
 const App = () => {
@@ -5,7 +6,7 @@ const App = () => {
   return (
     <>
       <div>{greeting}</div>
-      <DevToolsFab />
+      {IS_TAURI && <DevToolsFab />}
     </>
   );
 };

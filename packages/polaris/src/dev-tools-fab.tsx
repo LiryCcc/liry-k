@@ -5,9 +5,7 @@ const label = 'DevTools';
 
 export const DevToolsFab = () => {
   const onOpen = () => {
-    void invoke('open_devtools').catch((err: unknown) => {
-      console.error(err);
-    });
+    invoke('open_devtools');
   };
 
   return (
