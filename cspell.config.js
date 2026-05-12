@@ -31,7 +31,8 @@ const cspellConfig = defineConfig({
     'rustc',
     'serde',
     'formatcp',
-    'clippy'
+    'clippy',
+    'gomoku'
   ]
 });
 

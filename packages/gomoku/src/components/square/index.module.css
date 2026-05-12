@@ -1,5 +1,23 @@
 .square {
   width: 256px;
   height: 256px;
-  background-color: rgb(88, 138, 182);
+  background-color: rgb(200, 208, 158);
+  position: relative;
+}
+
+.square::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 41px;
+  height: 4px;
+  border-radius: 50%;
+  border: 1px solid #333;
+  background-color: rgba(210, 106, 106, 0.85);
+}
+
+.center-point {
+  width: 8px;
+  height: 8px;
 }
