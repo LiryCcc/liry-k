@@ -10,4 +10,4 @@ const main = async () => {
   document.body.append(root);
 };
 
-void main();
+await main();
