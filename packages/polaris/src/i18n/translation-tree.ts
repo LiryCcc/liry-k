@@ -11,6 +11,7 @@ export type TranslationTree = {
     welcome: string;
   };
   devTools: { label: string; openTitle: string };
+  titleBar: { languageSelectLabel: string; switchToEn: string; switchToZh: string };
 };
 
 /**

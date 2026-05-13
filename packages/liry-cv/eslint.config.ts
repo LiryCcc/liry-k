@@ -21,6 +21,9 @@ export default defineConfig([
         projectService: true,
         tsconfigRootDir: import.meta.dirname
       }
+    },
+    rules: {
+      'no-void': 'error'
     }
   }
 ]);

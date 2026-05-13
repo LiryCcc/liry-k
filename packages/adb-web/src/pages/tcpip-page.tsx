@@ -70,7 +70,7 @@ const TcpipPageInner = ({ adb }: { adb: Adb | undefined }) => {
       return;
     }
     const ac = new AbortController();
-    void (async () => {
+    (async () => {
       const snap = await readTcpipProps(adb, ac.signal);
       if (!ac.signal.aborted && snap) {
         applySnapshot(snap);
@@ -86,7 +86,7 @@ const TcpipPageInner = ({ adb }: { adb: Adb | undefined }) => {
       return;
     }
     const ac = new AbortController();
-    void (async () => {
+    (async () => {
       const snap = await readTcpipProps(adb, ac.signal);
       if (!ac.signal.aborted && snap) {
         applySnapshot(snap);
@@ -117,7 +117,7 @@ const TcpipPageInner = ({ adb }: { adb: Adb | undefined }) => {
         <Button appearance='secondary' icon={<ArrowClockwiseRegular />} disabled={!adb} onClick={handleRefresh}>
           {strings.tcpip.refresh}
         </Button>
-        <Button appearance='primary' icon={<SaveRegular />} disabled={!adb} onClick={() => void handleApply()}>
+        <Button appearance='primary' icon={<SaveRegular />} disabled={!adb} onClick={() => handleApply()}>
           {strings.tcpip.apply}
         </Button>
       </div>

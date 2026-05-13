@@ -24,6 +24,7 @@ const eslintConfig = defineConfig([
       }
     },
     rules: {
+      'no-void': 'error',
       'no-restricted-imports': [
         'error',
         {

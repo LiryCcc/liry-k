@@ -17,7 +17,7 @@ const BugReportPageInner = ({ adb }: { adb: Adb }) => {
 
   useEffect(() => {
     const ac = new AbortController();
-    void (async () => {
+    (async () => {
       try {
         const b = await BugReport.queryCapabilities(adb);
         if (!ac.signal.aborted) {
@@ -35,7 +35,7 @@ const BugReportPageInner = ({ adb }: { adb: Adb }) => {
   }, [adb]);
 
   const run = useCallback((fn: () => Promise<void>) => {
-    void (async () => {
+    (async () => {
       try {
         await fn();
       } catch (e: unknown) {

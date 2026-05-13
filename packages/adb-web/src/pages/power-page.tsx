@@ -18,7 +18,7 @@ export const PowerPage = () => {
     if (!adb) {
       return;
     }
-    void (async () => {
+    (async () => {
       try {
         await fn();
       } catch (e: unknown) {

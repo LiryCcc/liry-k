@@ -83,7 +83,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         step: 1,
         initial: 100,
         onChange: (demo, value) => {
-          void demo.setBatteryLevel(value as number);
+          demo.setBatteryLevel(value as number);
         }
       },
       {
@@ -92,7 +92,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         type: 'boolean',
         initial: false,
         onChange: (demo, value) => {
-          void demo.setBatteryCharging(value as boolean);
+          demo.setBatteryCharging(value as boolean);
         }
       },
       {
@@ -101,7 +101,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         type: 'boolean',
         initial: false,
         onChange: (demo, value) => {
-          void demo.setPowerSaveMode(value as boolean);
+          demo.setPowerSaveMode(value as boolean);
         }
       }
     ],
@@ -113,7 +113,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         options: signalStrengthOptions,
         initial: DemoModeSignalStrength.Level4,
         onChange: (demo, value) => {
-          void demo.setWifiSignalStrength(value as DemoModeSignalStrength);
+          demo.setWifiSignalStrength(value as DemoModeSignalStrength);
         }
       },
       {
@@ -122,7 +122,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         type: 'boolean',
         initial: false,
         onChange: (demo, value) => {
-          void demo.setAirplaneMode(value as boolean);
+          demo.setAirplaneMode(value as boolean);
         }
       },
       {
@@ -132,7 +132,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         options: mobileDataTypeOptions,
         initial: 'lte',
         onChange: (demo, value) => {
-          void demo.setMobileDataType(value as DemoModeMobileDataType);
+          demo.setMobileDataType(value as DemoModeMobileDataType);
         }
       },
       {
@@ -142,7 +142,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         options: signalStrengthOptions,
         initial: DemoModeSignalStrength.Level4,
         onChange: (demo, value) => {
-          void demo.setMobileSignalStrength(value as DemoModeSignalStrength);
+          demo.setMobileSignalStrength(value as DemoModeSignalStrength);
         }
       }
     ],
@@ -154,7 +154,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         options: statusBarModeOptions,
         initial: 'transparent',
         onChange: (demo, value) => {
-          void demo.setStatusBarMode(value as DemoModeStatusBarMode);
+          demo.setStatusBarMode(value as DemoModeStatusBarMode);
         }
       },
       {
@@ -163,7 +163,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         type: 'boolean',
         initial: false,
         onChange: (demo, value) => {
-          void demo.setVibrateModeEnabled(value as boolean);
+          demo.setVibrateModeEnabled(value as boolean);
         }
       },
       {
@@ -172,7 +172,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         type: 'boolean',
         initial: false,
         onChange: (demo, value) => {
-          void demo.setBluetoothConnected(value as boolean);
+          demo.setBluetoothConnected(value as boolean);
         }
       },
       {
@@ -181,7 +181,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         type: 'boolean',
         initial: false,
         onChange: (demo, value) => {
-          void demo.setLocatingIcon(value as boolean);
+          demo.setLocatingIcon(value as boolean);
         }
       },
       {
@@ -190,7 +190,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         type: 'boolean',
         initial: false,
         onChange: (demo, value) => {
-          void demo.setAlarmIcon(value as boolean);
+          demo.setAlarmIcon(value as boolean);
         }
       },
       {
@@ -199,7 +199,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         type: 'boolean',
         initial: true,
         onChange: (demo, value) => {
-          void demo.setNotificationsVisibility(value as boolean);
+          demo.setNotificationsVisibility(value as boolean);
         }
       },
       {
@@ -212,7 +212,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         initial: 12,
         onChange: (demo, value, feat) => {
           const minute = (feat.get('minute') as number | undefined) ?? 34;
-          void demo.setTime(value as number, minute);
+          demo.setTime(value as number, minute);
         }
       },
       {
@@ -225,7 +225,7 @@ const buildFeatureGroups = (): FeatureDefinition[][] => {
         initial: 34,
         onChange: (demo, value, feat) => {
           const hour = (feat.get('hour') as number | undefined) ?? 12;
-          void demo.setTime(hour, value as number);
+          demo.setTime(hour, value as number);
         }
       }
     ]
@@ -322,7 +322,7 @@ const DemoModePanelInner = ({ adb, style }: { adb: Adb; style?: CSSProperties })
 
   useEffect(() => {
     const ac = new AbortController();
-    void (async () => {
+    (async () => {
       const ok = await demoMode.getAllowed();
       if (ac.signal.aborted) {
         return;

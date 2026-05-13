@@ -83,13 +83,14 @@
 
 - **禁止修改 tsconfig**：不得改动仓库内任何 `tsconfig*.json`（含 `packages/tsconfig` 与各包中的配置）。类型或编译问题应在**业务代码**中按现有严格选项解决；若确需调整编译策略，须由维护者单独决策，**不**作为常规助手任务。
 - **禁止用注释压制检查代替修代码**：不得使用 `eslint-disable` / `eslint-disable-next-line` 等 ESLint 禁用注释，以及 `@ts-expect-error`、`@ts-ignore`、`@ts-nocheck` 等 TypeScript 忽略指令来「过关」；应修正类型、实现或合法 API 用法，消除根因。
+- **禁止在非类型场景使用 `void` 运算符**：除 TypeScript **类型**中的 `void`（例如 `Promise<void>`、函数返回类型 `(): void`）外，**不得**书写 `void 表达式` 以丢弃值或规避告警。**不要**为此封装 `runPromise` 之类专用工具；在事件、副作用等场景**直接调用**异步函数即可（如 `foo()`、`(async () => { … })()`、`onMount(async () => { await … })`）。**不**为「暂时吞掉失败」而强行 `.catch` / `.then` 链；确需记录或恢复错误时再在业务处按需补充。
 - **多行注释**：一段说明占多行时，**必须**使用以 **`/**`** 开头、以 **`_/`** 结尾的**块注释**，续行使用 ` _ `前缀；**禁止**用连续多行`//`表达同一段多行说明。单行说明仍可用`//`。全仓库 `packages/\*` 由根目录 **`pnpm lint:comment-style`**（已纳入 `pre-commit`）对源码统一校验该条。
 
 ## 协作原则（给助手）
 
 - 遵守上文「文件与目录命名」：新建或重命名文件、文件夹时保持全小写 kebab-case，不出现大写字母。
 - 遵守上文「模块导入与路径别名」：在已有 paths / alias 下优先别名导入，少写 `..`；跨包用 workspace 包名。
-- 遵守上文「TypeScript、ESLint 与 tsconfig（约束）」：不改 tsconfig，不靠 disable / `@ts-*` 注释掩盖问题；多行说明用 `/** … */`，不用多行 `//`。
+- 遵守上文「TypeScript、ESLint 与 tsconfig（约束）」：不改 tsconfig，不靠 disable / `@ts-*` 注释掩盖问题；多行说明用 `/** … */`，不用多行 `//`；**非类型场景不写 `void` 运算符**，异步直接调用、不套 `runPromise`、不强行链式 `.catch`\*\*（见上文）。
 - 新增 npm 包时：遵守上文「npm 包命名」与 `readme.md`「项目代号表」；业务包勿用表外代号，工具包勿脱离 `@liry-k/`。
 - 改动范围尽量贴合任务；不顺带大重构无关模块。
 - 修改后在本包或根目录执行与改动相关的 **lint / typecheck / build**，确认通过后再声称完成（含根目录 **`pnpm lint:comment-style`** 所覆盖的各包源码）。

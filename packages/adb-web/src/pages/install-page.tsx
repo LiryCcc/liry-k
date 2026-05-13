@@ -211,7 +211,7 @@ export const InstallPage = () => {
         appearance='primary'
         icon={<FolderOpenRegular />}
         disabled={!adb || state.installing}
-        onClick={() => void install()}
+        onClick={() => install()}
       >
         {strings.install.browse}
       </Button>

@@ -44,7 +44,7 @@ export const Connect = () => {
       showGlobalError(strings.connect.webUsbUnsupported);
       return;
     }
-    void updateUsbDeviceList();
+    updateUsbDeviceList();
     const watcher = new AdbDaemonWebUsbDeviceWatcher(async (serial?: string) => {
       const list = await updateUsbDeviceList();
       if (serial) {
@@ -123,7 +123,7 @@ export const Connect = () => {
           })
         );
 
-        void (async () => {
+        (async () => {
           try {
             await device.disconnected;
             await dispose();
@@ -185,16 +185,18 @@ export const Connect = () => {
             appearance='primary'
             icon={<UsbPlugRegular />}
             disabled={!selected || !usbSupported}
-            onClick={() => void connect()}
+            onClick={() => {
+              connect();
+            }}
           >
             {strings.connect.connect}
           </Button>
-          <Button icon={<UsbPlugRegular />} disabled={!usbSupported} onClick={() => void addUsbDevice()}>
+          <Button icon={<UsbPlugRegular />} disabled={!usbSupported} onClick={() => addUsbDevice()}>
             {strings.connect.addUsb}
           </Button>
         </div>
       ) : (
-        <Button icon={<PlugDisconnectedRegular />} onClick={() => void disconnect()}>
+        <Button icon={<PlugDisconnectedRegular />} onClick={() => disconnect()}>
           {strings.connect.disconnect}
         </Button>
       )}

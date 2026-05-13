@@ -11,5 +11,10 @@ export const enResources: TranslationTree = {
   devTools: {
     label: 'DevTools',
     openTitle: 'Open developer tools'
+  },
+  titleBar: {
+    languageSelectLabel: 'Language',
+    switchToEn: 'English',
+    switchToZh: '中文'
   }
 };

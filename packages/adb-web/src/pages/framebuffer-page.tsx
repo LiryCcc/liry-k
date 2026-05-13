@@ -77,7 +77,7 @@ export const FramebufferPage = () => {
   return (
     <PageShell className={styles.page}>
       <div className={styles.toolbar}>
-        <Button icon={<CameraRegular />} disabled={!adb} onClick={() => void capture()}>
+        <Button icon={<CameraRegular />} disabled={!adb} onClick={() => capture()}>
           {strings.framebuffer.capture}
         </Button>
         <Button icon={<SaveRegular />} disabled={!imageData} onClick={savePng}>

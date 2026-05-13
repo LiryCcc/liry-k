@@ -42,10 +42,9 @@ const AppContent = () => {
 const App = () => {
   const [i18nReady, setI18nReady] = createSignal(false);
 
-  onMount(() => {
-    void setupI18n().then(() => {
-      setI18nReady(true);
-    });
+  onMount(async () => {
+    await setupI18n();
+    setI18nReady(true);
   });
 
   return (

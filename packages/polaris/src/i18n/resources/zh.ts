@@ -11,5 +11,10 @@ export const zhResources: TranslationTree = {
   devTools: {
     label: '开发者工具',
     openTitle: '打开开发者工具'
+  },
+  titleBar: {
+    languageSelectLabel: '语言',
+    switchToEn: 'English',
+    switchToZh: '中文'
   }
 };

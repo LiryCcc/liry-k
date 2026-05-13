@@ -232,7 +232,7 @@ const createFileManagerController = (notify: () => void) => {
               }
               writer.write(data);
               if (final) {
-                void writer.close();
+                writer.close();
               }
             });
             await addDirectory(sync, zip, posixResolve(st.path, item.name!), '.');
@@ -256,7 +256,7 @@ const createFileManagerController = (notify: () => void) => {
         }
         writer.write(data);
         if (final) {
-          void writer.close();
+          writer.close();
         }
       });
       for (const item of selected) {
@@ -295,7 +295,7 @@ const createFileManagerController = (notify: () => void) => {
     } catch (e) {
       showGlobalError(e instanceof Error ? e : String(e));
     } finally {
-      void loadFiles();
+      loadFiles();
     }
   };
 
@@ -348,7 +348,7 @@ const createFileManagerController = (notify: () => void) => {
       showGlobalError(e instanceof Error ? e : String(e));
     } finally {
       sync.dispose();
-      void loadFiles();
+      loadFiles();
       st.uploading = false;
       bump();
     }
@@ -446,7 +446,7 @@ const createFileManagerController = (notify: () => void) => {
       bump();
       return;
     }
-    void loadFiles();
+    loadFiles();
   };
 
   const openEntry = (
@@ -546,7 +546,7 @@ export const FileManagerPage = () => {
 
   const navigatePath = useCallback(
     (path: string) => {
-      void navigate({ search: { path } });
+      navigate({ search: { path } });
     },
     [navigate]
   );
@@ -575,7 +575,7 @@ export const FileManagerPage = () => {
       <div className={styles.toolbar}>
         <Button
           onClick={() => {
-            void c.uploadFiles();
+            c.uploadFiles();
           }}
           disabled={!adb}
         >
@@ -583,7 +583,7 @@ export const FileManagerPage = () => {
         </Button>
         <Button
           onClick={() => {
-            void c.download();
+            c.download();
           }}
           disabled={!adb || c.selectedItems.length === 0}
         >
@@ -591,7 +591,7 @@ export const FileManagerPage = () => {
         </Button>
         <Button
           onClick={() => {
-            void c.deleteSelection();
+            c.deleteSelection();
           }}
           disabled={!adb || c.selectedItems.length === 0}
         >

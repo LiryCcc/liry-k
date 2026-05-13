@@ -26,7 +26,7 @@ export const ResizeObserver = (props: ResizeObserverProps) => {
     if (!iframe) {
       return;
     }
-    void iframe.offsetLeft;
+    iframe.offsetLeft;
     iframe.contentWindow?.addEventListener('resize', handleResize);
     handleResize();
     return () => {

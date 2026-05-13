@@ -131,7 +131,7 @@ export const LogcatPage = () => {
     const stream = lc.binary();
     const ac = new AbortController();
     stopRef.current = ac;
-    void (async () => {
+    (async () => {
       try {
         await stream.pipeTo(
           new WritableStream<AndroidLogEntry>({
@@ -173,7 +173,7 @@ export const LogcatPage = () => {
       .filter((row): row is NonNullable<(typeof list)[number]> => row !== undefined)
       .map((row) => `${stripNullChars(formatEntry(row))}\n`)
       .join('');
-    void navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text);
   }, [list, selection, formatEntry]);
 
   const handleSave = useCallback(async () => {
@@ -371,7 +371,7 @@ export const LogcatPage = () => {
         <Button icon={<CopyRegular />} disabled={selection.size === 0} onClick={handleCopy}>
           {strings.logcat.copySelected}
         </Button>
-        <Button icon={<SaveRegular />} disabled={selection.size === 0} onClick={() => void handleSave()}>
+        <Button icon={<SaveRegular />} disabled={selection.size === 0} onClick={() => handleSave()}>
           {strings.logcat.saveSelected}
         </Button>
 

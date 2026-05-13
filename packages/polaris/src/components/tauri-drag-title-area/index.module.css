@@ -20,3 +20,57 @@
   flex: 1;
   min-width: 0;
 }
+
+.lang-actions {
+  display: flex;
+  flex: none;
+  flex-direction: row;
+  align-items: stretch;
+  align-self: stretch;
+  box-sizing: border-box;
+  height: 100%;
+  padding: 3px 10px 3px 6px;
+}
+
+/* WKWebView：避免 CanvasText 与 appearance:none 导致选中项不可见。 */
+.lang-select {
+  box-sizing: border-box;
+  align-self: center;
+  min-width: 7.5rem;
+  max-width: 12rem;
+  min-height: 24px;
+  margin: 0;
+  padding: 2px 24px 2px 8px;
+  border: 1px solid rgb(0 0 0 / 16%);
+  border-radius: 4px;
+  background-color: #f4f4f4;
+  color: #141414;
+  font-family:
+    system-ui,
+    -apple-system,
+    'Segoe UI',
+    sans-serif;
+  font-size: 12px;
+  line-height: 1.35;
+  cursor: pointer;
+}
+
+.lang-select option {
+  color: #141414;
+  background-color: #fff;
+}
+
+.lang-select:hover {
+  border-color: rgb(0 0 0 / 26%);
+  background-color: #ececec;
+}
+
+.lang-select:focus {
+  border-color: rgb(0 0 0 / 32%);
+  outline: none;
+}
+
+.lang-select:focus-visible {
+  outline: 2px solid rgb(0 100 200 / 45%);
+  outline-offset: 1px;
+}

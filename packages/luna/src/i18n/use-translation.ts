@@ -15,12 +15,12 @@ export const useTranslation = () => {
   const bridge = useStore(i18nBridgeStore);
 
   const t = ((key: TranslationKey, ...rest: TRest) => {
-    void bridge();
+    bridge();
     return (i18n.t as (k: TranslationKey, ...r: TRest) => ReturnType<typeof i18n.t>)(key, ...rest);
   }) as TypedT;
 
   const changeLanguage = (nextLanguage: string) => {
-    void i18n.changeLanguage(nextLanguage);
+    i18n.changeLanguage(nextLanguage);
   };
 
   /** 当前解析后的语言码，随桥接 Store 更新。 */

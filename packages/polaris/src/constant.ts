@@ -11,7 +11,7 @@ export const LAYOUT_CONSTANTS = {
     if (!IS_TAURI) {
       return 0;
     }
-    return POLARIS_PLATFORM === 'macos' ? 28 : 0;
+    return POLARIS_PLATFORM === 'macos' ? 32 : 0;
   },
   /** macOS：为红绿灯区域预留宽度，避免拖拽层挡住系统按钮。 */
   MACOS_TRAFFIC_LIGHT_RESERVE: 78

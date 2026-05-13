@@ -76,7 +76,7 @@ export const DeviceView = forwardRef<DeviceViewRef, DeviceViewProps>(
       ref,
       () => ({
         enterFullscreen: () => {
-          void containerRef.current?.requestFullscreen();
+          containerRef.current?.requestFullscreen();
         }
       }),
       []

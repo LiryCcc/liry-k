@@ -59,7 +59,7 @@ export const PacketLogPage = () => {
         return `${entry.timestamp.toISOString()}\t${entry.direction === 'in' ? 'IN' : 'OUT'}\t${cmd}\t${entry.arg0.toString(16).padStart(8, '0')}\t${entry.arg1.toString(16).padStart(8, '0')}\t${uint8ArrayToHex(entry.payload)}\n`;
       })
       .join('');
-    void navigator.clipboard.writeText(text);
+    navigator.clipboard.writeText(text);
   }, [logs, selection]);
 
   const columns: GridColumn[] = useMemo(
