@@ -15,7 +15,9 @@
         "title": "polaris",
         "width": 800,
         "height": 600,
-        "decorations": false
+        "titleBarStyle": "Overlay",
+        "hiddenTitle": true,
+        "resizable": true
       }
     ],
     "security": {
