@@ -470,6 +470,12 @@ importers:
 
   packages/polaris:
     dependencies:
+      '@tanstack/solid-store':
+        specifier: ^0.10.0
+        version: 0.10.0(solid-js@1.9.12)
+      '@tanstack/store':
+        specifier: ^0.11.0
+        version: 0.11.0
       '@tauri-apps/api':
         specifier: ^2.11.0
         version: 2.11.0
@@ -479,6 +485,12 @@ importers:
       '@tauri-apps/plugin-os':
         specifier: ^2.3.2
         version: 2.3.2
+      i18next:
+        specifier: ^26.0.10
+        version: 26.0.10(typescript@6.0.3)
+      i18next-browser-languagedetector:
+        specifier: ^8.2.1
+        version: 8.2.1
       normalize.css:
         specifier: ^8.0.1
         version: 8.0.1
@@ -3185,6 +3197,10 @@ packages:
   '@tanstack/store@0.10.0':
     resolution:
       { integrity: sha512-KXAPlXun5J9DjO5LYo+EVjVHGdHfOl5YWE9TVPh4MeHl6gIngIV0fC5rE22JTRZa9KCMiKidh5FG6ufE2usr7Q== }
+
+  '@tanstack/store@0.11.0':
+    resolution:
+      { integrity: sha512-WlzzCt3xi0G6pCAJu1U+2jiECwabETDpQDi3hfkFZvJii9AuZqEKbOiVarX1/bWhTNjU486yQtJCCasi/0q+Cw== }
 
   '@tanstack/store@0.7.7':
     resolution:
@@ -8888,6 +8904,8 @@ snapshots:
       solid-js: 1.9.12
 
   '@tanstack/store@0.10.0': {}
+
+  '@tanstack/store@0.11.0': {}
 
   '@tanstack/store@0.7.7': {}
 
