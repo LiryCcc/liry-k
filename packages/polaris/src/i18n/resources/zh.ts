@@ -1,7 +1,7 @@
-import type { TranslationTree } from '@/i18n/translation-tree.js';
+import type { TranslationTree } from '@/i18n/translation-tree-shape.js';
 
-/** 中文文案表，结构受 TranslationTree 约束。 */
-export const zhResources: TranslationTree = {
+/** 中文文案表：`as const` 保留字面量供与英文并集推断插值，`satisfies` 与 TranslationTree 对齐。 */
+export const zhResources = {
   app: {
     demoInterpolationTitle: '插值示例',
     demoNameHint: '修改名称（下方问候语会随之变化）：',
@@ -17,4 +17,4 @@ export const zhResources: TranslationTree = {
     switchToEn: 'English',
     switchToZh: '中文'
   }
-};
+} as const satisfies TranslationTree;

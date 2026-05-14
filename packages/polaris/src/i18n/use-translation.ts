@@ -1,20 +1,15 @@
 import { i18nBridgeStore } from '@/i18n/bridge-store.js';
 import { i18n } from '@/i18n/setup-i18n.js';
-import type { TranslationInterpolationMap, TranslationKey } from '@/i18n/translation-tree.js';
+import type { TranslationKey, TranslationTArgs } from '@/i18n/translation-tree.js';
 import { useStore } from '@tanstack/solid-store';
-import type { TOptions } from 'i18next';
 
 type TRest = Parameters<typeof i18n.t> extends [unknown, ...infer R] ? R : never;
 
-type TArgs<K extends TranslationKey> = K extends keyof TranslationInterpolationMap
-  ? [options: TranslationInterpolationMap[K] & TOptions]
-  : [options?: TOptions];
-
 /**
- * 首参为 TranslationKey；若 key 在 TranslationInterpolationMap 中，第二参须包含对应插值字段并与 TOptions 相交。
+ * 首参为 TranslationKey；第二参由同一 key 在**中英文**文案中的 `{{…}}` 并集推导（见 `translation-tree.ts`）。
  */
 export type TypedT = {
-  <K extends TranslationKey>(key: K, ...args: TArgs<K>): ReturnType<typeof i18n.t>;
+  <K extends TranslationKey>(key: K, ...args: TranslationTArgs<K>): ReturnType<typeof i18n.t>;
 };
 
 /**
