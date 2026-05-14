@@ -470,6 +470,9 @@ importers:
 
   packages/polaris:
     dependencies:
+      '@sentry/solid':
+        specifier: ^10.53.1
+        version: 10.53.1(@tanstack/solid-router@1.169.2(solid-js@1.9.12))(solid-js@1.9.12)
       '@tanstack/solid-store':
         specifier: ^0.10.0
         version: 0.10.0(solid-js@1.9.12)
@@ -2970,6 +2973,50 @@ packages:
       { integrity: sha512-hPt/bgL5cE+Qp+/TPHBqptcAgPzgj46mPcg/16zNUmbQk0j+mOEQV/+Lqu8QRtDV3Ek95Q6FeFITpuhl6OTsAA== }
     cpu: [x64]
     os: [win32]
+
+  '@sentry-internal/browser-utils@10.53.1':
+    resolution:
+      { integrity: sha512-X4d6y8sBMjmNhcDW4eMBU3ASsNIMz8dqaFkhyIMN/dkYr/yZKnbRZPaVuVUGvHKjnlficPpIH0/HK9KBjrYxPw== }
+    engines: { node: '>=18' }
+
+  '@sentry-internal/feedback@10.53.1':
+    resolution:
+      { integrity: sha512-vVpTI/aEYN5d9IgZeYJWMqVaN0+iFgidSrYNAsZTh1US5sJUzF/wrl+68KdpmCtFROrN3jiAn1oPSwL5CKvEJA== }
+    engines: { node: '>=18' }
+
+  '@sentry-internal/replay-canvas@10.53.1':
+    resolution:
+      { integrity: sha512-aueLaf/2prExwA76BGU5/bOXCKWqtt6jQXWA6WJQNrmKpPEtZJB4ypnpsou0McXQCF8tur2Y8U0TEkwQP13yJQ== }
+    engines: { node: '>=18' }
+
+  '@sentry-internal/replay@10.53.1':
+    resolution:
+      { integrity: sha512-wZNzTBYkgGUPWMuUQv7L64+OJmoCnz7GQNiTrTFK6EVAjJXFBCSsPp/nhif0bLhbk8+0g4xz633uOhpXuQbFdw== }
+    engines: { node: '>=18' }
+
+  '@sentry/browser@10.53.1':
+    resolution:
+      { integrity: sha512-zXF373hzUOGzUOrqd8xb1U3LQi5uYC3mwv+z5OMKUUinQlu30tTWBs7ypy6YTchtix9QlYaHWlayUF8vBZ5UjA== }
+    engines: { node: '>=18' }
+
+  '@sentry/core@10.53.1':
+    resolution:
+      { integrity: sha512-XG4ezlkyuAPjBC5+9kXC94rXXuqYTw9NRhfaDHssbTFaGnqBR8vQX2UUgZfY7ucbeelRDGfBu1sywoU+mB04uA== }
+    engines: { node: '>=18' }
+
+  '@sentry/solid@10.53.1':
+    resolution:
+      { integrity: sha512-QfvAIFd/fc6zb8hPN8z8H56tWWPihUFchhBSEfJ0m37S2ESnsMRQ+VgNjLga1CnqXBiNmZJE6tx2PQx/To1Kbg== }
+    engines: { node: '>=18' }
+    peerDependencies:
+      '@solidjs/router': ^0.13.4 || ^0.14.0 || ^0.15.0
+      '@tanstack/solid-router': ^1.132.27
+      solid-js: ^1.8.4
+    peerDependenciesMeta:
+      '@solidjs/router':
+        optional: true
+      '@tanstack/solid-router':
+        optional: true
 
   '@simple-libs/child-process-utils@1.0.2':
     resolution:
@@ -8662,6 +8709,42 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.60.3':
     optional: true
+
+  '@sentry-internal/browser-utils@10.53.1':
+    dependencies:
+      '@sentry/core': 10.53.1
+
+  '@sentry-internal/feedback@10.53.1':
+    dependencies:
+      '@sentry/core': 10.53.1
+
+  '@sentry-internal/replay-canvas@10.53.1':
+    dependencies:
+      '@sentry-internal/replay': 10.53.1
+      '@sentry/core': 10.53.1
+
+  '@sentry-internal/replay@10.53.1':
+    dependencies:
+      '@sentry-internal/browser-utils': 10.53.1
+      '@sentry/core': 10.53.1
+
+  '@sentry/browser@10.53.1':
+    dependencies:
+      '@sentry-internal/browser-utils': 10.53.1
+      '@sentry-internal/feedback': 10.53.1
+      '@sentry-internal/replay': 10.53.1
+      '@sentry-internal/replay-canvas': 10.53.1
+      '@sentry/core': 10.53.1
+
+  '@sentry/core@10.53.1': {}
+
+  '@sentry/solid@10.53.1(@tanstack/solid-router@1.169.2(solid-js@1.9.12))(solid-js@1.9.12)':
+    dependencies:
+      '@sentry/browser': 10.53.1
+      '@sentry/core': 10.53.1
+      solid-js: 1.9.12
+    optionalDependencies:
+      '@tanstack/solid-router': 1.169.2(solid-js@1.9.12)
 
   '@simple-libs/child-process-utils@1.0.2':
     dependencies:
