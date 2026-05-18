@@ -2,6 +2,7 @@ import { AboutPage } from '@/pages/about-page/index.js';
 import { HomePage } from '@/pages/home-page/index.js';
 import { NotFoundPage } from '@/pages/not-found-page/index.js';
 import { PathParamPage } from '@/pages/path-param-page/index.js';
+import { ProtoDecodePage } from '@/pages/proto-decode-page/index.js';
 import { QueryJsonPage } from '@/pages/query-json-page/index.js';
 import { RootLayout } from '@/pages/root-layout/index.js';
 import { createRootRoute, createRoute, createRouter } from '@tanstack/solid-router';
@@ -43,6 +44,11 @@ const routeTree = rootRoute.addChildren([
     getParentRoute: () => rootRoute,
     path: '/path-demo/$postId',
     component: PathParamPage
+  }),
+  createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/proto-decode',
+    component: ProtoDecodePage
   })
 ]);
 

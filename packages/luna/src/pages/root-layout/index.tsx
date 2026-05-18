@@ -31,6 +31,9 @@ export const RootLayout = () => {
           <Link class={styles['link']} to='/path-demo/$postId' params={{ postId: '1' }}>
             {t('nav.pathParam')}
           </Link>
+          <Link class={styles['link']} to='/proto-decode'>
+            {t('nav.protoDecode')}
+          </Link>
         </nav>
       </header>
       <section class={styles['content']}>
