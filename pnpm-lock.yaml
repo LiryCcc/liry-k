@@ -56,6 +56,9 @@ importers:
       '@liry-k/build':
         specifier: workspace:*
         version: link:../../packages/build
+      '@liry-k/stellar':
+        specifier: workspace:*
+        version: link:../../packages/stellar
       '@liry-k/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
