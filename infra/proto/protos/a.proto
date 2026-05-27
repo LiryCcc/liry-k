@@ -1,7 +1,5 @@
 syntax = "proto3";
 
-package user;
-
 // 用户信息
 message User {
   string id = 1;
