@@ -7,8 +7,10 @@ const cspellConfig = defineConfig({
     '**/pnpm-lock.yaml',
     '**/dist',
     'rust-packages/**/target',
-    'packages/polaris/src-tauri/**'
+    'packages/polaris/src-tauri/**',
+    'infra/proto/src/generated/**'
   ],
+  useGitignore: true,
   version: '0.2',
   words: [
     'liry',
