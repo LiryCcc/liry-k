@@ -23,6 +23,7 @@
     "@bufbuild/protoc-gen-es": "^2.12.0",
     "@liry-k/build": "workspace:*",
     "@types/node": "^24.12.3",
+    "protoc": "^25.9.0",
     "ts-proto": "^2.11.8",
     "typescript": "^6.0.3"
   }
