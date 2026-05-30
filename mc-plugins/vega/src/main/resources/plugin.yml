@@ -3,3 +3,10 @@ version: 1.0.0
 main: org.liry.Main
 author: Liry
 api-version: '1.21.11'
+
+commands:
+  liry-v:
+    description: liry-vega test
+    usage: /<command>
+    aliases:
+      - l-v
