@@ -1,0 +1,5 @@
+name: Vega
+version: 1.0.0
+main: org.liry.Main
+author: Liry
+api-version: '1.21.11'

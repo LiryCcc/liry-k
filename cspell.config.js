@@ -49,7 +49,8 @@ const cspellConfig = defineConfig({
     'gomoku',
     'tauri',
     'gradle',
-    'gradlew'
+    'gradlew',
+    'bukkit'
   ]
 });
 
