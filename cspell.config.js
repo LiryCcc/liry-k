@@ -11,7 +11,9 @@ const cspellConfig = defineConfig({
     'infra/proto/src/generated/**',
     'mc-plugins/**/gradlew.bat',
     'mc-plugins/**/gradle-wrapper.properties',
-    'mc-plugins/**/gradlew'
+    'mc-plugins/**/gradlew',
+    'mc-plugins/**/build.gradle.kts',
+    'mc-plugins/**/settings.gradle.kts'
   ],
   useGitignore: true,
   version: '0.2',
