@@ -8,7 +8,10 @@ const cspellConfig = defineConfig({
     '**/dist',
     'rust-packages/**/target',
     'packages/polaris/src-tauri/**',
-    'infra/proto/src/generated/**'
+    'infra/proto/src/generated/**',
+    'mc-plugins/**/gradlew.bat',
+    'mc-plugins/**/gradle-wrapper.properties',
+    'mc-plugins/**/gradlew'
   ],
   useGitignore: true,
   version: '0.2',
@@ -42,7 +45,9 @@ const cspellConfig = defineConfig({
     'formatcp',
     'clippy',
     'gomoku',
-    'tauri'
+    'tauri',
+    'gradle',
+    'gradlew'
   ]
 });
 
