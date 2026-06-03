@@ -32,7 +32,7 @@ public class Main extends JavaPlugin implements Listener {
   @Override
   public boolean onCommand(@NonNull CommandSender sender, @NonNull Command command, @NonNull String label, String @NonNull [] args) {
     var l = getLogger();
-    l.info(String.format("Vega on command, sender %s command %s label %s args %s", sender.getName(), command.toString(), label, String.join(" ", args)));
+    l.info(String.format("Vega on command, sender %s command %s label %s args %s", sender.getName(), command, label, String.join(" ", args)));
     return true;
   }
 
@@ -57,8 +57,8 @@ public class Main extends JavaPlugin implements Listener {
     l.info(String.format("[OP秒杀触发] 操作者：%s | 目标实体类型：%s", a.getName(), t.getType()));
 
     if (t instanceof LivingEntity livingTarget) {
-      double currentHp = livingTarget.getHealth();
-      double newDamage = currentHp * 2.0;
+      var currentHp = livingTarget.getHealth();
+      var newDamage = currentHp * 2.0;
       e.setDamage(newDamage);
       livingTarget.setHealth(0.0);
 
