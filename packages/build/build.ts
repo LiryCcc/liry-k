@@ -13,7 +13,8 @@ const defaultConfig = defineConfig({
   format: 'es',
   outDir: resolve(c, 'dist'),
   alias: {
-    dayjs: resolve(c, 'node_modules/dayjs/esm/index.js')
+    dayjs: resolve(c, 'node_modules/dayjs/esm/index.js'),
+    '@bufbuild/protobuf': resolve(c, 'node_modules/@bufbuild/protobuf/dist/esm')
   }
 });
 

@@ -50,7 +50,8 @@ const cspellConfig = defineConfig({
     'tauri',
     'gradle',
     'gradlew',
-    'bukkit'
+    'bukkit',
+    'bufbuild'
   ]
 });
 
