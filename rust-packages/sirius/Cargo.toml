@@ -15,7 +15,7 @@ clippy = "0.0.302"
 rustfmt = "0.10.0"
 
 [workspace.lints.rust]
-warnings = "deny" # 警告=错误，强制规范
+warnings = "deny"   # 警告=错误，强制规范
 unused_mut = "warn"
 
 [workspace.lints.clippy]

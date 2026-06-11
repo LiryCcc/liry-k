@@ -19,7 +19,7 @@
     "format": "buf format -w ./protos",
     "postinstall": "pnpm proto",
     "lint": "tsc -b",
-    "proto": "pnpm protoc --proto_path=./protos --plugin=protoc-gen-ts_proto=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./src/generated --ts_proto_opt=esModuleInterop=true,outputClientImpl=false,outputServices=none,useExactTypes=false,nestJs=false,importSuffix=.js,useExplicitNext=true ./protos/*.proto",
+    "proto": "pnpm postproto && pnpm protoc --proto_path=./protos --plugin=protoc-gen-ts_proto=node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./src/generated --ts_proto_opt=esModuleInterop=true,outputClientImpl=false,outputServices=none,useExactTypes=false,nestJs=false,importSuffix=.js,useExplicitNext=true ./protos/*.proto",
     "postproto": "node post-proto.ts"
   },
   "devDependencies": {
