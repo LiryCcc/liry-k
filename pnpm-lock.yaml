@@ -81,6 +81,39 @@ importers:
         specifier: ^8.59.2
         version: 8.59.2(eslint@10.3.0(jiti@2.7.0))(typescript@6.0.3)
 
+  infra/lc:
+    devDependencies:
+      '@eslint/js':
+        specifier: ^10.0.1
+        version: 10.0.1(eslint@10.3.0(jiti@2.7.0))
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../../packages/build
+      '@liry-k/stellar':
+        specifier: workspace:*
+        version: link:../../packages/stellar
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../../packages/tsconfig
+      '@types/node':
+        specifier: ^24.12.3
+        version: 24.12.3
+      dayjs:
+        specifier: ^1.11.20
+        version: 1.11.20
+      eslint:
+        specifier: ^10.3.0
+        version: 10.3.0(jiti@2.7.0)
+      globals:
+        specifier: ^17.6.0
+        version: 17.6.0
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
+      typescript-eslint:
+        specifier: ^8.59.2
+        version: 8.59.3(eslint@10.3.0(jiti@2.7.0))(typescript@6.0.3)
+
   infra/proto:
     devDependencies:
       '@bufbuild/buf':
