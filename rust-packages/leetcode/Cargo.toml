@@ -1,0 +1,21 @@
+[package]
+name = "leetcode"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[dev-dependencies]
+clippy = "0.0.302"
+rustfmt = "0.10.0"
+
+[workspace.lints.rust]
+warnings = "deny"   # 警告=错误，强制规范
+unused_mut = "warn"
+
+[workspace.lints.clippy]
+# 常用强规范配置（可直接用）
+unwrap_used = "deny"
+panic_in_result_fn = "deny"
+needless_borrow = "warn"
+too_many_arguments = "warn"
