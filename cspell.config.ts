@@ -52,7 +52,8 @@ const cspellConfig = defineConfig({
     'gradlew',
     'bukkit',
     'bufbuild',
-    'leetcode'
+    'leetcode',
+    'nums'
   ]
 });
 
