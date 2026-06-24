@@ -28,7 +28,7 @@
     "@bufbuild/protoc-gen-es": "^2.12.1",
     "@liry-k/build": "workspace:*",
     "@types/node": "catalog:",
-    "protoc": "^25.9.0",
+    "protoc": "^35.1.0",
     "ts-proto": "^2.11.8",
     "typescript": "catalog:"
   }

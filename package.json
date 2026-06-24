@@ -17,18 +17,18 @@
     "commit-msg": "pnpm commitlint --edit"
   },
   "dependencies": {
-    "cspell": "^9.8.0"
+    "cspell": "^10.0.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.5.3",
-    "@commitlint/config-conventional": "^20.5.3",
+    "@commitlint/cli": "^21.1.0",
+    "@commitlint/config-conventional": "^21.1.0",
     "@liry-k/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "pkg-types": "^2.3.1",
     "prettier": "^3.8.4",
     "prettier-plugin-organize-imports": "^4.3.0",
-    "prettier-plugin-packagejson": "^2.5.22",
+    "prettier-plugin-packagejson": "^3.0.2",
     "prettier-plugin-toml": "^2.0.6",
     "simple-git-hooks": "^2.13.1",
     "typescript-eslint": "catalog:"
