@@ -146,6 +146,9 @@ importers:
       '@liry-k/tsconfig':
         specifier: workspace:*
         version: link:../../packages/tsconfig
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.2
       eslint:
         specifier: 'catalog:'
         version: 10.5.0(jiti@2.7.0)

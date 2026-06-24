@@ -1,11 +1,15 @@
 {
   "name": "@liry-k/eslint-config",
   "type": "module",
+  "scripts": {
+    "lint": "tsc -b"
+  },
   "devDependencies": {
     "@eslint/css": "catalog:",
     "@eslint/js": "catalog:",
     "@liry-k/build": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",
