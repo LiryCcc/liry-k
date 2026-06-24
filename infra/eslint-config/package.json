@@ -2,13 +2,12 @@
   "name": "@liry-k/eslint-config",
   "type": "module",
   "scripts": {
+    "build": "node build.ts",
     "lint": "tsc -b"
   },
-  "devDependencies": {
+  "dependencies": {
     "@eslint/css": "catalog:",
     "@eslint/js": "catalog:",
-    "@liry-k/build": "workspace:*",
-    "@liry-k/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",
@@ -16,5 +15,9 @@
     "eslint-plugin-react-refresh": "catalog:",
     "globals": "catalog:",
     "typescript-eslint": "catalog:"
+  },
+  "devDependencies": {
+    "@liry-k/build": "workspace:*",
+    "@liry-k/tsconfig": "workspace:*"
   }
 }
