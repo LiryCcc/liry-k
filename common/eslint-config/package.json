@@ -1,0 +1,16 @@
+{
+  "name": "@liry-k/eslint-config",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/css": "catalog:",
+    "@eslint/js": "catalog:",
+    "@liry-k/build": "workspace:*",
+    "@liry-k/tsconfig": "workspace:*",
+    "eslint": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "eslint-plugin-react-refresh": "catalog:",
+    "globals": "catalog:",
+    "typescript-eslint": "catalog:"
+  }
+}
