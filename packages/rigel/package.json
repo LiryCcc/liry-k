@@ -13,9 +13,9 @@
     "@liry-k/build": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
     "@lit-labs/signals": "^0.2.0",
-    "@types/node": "^24.13.2",
+    "@types/node": "catalog:",
     "lit": "^3.3.3",
-    "typescript": "^6.0.3"
+    "typescript": "catalog:"
   },
   "publishConfig": {
     "access": "public"

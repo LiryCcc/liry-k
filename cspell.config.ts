@@ -53,7 +53,10 @@ const cspellConfig = defineConfig({
     'bukkit',
     'bufbuild',
     'leetcode',
-    'nums'
+    'nums',
+    'tanstack',
+    'vite',
+    'unplugin'
   ]
 });
 
