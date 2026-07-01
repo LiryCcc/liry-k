@@ -27,53 +27,6 @@
   overflow: hidden;
 }
 
-.sidebar {
-  width: 240px;
-  flex-shrink: 0;
-  border-right: 1px solid var(--colorNeutralStroke2);
-  background: var(--colorNeutralBackground2);
-  overflow: hidden auto;
-  padding: 0.5rem;
-  transition: width 0.15s ease;
-}
-
-.sidebarCollapsed {
-  width: 52px;
-}
-
-.nav {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.navLink {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.5rem 0.75rem;
-  border-radius: 4px;
-  text-decoration: none;
-  color: var(--colorNeutralForeground1);
-  font-size: 0.875rem;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.sidebarCollapsed .navLink {
-  justify-content: center;
-  padding: 0.5rem;
-}
-
-.navLink:hover {
-  background: var(--colorNeutralBackground3);
-}
-
-.navLinkActive {
-  background: var(--colorBrandBackground2);
-  color: var(--colorBrandForeground1);
-}
-
 .main {
   flex: 1;
   overflow-y: auto;

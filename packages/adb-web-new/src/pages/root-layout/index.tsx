@@ -1,10 +1,11 @@
+import { Sidebar } from '@/components/sidebar/index.js';
 import type { TranslationKey } from '@/i18n/translation-tree.js';
 import { useTranslation } from '@/i18n/use-translation.js';
 import type { ThemeName } from '@/store/theme-store.js';
 import { setTheme, themeNames, themeStore } from '@/store/theme-store.js';
-import { Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Text, Tooltip } from '@fluentui/react-components';
-import { HomeRegular, NavigationRegular, WeatherMoonRegular, WeatherSunnyRegular } from '@fluentui/react-icons';
-import { Link, Outlet, useRouterState } from '@tanstack/react-router';
+import { Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tooltip } from '@fluentui/react-components';
+import { NavigationRegular, WeatherMoonRegular, WeatherSunnyRegular } from '@fluentui/react-icons';
+import { Outlet } from '@tanstack/react-router';
 import { useSelector } from '@tanstack/react-store';
 import type { ReactElement } from 'react';
 import { useCallback, useState } from 'react';
@@ -26,7 +27,6 @@ const themeLabelKey: Record<ThemeName, TranslationKey> = {
 
 const RootLayout = () => {
   const { t, changeLanguage, language } = useTranslation();
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [collapsed, setCollapsed] = useState(false);
   const { theme } = useSelector(themeStore);
 
@@ -82,14 +82,7 @@ const RootLayout = () => {
         </Button>
       </header>
       <div className={styles['body']}>
-        <aside className={`${styles['sidebar']} ${collapsed ? styles['sidebarCollapsed'] : ''}`}>
-          <nav className={styles['nav']}>
-            <Link to='/' className={`${styles['navLink']} ${pathname === '/' ? styles['navLinkActive'] : ''}`}>
-              <HomeRegular />
-              {collapsed ? null : <Text>{t('nav.home')}</Text>}
-            </Link>
-          </nav>
-        </aside>
+        <Sidebar collapsed={collapsed} />
         <main className={styles['main']}>
           <Outlet />
         </main>
