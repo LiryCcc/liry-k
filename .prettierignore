@@ -3,3 +3,4 @@ rust-packages/*/target
 **/src-tauri/gen
 Cargo.lock
 **/generated
+.wrangler

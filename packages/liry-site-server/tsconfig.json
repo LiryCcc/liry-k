@@ -4,7 +4,8 @@
     "lib": ["ESNext"],
     "types": ["@cloudflare/workers-types"],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@@/*": ["./*"]
     }
   },
   "include": ["src", "eslint.config.ts", "vitest.config.ts", "worker-configuration.d.ts"]
