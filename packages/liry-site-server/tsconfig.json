@@ -1,0 +1,8 @@
+{
+	"extends": "@liry-k/tsconfig",
+	"compilerOptions": {
+		"lib": ["ESNext"],
+		"types": ["@cloudflare/workers-types"]
+	},
+	"include": ["src", "eslint.config.ts", "vitest.config.mts", "worker-configuration.d.ts"]
+}

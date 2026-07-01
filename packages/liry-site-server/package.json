@@ -1,0 +1,30 @@
+{
+	"name": "@liry-k/liry-site-server",
+	"version": "0.1.0",
+	"description": "Cloudflare Worker backend for liry-site",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "wrangler deploy --dry-run --outdir dist",
+		"dev": "wrangler dev",
+		"deploy": "wrangler deploy",
+		"cf-typegen": "wrangler types",
+		"test": "vitest run",
+		"lint": "pnpm lint:type && pnpm lint:code",
+		"lint:code": "eslint . --cache",
+		"lint:type": "tsc -b"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.12.4",
+		"@cloudflare/workers-types": "^4.20250620.0",
+		"@eslint/js": "catalog:",
+		"@liry-k/tsconfig": "workspace:*",
+		"@types/node": "catalog:",
+		"eslint": "catalog:",
+		"globals": "catalog:",
+		"typescript": "catalog:",
+		"typescript-eslint": "catalog:",
+		"vitest": "~3.2.0",
+		"wrangler": "^4.24.3"
+	}
+}

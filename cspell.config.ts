@@ -13,7 +13,8 @@ const cspellConfig = defineConfig({
     '**/gradle-wrapper.properties',
     '**/gradlew',
     '**/build.gradle.kts',
-    '**/settings.gradle.kts'
+    '**/settings.gradle.kts',
+    '**/worker-configuration.d.ts'
   ],
   useGitignore: true,
   version: '0.2',
