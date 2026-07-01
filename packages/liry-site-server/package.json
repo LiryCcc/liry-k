@@ -1,5 +1,5 @@
 {
-  "name": "liry-site-hono",
+  "name": "@liry-k/liry-site-server",
   "type": "module",
   "scripts": {
     "build": "wrangler deploy --dry-run --outdir dist",
