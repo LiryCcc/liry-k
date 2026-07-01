@@ -58,7 +58,8 @@ const cspellConfig = defineConfig({
     'vite',
     'unplugin',
     'papermc',
-    'dists'
+    'dists',
+    'protoc'
   ]
 });
 
