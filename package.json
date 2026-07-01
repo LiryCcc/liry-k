@@ -9,7 +9,9 @@
     "format": "prettier --write --cache . && pnpm -r format",
     "postinstall": "pnpm build",
     "lint": "pnpm pre-commit",
-    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm -r lint",
+    "lint:rust": "cargo clippy --workspace --all-targets -- -D warnings",
+    "lint:rustfmt": "cargo fmt --all --check",
+    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm -r lint && pnpm lint:rust && pnpm lint:rustfmt",
     "prepare": "simple-git-hooks"
   },
   "simple-git-hooks": {
