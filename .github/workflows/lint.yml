@@ -1,6 +1,6 @@
-# 两阶段 CI，在 ubuntu / macos / windows 三个平台各自独立运行：
-#   阶段一：install 单个 job 串行安装所有语言依赖
-#   阶段二：lint 单个 job 串行执行所有语言的 lint/build
+# 在 ubuntu / macos / windows 三个平台并行运行，每个平台内串行完成：
+#   1. 安装所有语言依赖（pnpm / Rust toolchain / Java）
+#   2. 执行各语言 lint/build（pnpm pre-commit / cargo clippy+fmt / gradlew build）
 name: Lint
 
 on:
@@ -11,10 +11,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # ────────────────────────────── 阶段一：安装依赖 ──────────────────────────────
-
-  install:
-    name: 'Install dependencies (${{ matrix.os }})'
+  lint:
+    name: 'Lint (${{ matrix.os }})'
     runs-on: ${{ matrix.os }}
     permissions:
       contents: read
@@ -28,7 +26,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ── JS/TS ──
+      # ── 系统依赖：仅 Linux 需要 Tauri GTK 库 ──
+      - name: Install Tauri system dependencies (Linux only)
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libgtk-3-dev \
+            libwebkit2gtk-4.1-dev \
+            libayatana-appindicator3-dev \
+            librsvg2-dev \
+            patchelf
+
+      # ── JS/TS 依赖 ──
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -43,18 +53,7 @@ jobs:
       - name: Install pnpm dependencies
         run: pnpm install
 
-      # ── Rust：Linux 需要 Tauri GTK 系统库，macOS / Windows 已内置 ──
-      - name: Install Tauri system dependencies (Linux only)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libgtk-3-dev \
-            libwebkit2gtk-4.1-dev \
-            libayatana-appindicator3-dev \
-            librsvg2-dev \
-            patchelf
-
+      # ── Rust 依赖 ──
       - name: Setup Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
@@ -74,7 +73,7 @@ jobs:
       - name: Fetch Cargo dependencies
         run: cargo fetch
 
-      # ── Java ──
+      # ── Java 依赖 ──
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
@@ -93,92 +92,17 @@ jobs:
       - name: Download Gradle dependencies
         run: ./gradlew dependencies --no-daemon
 
-  # ────────────────────────────── 阶段二：执行任务 ──────────────────────────────
-
-  lint:
-    name: 'Lint & build (${{ matrix.os }})'
-    runs-on: ${{ matrix.os }}
-    needs: install
-    permissions:
-      contents: read
-
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      # ── Rust：Linux 需要 Tauri GTK 系统库，macOS / Windows 已内置 ──
-      - name: Install Tauri system dependencies (Linux only)
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libgtk-3-dev \
-            libwebkit2gtk-4.1-dev \
-            libayatana-appindicator3-dev \
-            librsvg2-dev \
-            patchelf
-
-      # ── JS/TS ──
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '24'
-          cache: 'pnpm'
-
-      - name: Install pnpm dependencies
-        run: pnpm install
-
+      # ── JS/TS lint ──
       - name: JS/TS lint
         run: pnpm pre-commit
 
-      # ── Rust ──
-      - name: Setup Rust toolchain
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          components: clippy, rustfmt
-
-      - name: Restore Cargo cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-cargo-
-
+      # ── Rust lint ──
       - name: Rust clippy
         run: cargo clippy --workspace --all-targets -- -D warnings
 
       - name: Rust rustfmt
         run: cargo fmt --all --check
 
-      # ── Java ──
-      - name: Setup Java
-        uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '21'
-
-      - name: Restore Gradle cache
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches/
-            ~/.gradle/wrapper/
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts', '**/gradle-wrapper.properties') }}
-          restore-keys: ${{ runner.os }}-gradle-
-
+      # ── Java build ──
       - name: Java build
         run: ./gradlew build --no-daemon
