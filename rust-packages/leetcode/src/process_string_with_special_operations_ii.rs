@@ -1,4 +1,6 @@
 pub fn process_str(s: String, k: i64) -> char {
+    // s: 由普通字符与特殊操作符 '*'（删末尾）、'#'（重复）、'%'（翻转）组成
+    // k: 最终字符串中的目标下标（0-based），超出则返回 '.'
     let total_len = s.chars().fold(0i64, |acc, c| match c {
         '*' => {
             if acc > 0 {
@@ -47,4 +49,56 @@ pub fn process_str(s: String, k: i64) -> char {
             });
 
     res_char
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn plain_string() {
+        // "abc" → ['a','b','c']，k=0→'a', k=2→'c'
+        assert_eq!(process_str("abc".to_string(), 0), 'a');
+        assert_eq!(process_str("abc".to_string(), 2), 'c');
+    }
+
+    #[test]
+    fn out_of_bounds() {
+        assert_eq!(process_str("abc".to_string(), 3), '.');
+    }
+
+    #[test]
+    fn star_delete() {
+        // "ab*" → "ab" 删末尾 → "a"，k=0→'a', k=1→'.'
+        assert_eq!(process_str("ab*".to_string(), 0), 'a');
+        assert_eq!(process_str("ab*".to_string(), 1), '.');
+    }
+
+    #[test]
+    fn hash_double() {
+        // "ab#" → "abab"，k=0→'a', k=2→'a', k=3→'b'
+        assert_eq!(process_str("ab#".to_string(), 0), 'a');
+        assert_eq!(process_str("ab#".to_string(), 2), 'a');
+        assert_eq!(process_str("ab#".to_string(), 3), 'b');
+    }
+
+    #[test]
+    fn percent_reverse() {
+        // "ab%" → "ba"，k=0→'b', k=1→'a'
+        assert_eq!(process_str("ab%".to_string(), 0), 'b');
+        assert_eq!(process_str("ab%".to_string(), 1), 'a');
+    }
+
+    #[test]
+    fn combined_ops() {
+        // "ab#%" → "abab" 再翻转 → "baba"，k=0→'b', k=1→'a'
+        assert_eq!(process_str("ab#%".to_string(), 0), 'b');
+        assert_eq!(process_str("ab#%".to_string(), 1), 'a');
+    }
+
+    #[test]
+    fn star_on_empty() {
+        // "*" → 空串，k=0 超出 → '.'
+        assert_eq!(process_str("*".to_string(), 0), '.');
+    }
 }

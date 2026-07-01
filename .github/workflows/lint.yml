@@ -103,6 +103,9 @@ jobs:
       - name: Rust rustfmt
         run: cargo fmt --all --check
 
+      - name: Rust test
+        run: cargo test --workspace
+
       # ── Java build ──
       - name: Java build
         run: ./gradlew build --no-daemon
