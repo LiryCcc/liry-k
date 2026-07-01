@@ -14,15 +14,12 @@ const syncBridge = () => {
   }));
 };
 
-let setupDone = false;
-
-/** 初始化 i18n（幂等，避免热更新重复注册）。 */
+/** 初始化 i18n（幂等：以实例自身 `isInitialized` 为 gate，从源头保证只桥接一次）。 */
 export const setupI18n = async (): Promise<void> => {
-  if (setupDone) {
+  if (i18n.isInitialized) {
     return;
   }
 
-  setupDone = true;
   i18n.use(LanguageDetector);
   i18n.on('languageChanged', syncBridge);
 
