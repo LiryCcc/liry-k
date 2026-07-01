@@ -3,8 +3,8 @@ export type Env = Record<string, unknown>;
 import p from '@@/package.json' with { type: 'json' };
 
 const worker: ExportedHandler<Env> = {
-  async fetch(_request: Request): Promise<Response> {
-    return new Response(`${p.name}`);
+  async fetch(request: Request): Promise<Response> {
+    return new Response(`${JSON.stringify(request)}${p.name}`);
   }
 };
 
