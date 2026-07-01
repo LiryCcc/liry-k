@@ -1,12 +1,12 @@
 {
-  "extends": "@liry-k/tsconfig",
   "compilerOptions": {
     "lib": ["ESNext"],
-    "types": ["@cloudflare/workers-types"],
     "paths": {
       "@/*": ["./src/*"],
       "@@/*": ["./*"]
-    }
+    },
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx"
   },
   "include": ["src", "eslint.config.ts", "vitest.config.ts", "worker-configuration.d.ts"]
 }

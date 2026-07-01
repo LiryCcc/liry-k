@@ -1,18 +1,14 @@
 {
-  "name": "@liry-k/liry-site-server",
-  "version": "0.1.0",
-  "private": true,
-  "description": "Cloudflare Worker backend for liry-site",
+  "name": "liry-site-hono",
   "type": "module",
   "scripts": {
-    "build": "wrangler deploy --dry-run --outdir dist",
-    "cf-typegen": "wrangler types",
-    "deploy": "wrangler deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareBindings",
+    "deploy": "wrangler deploy --minify",
     "dev": "wrangler dev",
-    "lint": "pnpm lint:type && pnpm lint:code",
-    "lint:code": "eslint . --cache",
-    "lint:type": "tsc -b",
-    "test": "vitest run"
+    "lint": "eslint . --cache"
+  },
+  "dependencies": {
+    "hono": "^4.12.27"
   },
   "devDependencies": {
     "@cloudflare/vitest-pool-workers": "^0.12.4",
