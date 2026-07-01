@@ -17,23 +17,23 @@ catalog:
   '@types/react': 19.2.17
   '@types/react-dom': 19.2.3
   '@types/w3c-web-usb': ^1.0.14
+  '@vitest/coverage-v8': ^4.1.9
+  datastructures-js: ^13.0.0
+  dayjs: ^1.11.21
   eslint: 10.5.0
   eslint-plugin-react: 7.37.5
   eslint-plugin-react-hooks: ^7.1.1
   eslint-plugin-react-refresh: ^0.5.3
   globals: 17.7.0
   normalize.css: ^8.0.1
+  radash: ^12.1.1
   react: ^19.2.7
   react-dom: ^19.2.7
   solid-js: ^1.9.12
   typescript: 6.0.3
   typescript-eslint: 8.62.0
   unplugin-solid: ^1.0.0
-  vite: ^8.1.0
+  vite: ^8.1.2
   vite-plugin-solid: ^2.11.12
+  vitest: ^4.1.9
   zod: ^4.4.3
-  '@vitest/coverage-v8': ^4.1.0
-  datastructures-js: ^13.0.0
-  dayjs: ^1.11.20
-  radash: ^12.1.1
-  vitest: ^4.1.0

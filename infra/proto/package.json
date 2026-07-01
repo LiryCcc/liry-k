@@ -28,7 +28,7 @@
     "@liry-k/build": "workspace:*",
     "@types/node": "catalog:",
     "protoc": "^35.1.0",
-    "ts-proto": "^2.11.8",
+    "ts-proto": "^2.11.10",
     "typescript": "catalog:"
   }
 }
