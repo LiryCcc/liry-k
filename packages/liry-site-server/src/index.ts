@@ -2,9 +2,9 @@
 export type Env = Record<string, unknown>;
 
 const worker: ExportedHandler<Env> = {
-	async fetch(_request: Request): Promise<Response> {
-		return new Response('Hello World!');
-	},
+  async fetch(_request: Request): Promise<Response> {
+    return new Response('Hello World!');
+  }
 };
 
 export default worker;

@@ -1,10 +1,14 @@
 {
-	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "liry-site-server",
-	"main": "src/index.ts",
-	"compatibility_date": "2025-07-01",
-	"compatibility_flags": ["nodejs_compat"],
-	"observability": {
-		"enabled": true,
-	},
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "liry-site-server",
+  "main": "src/index.ts",
+  "compatibility_date": "2025-07-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "alias": {
+    "@": "./src",
+    "@@": "./"
+  },
+  "observability": {
+    "enabled": true
+  }
 }
