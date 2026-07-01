@@ -1,0 +1,19 @@
+{
+  "extends": "@liry-k/tsconfig",
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM"],
+    "jsx": "react-jsx",
+    /**
+     * 算法练习包豁免项：
+     * - noUncheckedIndexedAccess 关闭，避免大量索引访问需要 undefined 判断。
+     * - noUnusedLocals / noUnusedParameters 关闭，练习代码中占位变量较多。
+     * - allowImportingTsExtensions 开启，源码内部用 .ts 后缀相互导入。
+     */
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "allowImportingTsExtensions": true
+  },
+  "include": ["."],
+  "exclude": ["node_modules", "dist", "coverage"]
+}

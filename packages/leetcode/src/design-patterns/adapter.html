@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      class TencentMap {
+        show() {
+          console.log('render tencent map');
+        }
+      }
+      class BaiduMap {
+        display() {
+          console.log('render baidu map');
+        }
+      }
+      class TencentAdapter extends TencentMap {
+        constructor() {
+          super();
+        }
+        display() {
+          this.show();
+        }
+      }
+
+      // 整合
+      function renderMap(map) {
+        map.display();
+      }
+    </script>
+  </body>
+</html>

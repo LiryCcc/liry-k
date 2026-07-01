@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const star = {
+        name: '11',
+        workPrice: 10000
+      };
+      const proxy = new Proxy(star, {
+        get(target, key) {
+          if (key === 'workPrice') {
+            console.log('can');
+          }
+          return target[key];
+        },
+        set(target, key, value) {
+          if (key === 'workPrice') {
+            console.log('set');
+            if (value > 10000) {
+              console.log('can');
+            } else {
+              throw new Error("can't");
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

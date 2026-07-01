@@ -32,3 +32,8 @@ catalog:
   vite: ^8.1.0
   vite-plugin-solid: ^2.11.12
   zod: ^4.4.3
+  '@vitest/coverage-v8': ^4.1.0
+  datastructures-js: ^13.0.0
+  dayjs: ^1.11.20
+  radash: ^12.1.1
+  vitest: ^4.1.0

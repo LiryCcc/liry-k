@@ -96,3 +96,4 @@
 - 修改后在本包或根目录执行与改动相关的 **lint / typecheck / build**，确认通过后再声称完成（含根目录 **`pnpm lint:comment-style`** 所覆盖的各包源码）。
 - 新增用户可见文案时：同步 `src/i18n/resources` 与 `translation-tree` 等类型定义，并走 `useTranslation` / `TypedT` 约定。
 - 接入 **API、postMessage、Worker 消息** 等外部输入时：遵守「外部输入与 Zod」，在边界用 `zod/v4` 解析，勿用断言代替校验。
+- **避免匿名 `export default`**：禁止直接 `export default function(…)` / `export default class` / `export default { … }` 等匿名形式；必须先声明具名 `const` / `function` / `class`，再单独 `export default <名称>`，例如 `const foo = …; export default foo;`。此规则便于在 import 侧推断名称、利于重构工具和 tree-shaking 分析。

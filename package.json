@@ -11,7 +11,8 @@
     "lint": "pnpm pre-commit",
     "lint:rust": "cargo clippy --workspace --all-targets -- -D warnings",
     "lint:rustfmt": "cargo fmt --all --check",
-    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm -r lint && pnpm lint:rust && pnpm lint:rustfmt",
+    "lint:style": "stylelint \"packages/**/*.css\" \"infra/**/*.css\"",
+    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm lint:style && pnpm -r lint && pnpm lint:rust && pnpm lint:rustfmt",
     "prepare": "simple-git-hooks"
   },
   "simple-git-hooks": {
@@ -33,6 +34,8 @@
     "prettier-plugin-packagejson": "^3.0.2",
     "prettier-plugin-toml": "^2.0.6",
     "simple-git-hooks": "^2.13.1",
+    "stylelint": "^17.14.0",
+    "stylelint-config-standard": "^40.0.0",
     "typescript-eslint": "catalog:"
   }
 }

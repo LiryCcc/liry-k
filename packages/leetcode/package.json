@@ -1,0 +1,32 @@
+{
+  "name": "@liry-k/leetcode",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "lint": "pnpm lint:type && pnpm lint:code",
+    "lint:code": "eslint . --cache",
+    "lint:type": "tsc -b",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "datastructures-js": "catalog:",
+    "dayjs": "catalog:",
+    "radash": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@liry-k/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitest/coverage-v8": "catalog:",
+    "eslint": "catalog:",
+    "globals": "catalog:",
+    "react": "catalog:",
+    "react-dom": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "vitest": "catalog:"
+  }
+}

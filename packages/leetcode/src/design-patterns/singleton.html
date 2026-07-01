@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .liry-modal {
+        position: fixed;
+        width: 20%;
+        height: 20%;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: aquamarine;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <button id="open">open</button>
+    <button id="close">close</button>
+    <script>
+      const Modal = (function () {
+        let instance = null;
+        return function () {
+          if (!instance) {
+            instance = document.createElement('div');
+            instance.innerHTML = '登录对话框';
+            instance.className = 'liry-modal';
+            instance.style.display = 'none';
+            document.body.appendChild(instance); // 修正了 appendChild 的使用
+          }
+          return instance;
+        };
+      })();
+
+      document.querySelector('#open').onclick = function () {
+        const modal = Modal();
+        modal.style.display = 'block';
+      };
+
+      document.querySelector('#close').onclick = function () {
+        const modal = Modal();
+        if (modal.style.display === 'block') {
+          modal.style.display = 'none';
+        }
+      };
+    </script>
+  </body>
+</html>

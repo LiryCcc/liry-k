@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * 调度中心
+       */
+      const PubSub = {
+        list: [],
+        publish() {
+          this.list.forEach((item) => item());
+        },
+        subscribe(cb) {
+          this.list.push(cb);
+        }
+      };
+      function a() {
+        console.log('a');
+      }
+      function b() {
+        console.log('b');
+      }
+      PubSub.subscribe(a);
+      PubSub.subscribe(b);
+      PubSub.publish();
+    </script>
+  </body>
+</html>

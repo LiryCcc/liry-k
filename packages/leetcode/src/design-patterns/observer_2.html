@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        display: flex;
+        height: 500px;
+      }
+      .box .left {
+        width: 150px;
+        background-color: slategray;
+      }
+      .box .right {
+        flex: 1;
+        background-color: yellow;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="left">
+        <ul>
+          <li>首页</li>
+          <li>用户管理</li>
+          <li>权限管理</li>
+          <li>新闻管理</li>
+        </ul>
+      </div>
+      <div class="right">
+        <div class="bread"></div>
+      </div>
+    </div>
+    <script>
+      class Subject {
+        constructor() {
+          this.observers = [];
+        }
+        add(observer) {
+          this.observers.push(observer);
+        }
+        notify(content) {
+          this.observers.forEach((observer) => observer.update(content));
+        }
+      }
+      class Observer {
+        constructor(name) {
+          this.name = name;
+        }
+        update(content) {
+          console.log('更新内容:', content);
+          document.querySelector('.' + this.name).innerHTML = content;
+        }
+      }
+      const subject = new Subject();
+      const observer = new Observer('bread');
+      subject.add(observer);
+      const oli = document.querySelectorAll('.left li');
+      for (let i = 0; i < oli.length; i++) {
+        oli[i].onclick = function () {
+          subject.notify(this.innerHTML);
+        };
+      }
+    </script>
+  </body>
+</html>

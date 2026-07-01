@@ -10,9 +10,5 @@ serde = { version = "1.0.228", features = ["derive"] }
 const_format = "0.2.36"
 url = "2.5.4"
 
-[dev-dependencies]
-clippy = "0.0.302"
-rustfmt = "0.10.0"
-
 [lints]
 workspace = true

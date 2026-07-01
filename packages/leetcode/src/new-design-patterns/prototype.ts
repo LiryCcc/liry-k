@@ -1,0 +1,45 @@
+// 构造函数，缺点是每个实例都会存一份函数，比较占内存，一般不用
+class FunctionEmployee {
+  name: string;
+  age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+  say() {
+    console.log(`${this.name} is ${this.age} years old`);
+  }
+}
+const funcEmployee1 = new FunctionEmployee('张三', 18);
+
+// 原型模式，相比构造函数，会把成员函数挂载在原型链，省内存
+class PrototypeEmployee {
+  name: string;
+  age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+  say() {
+    console.log(`${this.name} is ${this.age} years old`);
+  }
+}
+
+const prototypeEmployee1 = new PrototypeEmployee('张三', 18);
+
+// 类模式，相比构造函数，会创建一个类，成员函数默认挂载在原型链，类会继承原型链上的成员函数
+class ClassEmployee {
+  name: string;
+  age: number;
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+  say() {
+    console.log(`${this.name} is ${this.age} years old`);
+  }
+}
+
+const classEmployee1 = new ClassEmployee('张三', 18);
+
+export { ClassEmployee, FunctionEmployee, PrototypeEmployee, classEmployee1, funcEmployee1, prototypeEmployee1 };

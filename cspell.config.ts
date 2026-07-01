@@ -68,7 +68,17 @@ const cspellConfig = defineConfig({
     'appindicator',
     'librsvg',
     'sdkman',
-    'adoptium'
+    'adoptium',
+    'datastructures',
+    'leetcode',
+    'subarrays',
+    'psum',
+    'radash',
+    'arrs',
+    'aeiou',
+    'aeiaeia',
+    'overscan',
+    'vitest'
   ]
 });
 

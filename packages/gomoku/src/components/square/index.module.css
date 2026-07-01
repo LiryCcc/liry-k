@@ -1,7 +1,7 @@
 .square {
   width: 256px;
   height: 256px;
-  background-color: rgb(200, 208, 158);
+  background-color: rgb(200 208 158);
   position: relative;
 }
 
@@ -14,7 +14,7 @@
   height: 4px;
   border-radius: 50%;
   border: 1px solid #333;
-  background-color: rgba(210, 106, 106, 0.85);
+  background-color: rgb(210 106 106 / 85%);
 }
 
 .center-point {
