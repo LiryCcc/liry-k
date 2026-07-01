@@ -1,4 +1,4 @@
-# 两阶段 CI：
+# 两阶段 CI，在 ubuntu / macos / windows 三个平台各自独立运行：
 #   阶段一：install 单个 job 串行安装所有语言依赖
 #   阶段二：lint 单个 job 串行执行所有语言的 lint/build
 name: Lint
@@ -11,11 +11,18 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # ────────────────────────────── 阶段一：安装依赖 ──────────────────────────────
+
   install:
-    name: Install dependencies
-    runs-on: ubuntu-latest
+    name: 'Install dependencies (${{ matrix.os }})'
+    runs-on: ${{ matrix.os }}
     permissions:
       contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Checkout repository
@@ -36,8 +43,9 @@ jobs:
       - name: Install pnpm dependencies
         run: pnpm install
 
-      # ── Rust ──
-      - name: Install Tauri system dependencies
+      # ── Rust：Linux 需要 Tauri GTK 系统库，macOS / Windows 已内置 ──
+      - name: Install Tauri system dependencies (Linux only)
+        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -85,19 +93,27 @@ jobs:
       - name: Download Gradle dependencies
         run: ./gradlew dependencies --no-daemon
 
+  # ────────────────────────────── 阶段二：执行任务 ──────────────────────────────
+
   lint:
-    name: Lint & build
-    runs-on: ubuntu-latest
+    name: 'Lint & build (${{ matrix.os }})'
+    runs-on: ${{ matrix.os }}
     needs: install
     permissions:
       contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # ── 系统依赖（Tauri / Rust 均需要，提前统一安装）──
-      - name: Install Tauri system dependencies
+      # ── Rust：Linux 需要 Tauri GTK 系统库，macOS / Windows 已内置 ──
+      - name: Install Tauri system dependencies (Linux only)
+        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y \
