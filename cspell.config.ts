@@ -59,7 +59,16 @@ const cspellConfig = defineConfig({
     'unplugin',
     'papermc',
     'dists',
-    'protoc'
+    'protoc',
+    'rustup',
+    'tlsv',
+    'libwebkit',
+    'libxdo',
+    'libayatana',
+    'appindicator',
+    'librsvg',
+    'sdkman',
+    'adoptium'
   ]
 });
 
