@@ -1,4 +1,7 @@
-# 任意分支 push 后执行根目录 pnpm lint（递归运行各 workspace 包中已声明的 lint 脚本）。
+# 任意分支 push 后并行执行三个 workspace 的检查：
+#   - js-lint：pnpm pre-commit（Prettier / cspell / eslint）
+#   - rust-lint：cargo clippy
+#   - java-build：./gradlew build
 name: Lint
 
 on:
@@ -9,7 +12,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  lint:
+  js-lint:
+    name: JS/TS lint
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -17,13 +21,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
-      - name: Setup Rust & Cargo
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          override: true
-          profile: default
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -41,3 +38,60 @@ jobs:
 
       - name: Run lint
         run: pnpm pre-commit
+
+  rust-lint:
+    name: Rust clippy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Rust & Cargo
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - name: Cache Cargo registry & build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: Run clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+  java-build:
+    name: Java build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Cache Gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches/
+            ~/.gradle/wrapper/
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts', '**/gradle-wrapper.properties') }}
+          restore-keys: ${{ runner.os }}-gradle-
+
+      - name: Build
+        run: ./gradlew build

@@ -9,11 +9,11 @@ const cspellConfig = defineConfig({
     'rust-packages/**/target',
     'packages/polaris/src-tauri/**',
     'infra/proto/src/generated/**',
-    'mc-plugins/**/gradlew.bat',
-    'mc-plugins/**/gradle-wrapper.properties',
-    'mc-plugins/**/gradlew',
-    'mc-plugins/**/build.gradle.kts',
-    'mc-plugins/**/settings.gradle.kts'
+    '**/gradlew.bat',
+    '**/gradle-wrapper.properties',
+    '**/gradlew',
+    '**/build.gradle.kts',
+    '**/settings.gradle.kts'
   ],
   useGitignore: true,
   version: '0.2',
@@ -56,7 +56,9 @@ const cspellConfig = defineConfig({
     'nums',
     'tanstack',
     'vite',
-    'unplugin'
+    'unplugin',
+    'papermc',
+    'dists'
   ]
 });
 

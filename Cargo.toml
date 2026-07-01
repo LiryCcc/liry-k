@@ -1,0 +1,13 @@
+[workspace]
+members = ["rust-packages/leetcode", "rust-packages/sirius", "packages/polaris/src-tauri"]
+resolver = "2"
+
+[workspace.lints.rust]
+warnings = "deny"
+unused_mut = "warn"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+panic_in_result_fn = "deny"
+needless_borrow = "warn"
+too_many_arguments = "warn"
