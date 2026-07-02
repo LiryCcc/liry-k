@@ -88,6 +88,7 @@ const cspellConfig = defineConfig({
     'Mbps',
     'TOTP',
     'totp',
+    'cookiechange',
     'oathtool',
     'notif',
     'Notif',

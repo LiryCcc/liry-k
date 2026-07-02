@@ -22,7 +22,11 @@ const viteConfig = defineConfig({
   },
   builder: {},
   server: {
-    port: 45892
+    port: 45893,
+    headers: {
+      // 仅对 src 下 worker 文件放行全局scope
+      'Service-Worker-Allowed': '/'
+    }
   },
   optimizeDeps: {
     include: ['@liry-k/stellar']
