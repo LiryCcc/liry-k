@@ -12,20 +12,10 @@ export const info = (label: string, ...data: unknown[]): void => {
 };
 
 export const initObservability = async (): Promise<void> => {
-  try {
-    await import('@opentelemetry/api');
-    pushObservabilityEvent({
-      label: 'OpenTelemetry loaded',
-      level: 'info',
-      data: 'API initialized',
-      timestamp: now()
-    });
-  } catch (e) {
-    pushObservabilityEvent({
-      label: 'OpenTelemetry init error',
-      level: 'error',
-      data: String(e),
-      timestamp: now()
-    });
-  }
+  pushObservabilityEvent({
+    label: 'OpenTelemetry API available',
+    level: 'info',
+    data: '',
+    timestamp: now()
+  });
 };
