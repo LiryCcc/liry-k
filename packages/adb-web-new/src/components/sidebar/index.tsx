@@ -1,6 +1,6 @@
 import { useTranslation } from '@/i18n/use-translation.js';
 import { Text } from '@fluentui/react-components';
-import { DeviceEqRegular, HomeRegular } from '@fluentui/react-icons';
+import { DeviceEqRegular, HomeRegular, SettingsRegular } from '@fluentui/react-icons';
 import { Link, useRouterState } from '@tanstack/react-router';
 import styles from './index.module.css';
 
@@ -21,6 +21,10 @@ export const Sidebar = ({ collapsed }: { collapsed: boolean }) => {
         <Link to='/devices' className={linkClass(pathname, '/devices')}>
           <DeviceEqRegular />
           {collapsed ? null : <Text>{t('nav.devices')}</Text>}
+        </Link>
+        <Link to='/basic-operations' className={linkClass(pathname, '/basic-operations')}>
+          <SettingsRegular />
+          {collapsed ? null : <Text>{t('nav.basicOperations')}</Text>}
         </Link>
       </nav>
     </aside>

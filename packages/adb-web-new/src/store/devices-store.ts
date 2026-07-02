@@ -1,20 +1,24 @@
 import { Store } from '@tanstack/react-store';
+import type { Adb } from '@yume-chan/adb';
 import type { AdbDaemonWebUsbDevice } from '@yume-chan/adb-daemon-webusb';
 
 export type DevicesState = {
   devices: AdbDaemonWebUsbDevice[];
   currentDevice: AdbDaemonWebUsbDevice | null;
+  adb: Adb | null;
 };
 
 export const devicesStore = new Store<DevicesState>({
   devices: [],
-  currentDevice: null
+  currentDevice: null,
+  adb: null
 });
 
-export const setCurrentDevice = (device: AdbDaemonWebUsbDevice | null) => {
+export const setCurrentDevice = (device: AdbDaemonWebUsbDevice | null, adb?: Adb | null) => {
   devicesStore.setState((prev) => ({
     ...prev,
-    currentDevice: device
+    currentDevice: device,
+    adb: adb !== undefined ? adb : prev.adb
   }));
 };
 

@@ -1,0 +1,24 @@
+.page {
+  padding: 2rem;
+}
+
+.section {
+  margin-top: 1.5rem;
+  max-width: 400px;
+}
+
+.section-title {
+  margin-bottom: 0.5rem;
+}
+
+.slider-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.slider-value {
+  min-width: 2.5rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}

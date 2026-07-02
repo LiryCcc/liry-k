@@ -7,7 +7,13 @@ export const enResources: TranslationTree = {
     desc: 'Welcome to ADB Web.',
     title: 'Home'
   },
-  nav: { collapse: 'Collapse sidebar', devices: 'Devices', expand: 'Expand sidebar', home: 'Home' },
+  nav: {
+    basicOperations: 'Basic Ops',
+    collapse: 'Collapse sidebar',
+    devices: 'Devices',
+    expand: 'Expand sidebar',
+    home: 'Home'
+  },
   notFound: {
     backHome: 'Back to home',
     desc: 'This page does not exist.',
@@ -25,8 +31,16 @@ export const enResources: TranslationTree = {
   },
   connect: {
     buttonLabel: 'Connect Device',
+    connectingMessage: 'Please confirm on your device.',
+    connectingTitle: 'Connecting',
     current: 'Current',
     disconnected: 'Disconnected'
+  },
+  basicOperations: {
+    brightness: 'Brightness',
+    noDevice: 'No device connected.',
+    title: 'Basic Operations',
+    volume: 'Volume'
   },
   devices: {
     androidVersion: 'Android Version',
