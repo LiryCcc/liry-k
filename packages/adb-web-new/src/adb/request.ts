@@ -18,3 +18,12 @@ export const requestAdbDaemonWebUsbDevice = async (): Promise<RequestAdbDaemonWe
   }
   return { success: false };
 };
+
+export const getPairedDevices = async (): Promise<AdbDaemonWebUsbDevice[]> => {
+  try {
+    const devices = await window.ADB_DAEMON_WEB_USB_DEVICE_MANAGER?.getDevices();
+    return devices ?? [];
+  } catch {
+    return [];
+  }
+};

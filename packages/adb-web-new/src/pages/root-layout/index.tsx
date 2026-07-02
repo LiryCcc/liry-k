@@ -1,8 +1,8 @@
-import { requestAdbDaemonWebUsbDevice } from '@/adb/request.js';
+import { getPairedDevices, requestAdbDaemonWebUsbDevice } from '@/adb/request.js';
 import { Sidebar } from '@/components/sidebar/index.js';
 import type { TranslationKey } from '@/i18n/translation-tree.js';
 import { useTranslation } from '@/i18n/use-translation.js';
-import { addDevice, devicesStore, setCurrentDevice } from '@/store/devices-store.js';
+import { addDevice, devicesStore, removeDeviceBySerial, setCurrentDevice } from '@/store/devices-store.js';
 import type { ThemeName } from '@/store/theme-store.js';
 import { setTheme, themeNames, themeStore } from '@/store/theme-store.js';
 import {
@@ -25,7 +25,7 @@ import { Outlet } from '@tanstack/react-router';
 import { useSelector } from '@tanstack/react-store';
 import { Adb, AdbDaemonTransport } from '@yume-chan/adb';
 import type { ReactElement } from 'react';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import styles from './index.module.css';
 
 const themeIconMap: Record<ThemeName, ReactElement> = {
@@ -50,6 +50,54 @@ const RootLayout = () => {
   const devices = useSelector(devicesStore, (state) => state.devices);
 
   const [connecting, setConnecting] = useState(false);
+
+  useEffect(() => {
+    const onDisconnect = (event: USBConnectionEvent) => {
+      const serial = event.device.serialNumber;
+      if (serial) {
+        removeDeviceBySerial(serial);
+      }
+    };
+    navigator.usb.addEventListener('disconnect', onDisconnect);
+    return () => navigator.usb.removeEventListener('disconnect', onDisconnect);
+  }, []);
+
+  const handleConnect = useCallback(async () => {
+    const paired = await getPairedDevices();
+    const knownSerials = new Set(devicesStore.state.devices.map((d) => d.serial));
+    const newPaired = paired.filter((d) => !knownSerials.has(d.serial));
+    let device = newPaired[0];
+
+    if (!device) {
+      const result = await requestAdbDaemonWebUsbDevice();
+      if (result.success) {
+        device = result.device;
+      }
+    }
+
+    if (!device) {
+      alert('connect error');
+      return;
+    }
+
+    addDevice(device);
+    setCurrentDevice(device);
+    setConnecting(true);
+    try {
+      const connection = await device.connect();
+      const transport = await AdbDaemonTransport.authenticate({
+        serial: device.serial,
+        connection,
+        credentialStore: window.ADB_WEB_CREDENTIAL_STORE
+      });
+      const adb = new Adb(transport);
+      setCurrentDevice(device, adb);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setConnecting(false);
+    }
+  }, []);
 
   const toggleCollapsed = useCallback(() => {
     setCollapsed((v) => !v);
@@ -140,35 +188,7 @@ const RootLayout = () => {
         >
           {langLabel}
         </Button>
-        <Button
-          onClick={async () => {
-            const connect = await requestAdbDaemonWebUsbDevice();
-            if (connect.success === true) {
-              const { device } = connect;
-              addDevice(device);
-              setCurrentDevice(device);
-              setConnecting(true);
-              try {
-                const connection = await device.connect();
-                const transport = await AdbDaemonTransport.authenticate({
-                  serial: device.serial,
-                  connection,
-                  credentialStore: window.ADB_WEB_CREDENTIAL_STORE
-                });
-                const adb = new Adb(transport);
-                setCurrentDevice(device, adb);
-              } catch (e) {
-                console.error(e);
-              } finally {
-                setConnecting(false);
-              }
-            } else {
-              alert('connect error');
-            }
-          }}
-        >
-          {t('connect.buttonLabel')}
-        </Button>
+        <Button onClick={handleConnect}>{t('connect.buttonLabel')}</Button>
       </header>
       <Dialog open={connecting}>
         <DialogSurface>

@@ -10,10 +10,11 @@ export const setupI18n = async (): Promise<void> => {
   if (i18n.isInitialized) {
     return;
   }
+  window.I18N = i18n;
 
   i18n.use(LanguageDetector);
 
-  await i18n.init({
+  const tFunction = await i18n.init({
     detection: {
       caches: ['localStorage'],
       order: ['localStorage', 'navigator', 'htmlTag']
@@ -26,4 +27,6 @@ export const setupI18n = async (): Promise<void> => {
     },
     supportedLngs: ['en', 'zh']
   });
+  window.T_FUNCTION = tFunction;
+  window.I18N_READY = true;
 };

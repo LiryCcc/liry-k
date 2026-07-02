@@ -40,6 +40,21 @@ export const removeDevice = (device: AdbDaemonWebUsbDevice) => {
   });
 };
 
+export const removeDeviceBySerial = (serial: string) => {
+  devicesStore.setState((prev) => {
+    const adb = prev.adb;
+    if (adb && prev.currentDevice?.serial === serial) {
+      adb.close().catch(() => {});
+    }
+    return {
+      ...prev,
+      devices: prev.devices.filter((v) => v.serial !== serial),
+      currentDevice: prev.currentDevice?.serial === serial ? null : prev.currentDevice,
+      adb: prev.currentDevice?.serial === serial ? null : prev.adb
+    };
+  });
+};
+
 export type DeviceHistoryInfo = {
   serial: string;
   name: string;
