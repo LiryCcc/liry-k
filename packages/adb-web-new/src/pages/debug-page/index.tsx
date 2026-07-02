@@ -15,7 +15,7 @@ const KV = ({ label, value }: { label: string; value: string }) => (
 
 const DebugPage = () => {
   const { t } = useTranslation();
-  const debugData = useSelector(debugDataStore, (state) => state);
+  const dd = useSelector(debugDataStore, (state) => state);
   const deviceState = useSelector(devicesStore, (state) => state);
   const themeState = useSelector(themeStore, (state) => state);
 
@@ -29,19 +29,50 @@ const DebugPage = () => {
         <Text as='h2' size={500} weight='semibold'>
           {t('debug.environment')}
         </Text>
-        <KV label='User Agent' value={debugData.userAgent} />
-        <KV label='Platform' value={debugData.platform} />
-        <KV label='Language' value={debugData.language} />
-        <KV label='URL' value={debugData.url} />
+        <KV label='User Agent' value={dd.environment.userAgent} />
+        <KV label='Platform' value={dd.environment.platform} />
+        <KV label='Language' value={dd.environment.language} />
+        <KV label='URL' value={dd.environment.url} />
+        <KV label='CPU Cores' value={String(dd.environment.hardwareConcurrency)} />
+        <KV label='Cookie Enabled' value={String(dd.environment.cookieEnabled)} />
       </div>
 
       <div className={styles['section']}>
         <Text as='h2' size={500} weight='semibold'>
-          {t('debug.envVars')}
+          {t('debug.screen')}
         </Text>
-        {Object.entries(import.meta.env).map(([key, value]) => (
-          <KV key={key} label={key} value={String(value)} />
+        <KV label='Resolution' value={`${dd.screen.width} x ${dd.screen.height}`} />
+        <KV label='Device Pixel Ratio' value={String(dd.screen.devicePixelRatio)} />
+        <KV label='Color Depth' value={String(dd.screen.colorDepth)} />
+        <KV label='Orientation' value={dd.screen.orientation} />
+      </div>
+
+      <div className={styles['section']}>
+        <Text as='h2' size={500} weight='semibold'>
+          {t('debug.network')}
+        </Text>
+        <KV label='Online' value={String(dd.network.online)} />
+        <KV label='Effective Type' value={dd.network.connection.effectiveType} />
+        <KV label='Downlink' value={`${dd.network.connection.downlink} Mbps`} />
+        <KV label='RTT' value={`${dd.network.connection.rtt} ms`} />
+      </div>
+
+      <div className={styles['section']}>
+        <Text as='h2' size={500} weight='semibold'>
+          {t('debug.capabilities')}
+        </Text>
+        {Object.entries(dd.capabilities).map(([key, val]) => (
+          <KV key={key} label={key} value={String(val)} />
         ))}
+      </div>
+
+      <div className={styles['section']}>
+        <Text as='h2' size={500} weight='semibold'>
+          {t('debug.storage')}
+        </Text>
+        <KV label='localStorage Keys' value={String(dd.storage.localStorageCount)} />
+        <KV label='localStorage Size' value={dd.storage.localStorageSize} />
+        <KV label='Cache Names' value={dd.storage.cacheNames.join(', ') || '(none)'} />
       </div>
 
       <div className={styles['section']}>

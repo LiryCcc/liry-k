@@ -85,6 +85,7 @@ const cspellConfig = defineConfig({
     'undici',
     'hono',
     'protobufjs',
+    'Mbps',
     'tsdown'
   ]
 });

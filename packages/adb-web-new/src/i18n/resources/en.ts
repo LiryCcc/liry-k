@@ -23,6 +23,10 @@ export const enResources: TranslationTree = {
     title: 'Debug Info',
     environment: 'Environment',
     envVars: 'Environment Variables',
+    screen: 'Screen',
+    network: 'Network',
+    capabilities: 'Capabilities',
+    storage: 'Storage',
     theme: 'Theme',
     font: 'Font',
     adb: 'ADB Device'

@@ -8,7 +8,18 @@ export type TranslationTree = {
   home: { desc: string; title: string };
   nav: { basicOperations: string; collapse: string; devices: string; expand: string; home: string };
   notFound: { backHome: string; desc: string; title: string };
-  debug: { title: string; environment: string; envVars: string; theme: string; font: string; adb: string };
+  debug: {
+    title: string;
+    environment: string;
+    envVars: string;
+    screen: string;
+    network: string;
+    capabilities: string;
+    storage: string;
+    theme: string;
+    font: string;
+    adb: string;
+  };
   ui: {
     adbDocLabel: string;
     switchToEn: string;
