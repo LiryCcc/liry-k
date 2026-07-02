@@ -2,8 +2,10 @@ import { useTranslation } from '@/i18n/use-translation.js';
 import { debugDataStore } from '@/store/debug-data-store.js';
 import { devicesStore } from '@/store/devices-store.js';
 import { themeStore } from '@/store/theme-store.js';
+import { getCurrentTOTPCode } from '@/utils/totp.js';
 import { Text } from '@fluentui/react-components';
 import { useSelector } from '@tanstack/react-store';
+import { useEffect, useState } from 'react';
 import styles from './index.module.css';
 
 const KV = ({ label, value }: { label: string; value: string }) => (
@@ -18,6 +20,21 @@ const DebugPage = () => {
   const dd = useSelector(debugDataStore, (state) => state);
   const deviceState = useSelector(devicesStore, (state) => state);
   const themeState = useSelector(themeStore, (state) => state);
+  const [totpCode, setTotpCode] = useState('');
+
+  useEffect(() => {
+    const update = async () => {
+      try {
+        const code = await getCurrentTOTPCode(__TOTP_SECRET__);
+        setTotpCode(code);
+      } catch {
+        /**/
+      }
+    };
+    update();
+    const id = setInterval(update, 10000);
+    return () => clearInterval(id);
+  }, []);
 
   return (
     <div className={styles['page']}>
@@ -73,6 +90,14 @@ const DebugPage = () => {
         <KV label='localStorage Keys' value={String(dd.storage.localStorageCount)} />
         <KV label='localStorage Size' value={dd.storage.localStorageSize} />
         <KV label='Cache Names' value={dd.storage.cacheNames.join(', ') || '(none)'} />
+      </div>
+
+      <div className={styles['section']}>
+        <Text as='h2' size={500} weight='semibold'>
+          {t('debug.totp')}
+        </Text>
+        <KV label='Secret' value={`${__TOTP_SECRET__.slice(0, 8)}...`} />
+        <KV label='Current Code' value={totpCode} />
       </div>
 
       <div className={styles['section']}>

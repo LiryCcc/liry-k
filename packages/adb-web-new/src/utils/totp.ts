@@ -29,6 +29,12 @@ const generateTOTP = async (secretHex: string, counter: number): Promise<string>
 const WINDOW = 1;
 const STEP = 30;
 
+export const getCurrentTOTPCode = async (secretHex: string): Promise<string> => {
+  const now = Math.floor(Date.now() / 1000);
+  const counter = Math.floor(now / STEP);
+  return generateTOTP(secretHex, counter);
+};
+
 export const verifyTOTP = async (secretHex: string, token: string): Promise<boolean> => {
   const now = Math.floor(Date.now() / 1000);
   const counter = Math.floor(now / STEP);

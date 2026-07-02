@@ -16,6 +16,7 @@ export type TranslationTree = {
     network: string;
     capabilities: string;
     storage: string;
+    totp: string;
     totpTitle: string;
     totpPlaceholder: string;
     totpVerify: string;

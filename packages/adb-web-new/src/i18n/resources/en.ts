@@ -27,6 +27,7 @@ export const enResources: TranslationTree = {
     network: 'Network',
     capabilities: 'Capabilities',
     storage: 'Storage',
+    totp: 'TOTP',
     totpTitle: 'Debug Access',
     totpPlaceholder: 'Enter TOTP code',
     totpVerify: 'Verify',
