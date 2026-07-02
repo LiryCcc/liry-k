@@ -6,6 +6,7 @@ import { addDevice, devicesStore, removeDeviceBySerial, setCurrentDevice } from 
 import type { ThemeName } from '@/store/theme-store.js';
 import { setTheme, themeNames, themeStore } from '@/store/theme-store.js';
 import { unlockDebug } from '@/utils/debug-guard.js';
+import { verifyTOTP } from '@/utils/totp.js';
 import {
   Button,
   Dialog,
@@ -13,6 +14,7 @@ import {
   DialogContent,
   DialogSurface,
   DialogTitle,
+  Input,
   Menu,
   MenuItem,
   MenuList,
@@ -52,6 +54,9 @@ const RootLayout = () => {
 
   const [connecting, setConnecting] = useState(false);
   const [titleClickCount, setTitleClickCount] = useState(0);
+  const [totpDialogOpen, setTotpDialogOpen] = useState(false);
+  const [totpCode, setTotpCode] = useState('');
+  const [totpError, setTotpError] = useState('');
   const navigate = useNavigate();
 
   const handleTitleClick = useCallback(() => {
@@ -59,10 +64,22 @@ const RootLayout = () => {
     setTitleClickCount(next);
     if (next >= 7) {
       setTitleClickCount(0);
+      setTotpCode('');
+      setTotpError('');
+      setTotpDialogOpen(true);
+    }
+  }, [titleClickCount]);
+
+  const handleTotpSubmit = useCallback(async () => {
+    const ok = await verifyTOTP(__TOTP_SECRET__, totpCode);
+    if (ok) {
+      setTotpDialogOpen(false);
       unlockDebug();
       navigate({ to: '/debug' });
+    } else {
+      setTotpError('Invalid code');
     }
-  }, [titleClickCount, navigate]);
+  }, [totpCode, navigate]);
 
   useEffect(() => {
     const onDisconnect = (event: USBConnectionEvent) => {
@@ -195,6 +212,17 @@ const RootLayout = () => {
             </MenuList>
           </MenuPopover>
         </Menu>
+        {import.meta.env.DEV && (
+          <Button
+            appearance='subtle'
+            onClick={() => {
+              unlockDebug();
+              navigate({ to: '/debug' });
+            }}
+          >
+            {t('debug.title')}
+          </Button>
+        )}
         <Button
           appearance='subtle'
           onClick={() => {
@@ -212,6 +240,28 @@ const RootLayout = () => {
             <DialogContent className={styles['connecting-content']}>
               <Spinner size='medium' />
               <span>{t('connect.connectingMessage')}</span>
+            </DialogContent>
+          </DialogBody>
+        </DialogSurface>
+      </Dialog>
+      <Dialog open={totpDialogOpen}>
+        <DialogSurface>
+          <DialogBody>
+            <DialogTitle>{t('debug.totpTitle')}</DialogTitle>
+            <DialogContent className={styles['connecting-content']}>
+              <Input
+                placeholder={t('debug.totpPlaceholder')}
+                value={totpCode}
+                onChange={(_e, data) => {
+                  setTotpCode(data.value);
+                  setTotpError('');
+                }}
+                maxLength={6}
+              />
+              {totpError && <span style={{ color: 'var(--colorPaletteRedForeground1)' }}>{totpError}</span>}
+              <Button appearance='primary' onClick={handleTotpSubmit}>
+                {t('debug.totpVerify')}
+              </Button>
             </DialogContent>
           </DialogBody>
         </DialogSurface>

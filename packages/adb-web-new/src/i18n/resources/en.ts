@@ -27,6 +27,10 @@ export const enResources: TranslationTree = {
     network: 'Network',
     capabilities: 'Capabilities',
     storage: 'Storage',
+    totpTitle: 'Debug Access',
+    totpPlaceholder: 'Enter TOTP code',
+    totpVerify: 'Verify',
+    totpError: 'Invalid code',
     theme: 'Theme',
     font: 'Font',
     adb: 'ADB Device'

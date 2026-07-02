@@ -16,6 +16,10 @@ export type TranslationTree = {
     network: string;
     capabilities: string;
     storage: string;
+    totpTitle: string;
+    totpPlaceholder: string;
+    totpVerify: string;
+    totpError: string;
     theme: string;
     font: string;
     adb: string;

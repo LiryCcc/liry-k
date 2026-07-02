@@ -21,6 +21,10 @@ export const zhResources: TranslationTree = {
     network: '网络',
     capabilities: '能力',
     storage: '存储',
+    totpTitle: '调试入口',
+    totpPlaceholder: '输入 TOTP 验证码',
+    totpVerify: '验证',
+    totpError: '验证码错误',
     theme: '主题',
     font: '字体',
     adb: 'ADB 设备'

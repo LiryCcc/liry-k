@@ -86,6 +86,9 @@ const cspellConfig = defineConfig({
     'hono',
     'protobufjs',
     'Mbps',
+    'TOTP',
+    'totp',
+    'oathtool',
     'tsdown'
   ]
 });

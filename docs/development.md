@@ -187,3 +187,40 @@ pnpm --filter @liry-k/polaris tauri dev
 # 构建 mc-plugins
 ./gradlew build
 ```
+
+---
+
+## 七、调试页面
+
+`adb-web-new` 包包含一个隐藏的调试页面，用于查看运行时状态、环境信息和依赖版本。
+
+### 打开方式
+
+1. **点击标题**：在 `adb-web-new` 页面顶部，**连续点击标题「ADB Web」7 次**，会弹出 TOTP 验证对话框
+2. **TOTP 验证**：输入与当前构建匹配的 TOTP 验证码（6 位数字），验证通过后自动跳转到 `/debug` 页面
+
+### 验证码获取
+
+TOTP 种子在每次构建时随机生成，可通过以下方式获取当前验证码：
+
+- 查看构建日志中 `__TOTP_SECRET__` 的值，使用 TOTP 工具（如 `oathtool`）生成：
+  ```bash
+  oathtool --totp -b <secret-hex>
+  ```
+- 或结合 `jq` 从构建产物中提取（需访问源码构建环境）
+
+### 路由守卫
+
+直接访问 `/debug` URL 会被 `beforeLoad` 路由守卫拦截并重定向到首页。
+
+### 调试页面包含
+
+| 板块         | 内容                                                    |
+| ------------ | ------------------------------------------------------- |
+| Environment  | User Agent、Platform、Language、URL、CPU 核心数、Cookie |
+| Screen       | 分辨率、devicePixelRatio、色深、屏幕方向                |
+| Network      | 在线状态、网络类型、下行速度、RTT                       |
+| Capabilities | WebUSB、WebSerial、WebBluetooth、WebHID、WebMIDI 等     |
+| Storage      | localStorage 键数量、大小、Cache Storage 名称列表       |
+| Theme        | 当前主题                                                |
+| ADB Device   | ADB 连接状态、当前设备、设备数量                        |
