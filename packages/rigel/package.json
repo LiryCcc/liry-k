@@ -12,9 +12,9 @@
   "devDependencies": {
     "@liry-k/build": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
-    "@lit-labs/signals": "^0.3.0",
+    "@lit-labs/signals": "catalog:",
     "@types/node": "catalog:",
-    "lit": "^3.3.3",
+    "lit": "catalog:",
     "typescript": "catalog:"
   },
   "publishConfig": {

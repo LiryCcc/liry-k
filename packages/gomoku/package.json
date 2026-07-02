@@ -15,7 +15,7 @@
     "@liry-k/astra": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
     "normalize.css": "catalog:",
-    "solid-js": "^1.9.13",
+    "solid-js": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {

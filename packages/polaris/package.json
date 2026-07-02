@@ -18,22 +18,22 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@sentry/solid": "^10.63.0",
+    "@sentry/solid": "catalog:",
     "@tanstack/solid-store": "catalog:",
-    "@tanstack/store": "^0.11.0",
-    "@tauri-apps/api": "^2.11.1",
-    "@tauri-apps/plugin-opener": "^2.5.4",
-    "@tauri-apps/plugin-os": "^2.3.2",
-    "i18next": "^26.3.4",
-    "i18next-browser-languagedetector": "^8.2.1",
+    "@tanstack/store": "catalog:",
+    "@tauri-apps/api": "catalog:",
+    "@tauri-apps/plugin-opener": "catalog:",
+    "@tauri-apps/plugin-os": "catalog:",
+    "i18next": "catalog:",
+    "i18next-browser-languagedetector": "catalog:",
     "normalize.css": "catalog:",
-    "solid-js": "^1.9.13"
+    "solid-js": "catalog:"
   },
   "devDependencies": {
     "@eslint/css": "catalog:",
     "@eslint/js": "catalog:",
     "@liry-k/tsconfig": "workspace:*",
-    "@tauri-apps/cli": "^2.11.4",
+    "@tauri-apps/cli": "catalog:",
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",

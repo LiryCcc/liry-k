@@ -79,7 +79,13 @@ const cspellConfig = defineConfig({
     'aeiou',
     'aeiaeia',
     'overscan',
-    'vitest'
+    'vitest',
+    'vitejs',
+    'scrcpy',
+    'undici',
+    'hono',
+    'protobufjs',
+    'tsdown'
   ]
 });
 
