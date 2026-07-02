@@ -2,6 +2,7 @@ import { requestAdbDaemonWebUsbDevice } from '@/adb/request.js';
 import { Sidebar } from '@/components/sidebar/index.js';
 import type { TranslationKey } from '@/i18n/translation-tree.js';
 import { useTranslation } from '@/i18n/use-translation.js';
+import { addDevice } from '@/store/devices-store.js';
 import type { ThemeName } from '@/store/theme-store.js';
 import { setTheme, themeNames, themeStore } from '@/store/theme-store.js';
 import { Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tooltip } from '@fluentui/react-components';
@@ -85,7 +86,11 @@ const RootLayout = () => {
           onClick={async () => {
             const connect = await requestAdbDaemonWebUsbDevice();
             if (connect.success === true) {
-              //
+              const { device } = connect;
+              addDevice(device);
+              console.log(device);
+              const connection = await device.connect();
+              console.log(connection);
             } else {
               alert('connect error');
             }
