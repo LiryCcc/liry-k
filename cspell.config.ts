@@ -85,7 +85,9 @@ const cspellConfig = defineConfig({
     'undici',
     'hono',
     'protobufjs',
-    'tsdown'
+    'tsdown',
+    'resampler',
+    'audioworklet'
   ]
 });
 

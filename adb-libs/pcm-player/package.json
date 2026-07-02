@@ -1,0 +1,36 @@
+{
+  "name": "@liry-k/pcm-player",
+  "version": "1.0.0",
+  "description": "Play raw audio sample stream using Web Audio API",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "liry-build",
+    "lint": "pnpm lint:type && pnpm lint:code",
+    "lint:code": "eslint . --cache",
+    "lint:type": "tsc -b"
+  },
+  "dependencies": {
+    "@types/w3c-web-usb": "catalog:"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@liry-k/build": "workspace:*",
+    "@liry-k/tsconfig": "workspace:*",
+    "@types/audioworklet": "^0.0.100",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "globals": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:"
+  }
+}
