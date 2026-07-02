@@ -2,7 +2,7 @@
   "extends": ["@liry-k/tsconfig"],
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
-    "types": ["vite/client"],
+    "types": ["vite/client", "w3c-web-usb"],
     "noEmit": true,
 
     "jsx": "react-jsx",
