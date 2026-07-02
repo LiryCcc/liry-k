@@ -11,7 +11,6 @@ import {
 import { useSelector } from '@tanstack/react-store';
 import type { ReactNode } from 'react';
 import { I18nextProvider } from 'react-i18next';
-import { DevicesProvider } from './store/devices-context.js';
 
 const themeMap: Record<ThemeName, typeof webLightTheme> = {
   dark: webDarkTheme,
@@ -28,9 +27,7 @@ export const LiryProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <FluentProvider theme={themeMap[theme]}>
-      <DevicesProvider>
-        <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
-      </DevicesProvider>
+      <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
     </FluentProvider>
   );
 };

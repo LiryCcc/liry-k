@@ -1,3 +1,4 @@
+import { requestAdbDaemonWebUsbDevice } from '@/adb/request.js';
 import { Sidebar } from '@/components/sidebar/index.js';
 import type { TranslationKey } from '@/i18n/translation-tree.js';
 import { useTranslation } from '@/i18n/use-translation.js';
@@ -80,7 +81,18 @@ const RootLayout = () => {
         >
           {langLabel}
         </Button>
-        <Button onClick={() => {}}>{t('connect.buttonLabel')}</Button>
+        <Button
+          onClick={async () => {
+            const connect = await requestAdbDaemonWebUsbDevice();
+            if (connect.success === true) {
+              //
+            } else {
+              alert('connect error');
+            }
+          }}
+        >
+          {t('connect.buttonLabel')}
+        </Button>
       </header>
       <div className={styles['body']}>
         <Sidebar collapsed={collapsed} />
