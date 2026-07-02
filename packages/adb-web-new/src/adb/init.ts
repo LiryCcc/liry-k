@@ -5,4 +5,7 @@ import { AdbDaemonWebUsbDeviceManager } from '@yume-chan/adb-daemon-webusb';
 export const initAdb = async () => {
   window.ADB_DAEMON_WEB_USB_DEVICE_MANAGER = AdbDaemonWebUsbDeviceManager.BROWSER;
   window.ADB_WEB_CREDENTIAL_STORE = new AdbWebCredentialStore(p.name);
+  console.log(window.ADB_DAEMON_WEB_USB_DEVICE_MANAGER);
+  console.log(window.ADB_WEB_CREDENTIAL_STORE);
+  // console.log(p);
 };

@@ -11,6 +11,10 @@ const viteConfig = defineConfig({
       '@@': resolve(import.meta.dirname)
     }
   },
+  build: {
+    minify: false
+  },
+  builder: {},
   server: {
     port: 45892
   }
