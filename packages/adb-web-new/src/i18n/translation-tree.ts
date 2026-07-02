@@ -6,7 +6,7 @@ export type LocaleCode = 'en' | 'zh';
 export type TranslationTree = {
   app: { title: string };
   home: { desc: string; title: string };
-  nav: { collapse: string; expand: string; home: string };
+  nav: { collapse: string; devices: string; expand: string; home: string };
   notFound: { backHome: string; desc: string; title: string };
   ui: {
     adbDocLabel: string;
@@ -20,6 +20,19 @@ export type TranslationTree = {
   };
   connect: {
     buttonLabel: string;
+  };
+  devices: {
+    androidVersion: string;
+    clearHistory: string;
+    connected: string;
+    history: string;
+    lastConnected: string;
+    manufacturer: string;
+    model: string;
+    noConnected: string;
+    noHistory: string;
+    serial: string;
+    title: string;
   };
 };
 

@@ -7,7 +7,7 @@ export const zhResources: TranslationTree = {
     desc: '欢迎使用 ADB Web。',
     title: '首页'
   },
-  nav: { collapse: '收起侧栏', expand: '展开侧栏', home: '首页' },
+  nav: { collapse: '收起侧栏', devices: '设备管理', expand: '展开侧栏', home: '首页' },
   notFound: {
     backHome: '返回首页',
     desc: '页面不存在。',
@@ -25,5 +25,18 @@ export const zhResources: TranslationTree = {
   },
   connect: {
     buttonLabel: '连接设备'
+  },
+  devices: {
+    androidVersion: 'Android 版本',
+    clearHistory: '清除历史',
+    connected: '已连接设备',
+    history: '历史记录',
+    lastConnected: '上次连接',
+    manufacturer: '厂商',
+    model: '型号',
+    noConnected: '暂无已连接设备。',
+    noHistory: '暂无历史记录。',
+    serial: '序列号',
+    title: '设备管理'
   }
 };

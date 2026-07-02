@@ -1,3 +1,4 @@
+import { ConnectedDevicesManageComponent } from '@/pages/connected-devices-manage/index.js';
 import { HomePageComponent } from '@/pages/home-page/index.js';
 import { NotFoundPageComponent } from '@/pages/not-found-page/index.js';
 import { RootLayoutComponent } from '@/pages/root-layout/index.js';
@@ -17,6 +18,11 @@ const routeTree = rootRoute.addChildren([
     getParentRoute: () => rootRoute,
     path: '/',
     component: HomePageComponent
+  }),
+  createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/devices',
+    component: ConnectedDevicesManageComponent
   })
 ]);
 

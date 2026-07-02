@@ -1,0 +1,62 @@
+.page {
+  padding: 2rem;
+}
+
+.section {
+  margin-top: 1.5rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.section-title {
+  margin-bottom: 0.5rem;
+}
+
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 220px;
+  padding: 1rem;
+  border: 1px solid var(--colorNeutralStroke2);
+  border-radius: 8px;
+  background: var(--colorNeutralBackground2);
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+.card:hover {
+  box-shadow: 4px 4px 12px rgb(0 0 0 / 12%);
+}
+
+.card-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.card-label {
+  font-size: 0.75rem;
+  color: var(--colorNeutralForeground3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.card-value {
+  font-size: 0.875rem;
+  color: var(--colorNeutralForeground1);
+  word-break: break-all;
+}

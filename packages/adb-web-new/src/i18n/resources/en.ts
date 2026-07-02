@@ -7,7 +7,7 @@ export const enResources: TranslationTree = {
     desc: 'Welcome to ADB Web.',
     title: 'Home'
   },
-  nav: { collapse: 'Collapse sidebar', expand: 'Expand sidebar', home: 'Home' },
+  nav: { collapse: 'Collapse sidebar', devices: 'Devices', expand: 'Expand sidebar', home: 'Home' },
   notFound: {
     backHome: 'Back to home',
     desc: 'This page does not exist.',
@@ -25,5 +25,18 @@ export const enResources: TranslationTree = {
   },
   connect: {
     buttonLabel: 'Connect Device'
+  },
+  devices: {
+    androidVersion: 'Android Version',
+    clearHistory: 'Clear History',
+    connected: 'Connected Devices',
+    history: 'History',
+    lastConnected: 'Last Connected',
+    manufacturer: 'Manufacturer',
+    model: 'Model',
+    noConnected: 'No devices connected.',
+    noHistory: 'No device history.',
+    serial: 'Serial',
+    title: 'Devices'
   }
 };
