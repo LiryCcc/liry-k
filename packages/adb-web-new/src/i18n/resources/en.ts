@@ -24,7 +24,9 @@ export const enResources: TranslationTree = {
     themeTeamsLight: 'Teams Light'
   },
   connect: {
-    buttonLabel: 'Connect Device'
+    buttonLabel: 'Connect Device',
+    current: 'Current',
+    disconnected: 'Disconnected'
   },
   devices: {
     androidVersion: 'Android Version',

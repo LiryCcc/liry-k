@@ -20,6 +20,8 @@ export type TranslationTree = {
   };
   connect: {
     buttonLabel: string;
+    current: string;
+    disconnected: string;
   };
   devices: {
     androidVersion: string;

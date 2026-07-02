@@ -2,15 +2,15 @@ import { requestAdbDaemonWebUsbDevice } from '@/adb/request.js';
 import { Sidebar } from '@/components/sidebar/index.js';
 import type { TranslationKey } from '@/i18n/translation-tree.js';
 import { useTranslation } from '@/i18n/use-translation.js';
-import { addDevice } from '@/store/devices-store.js';
+import { addDevice, devicesStore, setCurrentDevice } from '@/store/devices-store.js';
 import type { ThemeName } from '@/store/theme-store.js';
 import { setTheme, themeNames, themeStore } from '@/store/theme-store.js';
 import { Button, Menu, MenuItem, MenuList, MenuPopover, MenuTrigger, Tooltip } from '@fluentui/react-components';
-import { NavigationRegular, WeatherMoonRegular, WeatherSunnyRegular } from '@fluentui/react-icons';
+import { CheckmarkRegular, NavigationRegular, WeatherMoonRegular, WeatherSunnyRegular } from '@fluentui/react-icons';
 import { Outlet } from '@tanstack/react-router';
 import { useSelector } from '@tanstack/react-store';
 import type { ReactElement } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import styles from './index.module.css';
 
 const themeIconMap: Record<ThemeName, ReactElement> = {
@@ -31,10 +31,18 @@ const RootLayout = () => {
   const { t, changeLanguage, language } = useTranslation();
   const [collapsed, setCollapsed] = useState(false);
   const { theme } = useSelector(themeStore);
+  const currentDevice = useSelector(devicesStore, (state) => state.currentDevice);
+  const devices = useSelector(devicesStore, (state) => state.devices);
 
   const toggleCollapsed = useCallback(() => {
     setCollapsed((v) => !v);
   }, []);
+
+  const handleSelectDevice = useCallback((device: typeof currentDevice) => {
+    setCurrentDevice(device);
+  }, []);
+
+  const currentLabel = useMemo(() => `(${t('connect.current')})`, [t]);
 
   const appTitle = t('app.title');
   const langLabel = language === 'zh' ? t('ui.switchToEn') : t('ui.switchToZh');
@@ -51,7 +59,40 @@ const RootLayout = () => {
             onClick={toggleCollapsed}
           />
         </Tooltip>
-        <div className={styles['title']}>{appTitle}</div>
+        <div className={styles['title']}>
+          <span>{appTitle}</span>
+          {currentDevice ? (
+            <Menu>
+              <MenuTrigger disableButtonEnhancement>
+                <Button appearance='subtle' size='small' className={styles['device-badge']}>
+                  {currentDevice.name ?? currentDevice.serial}
+                </Button>
+              </MenuTrigger>
+              <MenuPopover>
+                <MenuList>
+                  {devices.map((device) => {
+                    const isCurrent = device.serial === currentDevice.serial;
+                    return (
+                      <MenuItem
+                        key={device.serial}
+                        icon={isCurrent ? <CheckmarkRegular /> : null}
+                        onClick={() => {
+                          handleSelectDevice(device);
+                        }}
+                      >
+                        {isCurrent ? `${device.name ?? device.serial} ${currentLabel}` : (device.name ?? device.serial)}
+                      </MenuItem>
+                    );
+                  })}
+                </MenuList>
+              </MenuPopover>
+            </Menu>
+          ) : (
+            <Button appearance='subtle' size='small' className={styles['device-badge']}>
+              {t('connect.disconnected')}
+            </Button>
+          )}
+        </div>
         <Menu>
           <MenuTrigger disableButtonEnhancement>
             <Tooltip content={themeTooltip} relationship='label'>
@@ -88,7 +129,7 @@ const RootLayout = () => {
             if (connect.success === true) {
               const { device } = connect;
               addDevice(device);
-              console.log(device);
+              setCurrentDevice(device);
               const connection = await device.connect();
               console.log(connection);
             } else {

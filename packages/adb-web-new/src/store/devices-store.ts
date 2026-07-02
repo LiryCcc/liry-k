@@ -11,6 +11,13 @@ export const devicesStore = new Store<DevicesState>({
   currentDevice: null
 });
 
+export const setCurrentDevice = (device: AdbDaemonWebUsbDevice | null) => {
+  devicesStore.setState((prev) => ({
+    ...prev,
+    currentDevice: device
+  }));
+};
+
 export const addDevice = (device: AdbDaemonWebUsbDevice) => {
   devicesStore.setState((prev) => ({
     ...prev,

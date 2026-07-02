@@ -24,7 +24,9 @@ export const zhResources: TranslationTree = {
     themeTeamsLight: 'Teams 亮色'
   },
   connect: {
-    buttonLabel: '连接设备'
+    buttonLabel: '连接设备',
+    current: '当前',
+    disconnected: '未连接'
   },
   devices: {
     androidVersion: 'Android 版本',
