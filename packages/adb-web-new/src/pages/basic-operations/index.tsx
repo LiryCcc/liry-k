@@ -9,6 +9,7 @@ import {
 } from '@/adb/operations.js';
 import { useTranslation } from '@/i18n/use-translation.js';
 import { devicesStore } from '@/store/devices-store.js';
+import { info } from '@/utils/observability.js';
 import { Slider, Switch, Text } from '@fluentui/react-components';
 import { useSelector } from '@tanstack/react-store';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -52,6 +53,7 @@ const BasicOperations = () => {
 
   const handleVolumeChange = useCallback(
     (_e: unknown, data: { value: number }) => {
+      info('basicOps.volumeChange', data.value);
       setVolumeState(data.value);
       dirtyRef.current.volume = true;
       if (!adb) return;
@@ -62,6 +64,7 @@ const BasicOperations = () => {
 
   const handleBrightnessChange = useCallback(
     (_e: unknown, data: { value: number }) => {
+      info('basicOps.brightnessChange', data.value);
       setBrightnessState(data.value);
       dirtyRef.current.brightness = true;
       if (!adb) return;
@@ -72,6 +75,7 @@ const BasicOperations = () => {
 
   const handleAutoBrightnessToggle = useCallback(
     (_e: unknown, data: { checked: boolean }) => {
+      info('basicOps.autoBrightnessToggle', data.checked);
       setAutoBrightnessState(data.checked);
       if (!adb) return;
       if (data.checked) {

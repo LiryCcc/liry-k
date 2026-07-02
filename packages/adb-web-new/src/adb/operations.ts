@@ -1,3 +1,4 @@
+import { info } from '@/utils/observability.js';
 import type { Adb } from '@yume-chan/adb';
 import { Settings } from '@yume-chan/android-bin';
 import {
@@ -18,6 +19,7 @@ export const getVolume = async (adb: Adb): Promise<number> => {
 };
 
 export const setVolume = async (adb: Adb, value: number): Promise<void> => {
+  info('adb.setVolume', value);
   const clamped = Math.max(0, Math.min(value, VOLUME_MAX));
   const valueStr = String(clamped);
   const methods: Array<{ cmd: string; args: readonly string[] }> = [
@@ -48,6 +50,7 @@ export const getBrightnessMode = async (adb: Adb): Promise<boolean> => {
 };
 
 export const setBrightnessMode = async (adb: Adb, auto: boolean): Promise<void> => {
+  info('adb.setBrightnessMode', auto);
   const settings = new Settings(adb);
   await settings.put(
     SETTINGS_NAMESPACE_SYSTEM,
@@ -57,6 +60,7 @@ export const setBrightnessMode = async (adb: Adb, auto: boolean): Promise<void> 
 };
 
 export const setBrightness = async (adb: Adb, value: number): Promise<void> => {
+  info('adb.setBrightness', value);
   const clamped = Math.max(0, Math.min(value, BRIGHTNESS_MAX));
   const settings = new Settings(adb);
   await setBrightnessMode(adb, false);

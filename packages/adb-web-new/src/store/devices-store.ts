@@ -1,3 +1,4 @@
+import { info } from '@/utils/observability.js';
 import { Store } from '@tanstack/react-store';
 import type { Adb } from '@yume-chan/adb';
 import type { AdbDaemonWebUsbDevice } from '@yume-chan/adb-daemon-webusb';
@@ -15,6 +16,7 @@ export const devicesStore = new Store<DevicesState>({
 });
 
 export const setCurrentDevice = (device: AdbDaemonWebUsbDevice | null, adb?: Adb | null) => {
+  info('device.setCurrent', device?.serial ?? 'null');
   devicesStore.setState((prev) => ({
     ...prev,
     currentDevice: device,
@@ -23,6 +25,7 @@ export const setCurrentDevice = (device: AdbDaemonWebUsbDevice | null, adb?: Adb
 };
 
 export const addDevice = (device: AdbDaemonWebUsbDevice) => {
+  info('device.add', device.serial);
   devicesStore.setState((prev) => ({
     ...prev,
     devices: [...new Set([...prev.devices, device])]
@@ -31,6 +34,7 @@ export const addDevice = (device: AdbDaemonWebUsbDevice) => {
 };
 
 export const removeDevice = (device: AdbDaemonWebUsbDevice) => {
+  info('device.remove', device.serial);
   devicesStore.setState((prev) => {
     const id = device.serial;
     return {
@@ -41,6 +45,7 @@ export const removeDevice = (device: AdbDaemonWebUsbDevice) => {
 };
 
 export const removeDeviceBySerial = (serial: string) => {
+  info('device.removeBySerial', serial);
   devicesStore.setState((prev) => {
     const adb = prev.adb;
     if (adb && prev.currentDevice?.serial === serial) {
@@ -97,6 +102,7 @@ const updateHistoryStore = () => {
 };
 
 export const addDeviceHistory = (device: AdbDaemonWebUsbDevice) => {
+  info('device.addHistory', device.serial);
   const history = readHistoryFromStorage();
   const existing = history.findIndex((h) => h.serial === device.serial);
   const entry: DeviceHistoryInfo = {
@@ -115,6 +121,7 @@ export const addDeviceHistory = (device: AdbDaemonWebUsbDevice) => {
 };
 
 export const clearDeviceHistory = () => {
+  info('device.clearHistory');
   localStorage.removeItem(DEVICE_HISTORY_KEY);
   updateHistoryStore();
 };

@@ -6,6 +6,7 @@ import { addDevice, devicesStore, removeDeviceBySerial, setCurrentDevice } from 
 import type { ThemeName } from '@/store/theme-store.js';
 import { setTheme, themeNames, themeStore } from '@/store/theme-store.js';
 import { unlockDebug } from '@/utils/debug-guard.js';
+import { info } from '@/utils/observability.js';
 import { verifyTOTP } from '@/utils/totp.js';
 import {
   Button,
@@ -24,7 +25,7 @@ import {
   Tooltip
 } from '@fluentui/react-components';
 import { CheckmarkRegular, NavigationRegular, WeatherMoonRegular, WeatherSunnyRegular } from '@fluentui/react-icons';
-import { Outlet, useNavigate } from '@tanstack/react-router';
+import { Outlet, useNavigate, useRouterState } from '@tanstack/react-router';
 import { useSelector } from '@tanstack/react-store';
 import { Adb, AdbDaemonTransport } from '@yume-chan/adb';
 import type { ReactElement } from 'react';
@@ -49,6 +50,7 @@ const RootLayout = () => {
   const { t, changeLanguage, language } = useTranslation();
   const [collapsed, setCollapsed] = useState(false);
   const { theme } = useSelector(themeStore);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const currentDevice = useSelector(devicesStore, (state) => state.currentDevice);
   const devices = useSelector(devicesStore, (state) => state.devices);
 
@@ -63,6 +65,7 @@ const RootLayout = () => {
     const next = titleClickCount + 1;
     setTitleClickCount(next);
     if (next >= 7) {
+      info('ui.titleClick.unlock');
       setTitleClickCount(0);
       setTotpCode('');
       setTotpError('');
@@ -71,6 +74,7 @@ const RootLayout = () => {
   }, [titleClickCount]);
 
   const handleTotpSubmit = useCallback(async () => {
+    info('debug.totpSubmit');
     const ok = await verifyTOTP(__TOTP_SECRET__, totpCode);
     if (ok) {
       setTotpDialogOpen(false);
@@ -82,9 +86,14 @@ const RootLayout = () => {
   }, [totpCode, navigate]);
 
   useEffect(() => {
+    info('nav.routeChange', pathname);
+  }, [pathname]);
+
+  useEffect(() => {
     const onDisconnect = (event: USBConnectionEvent) => {
       const serial = event.device.serialNumber;
       if (serial) {
+        info('device.usbDisconnected', serial);
         removeDeviceBySerial(serial);
       }
     };
@@ -93,6 +102,7 @@ const RootLayout = () => {
   }, []);
 
   const handleConnect = useCallback(async () => {
+    info('device.connect.start');
     const paired = await getPairedDevices();
     const knownSerials = new Set(devicesStore.state.devices.map((d) => d.serial));
     const newPaired = paired.filter((d) => !knownSerials.has(d.serial));
@@ -130,10 +140,12 @@ const RootLayout = () => {
   }, []);
 
   const toggleCollapsed = useCallback(() => {
+    info('ui.sidebarToggle', !collapsed);
     setCollapsed((v) => !v);
-  }, []);
+  }, [collapsed]);
 
   const handleSelectDevice = useCallback((device: typeof currentDevice) => {
+    info('device.selectDevice', device?.serial ?? 'null');
     setCurrentDevice(device);
   }, []);
 
@@ -203,6 +215,7 @@ const RootLayout = () => {
                   key={name}
                   icon={themeIconMap[name]}
                   onClick={() => {
+                    info('theme.setTheme', name);
                     setTheme(name);
                   }}
                 >
@@ -216,6 +229,7 @@ const RootLayout = () => {
           <Button
             appearance='subtle'
             onClick={() => {
+              info('nav.goToDebug');
               unlockDebug();
               navigate({ to: '/debug' });
             }}
@@ -226,6 +240,7 @@ const RootLayout = () => {
         <Button
           appearance='subtle'
           onClick={() => {
+            info('i18n.changeLanguage', language === 'zh' ? 'en' : 'zh');
             changeLanguage(language === 'zh' ? 'en' : 'zh');
           }}
         >

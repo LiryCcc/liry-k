@@ -1,3 +1,4 @@
+import { info } from '@/utils/observability.js';
 import { Store } from '@tanstack/react-store';
 
 export const themeNames = ['light', 'dark', 'teamsLight', 'teamsDark'] as const;
@@ -37,6 +38,7 @@ themeStore.subscribe(() => {
 });
 
 export const setTheme = (theme: ThemeName): void => {
+  info('theme.setTheme', theme);
   themeStore.setState(() => ({ theme }));
 };
 
@@ -44,5 +46,6 @@ export const toggleTheme = (): void => {
   const current = themeStore.state.theme;
   const idx = themeNames.indexOf(current);
   const next = themeNames[(idx + 1) % themeNames.length]!;
+  info('theme.toggleTheme', current, '->', next);
   setTheme(next);
 };

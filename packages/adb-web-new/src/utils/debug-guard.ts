@@ -1,3 +1,4 @@
+import { info } from '@/utils/observability.js';
 import { Store } from '@tanstack/react-store';
 
 type DebugState = {
@@ -9,6 +10,7 @@ export const debugStore = new Store<DebugState>({
 });
 
 export const unlockDebug = (): void => {
+  info('debug.unlock');
   debugStore.setState(() => ({ unlocked: true }));
 };
 

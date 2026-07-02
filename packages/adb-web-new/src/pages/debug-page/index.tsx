@@ -4,6 +4,7 @@ import { devicesStore } from '@/store/devices-store.js';
 import { observabilityStore } from '@/store/observability-store.js';
 import { themeStore } from '@/store/theme-store.js';
 import { clearTraces } from '@/utils/db.js';
+import { info } from '@/utils/observability.js';
 import { getCurrentTOTPCode } from '@/utils/totp.js';
 import { Button, Text } from '@fluentui/react-components';
 import { useSelector } from '@tanstack/react-store';
@@ -38,6 +39,7 @@ const DebugPage = () => {
   const [notifStatus, setNotifStatus] = useState('');
 
   const handleTestNotification = useCallback(async () => {
+    info('debug.testNotification', notifTitle);
     console.log('[notif] starting, notifTitle:', notifTitle, 'notifBody:', notifBody);
     console.log('[notif] secure context:', window.isSecureContext);
     console.log('[notif] user agent:', navigator.userAgent);
@@ -119,7 +121,13 @@ const DebugPage = () => {
       <Text as='h1' size={700} weight='semibold'>
         {t('debug.title')}
       </Text>
-      <Button appearance='subtle' onClick={refreshDebugData}>
+      <Button
+        appearance='subtle'
+        onClick={() => {
+          info('debug.refreshData');
+          refreshDebugData();
+        }}
+      >
         {t('debug.refresh')}
       </Button>
 
@@ -233,6 +241,7 @@ const DebugPage = () => {
           appearance='subtle'
           size='small'
           onClick={() => {
+            info('debug.clearTraces');
             clearTraces();
             observabilityStore.setState(() => ({ events: [] }));
           }}

@@ -1,4 +1,5 @@
 import { useTranslation } from '@/i18n/use-translation.js';
+import { info } from '@/utils/observability.js';
 import { Button, Text } from '@fluentui/react-components';
 import { ArrowLeftRegular } from '@fluentui/react-icons';
 import { useNavigate } from '@tanstack/react-router';
@@ -17,6 +18,7 @@ const NotFoundPage = () => {
         appearance='primary'
         icon={<ArrowLeftRegular />}
         onClick={() => {
+          info('nav.backHome');
           navigate({ to: '/' });
         }}
       >

@@ -1,6 +1,7 @@
 import { useTranslation } from '@/i18n/use-translation.js';
 import type { DeviceHistoryInfo } from '@/store/devices-store.js';
 import { clearDeviceHistory, deviceHistoryStore, devicesStore } from '@/store/devices-store.js';
+import { info } from '@/utils/observability.js';
 import { Button, Text } from '@fluentui/react-components';
 import { useSelector } from '@tanstack/react-store';
 import { useCallback } from 'react';
@@ -77,6 +78,7 @@ const ConnectedDevicesManage = () => {
   const filteredHistory = history.filter((entry) => !connectedSerials.has(entry.serial));
 
   const handleClearHistory = useCallback(() => {
+    info('device.clearHistory');
     clearDeviceHistory();
   }, []);
 

@@ -1,5 +1,6 @@
 import { i18n } from '@/i18n/setup-i18n.js';
 import type { TranslationKey } from '@/i18n/translation-tree.js';
+import { info } from '@/utils/observability.js';
 import { useTranslation as useReactI18NextTranslation } from 'react-i18next';
 
 type TRest = Parameters<typeof i18n.t> extends [unknown, ...infer R] ? R : never;
@@ -14,6 +15,7 @@ export const useTranslation = () => {
   const { t, i18n: i18nInstance } = useReactI18NextTranslation();
 
   const changeLanguage = (nextLanguage: string) => {
+    info('i18n.changeLanguage', nextLanguage);
     i18nInstance.changeLanguage(nextLanguage);
   };
 
