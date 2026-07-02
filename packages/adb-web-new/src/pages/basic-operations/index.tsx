@@ -38,6 +38,19 @@ const BasicOperations = () => {
     load();
   }, [adb]);
 
+  useEffect(() => {
+    if (!adb || !autoBrightness) return;
+    const id = setInterval(async () => {
+      try {
+        const bri = await getBrightness(adb);
+        setBrightnessState(bri);
+      } catch {
+        /** ignore */
+      }
+    }, 3000);
+    return () => clearInterval(id);
+  }, [adb, autoBrightness]);
+
   const handleVolumeChange = useCallback(
     (_e: unknown, data: { value: number }) => {
       setVolumeState(data.value);
