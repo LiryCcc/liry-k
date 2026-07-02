@@ -11,7 +11,7 @@ import { useTranslation } from '@/i18n/use-translation.js';
 import { devicesStore } from '@/store/devices-store.js';
 import { Slider, Switch, Text } from '@fluentui/react-components';
 import { useSelector } from '@tanstack/react-store';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import styles from './index.module.css';
 
 const BasicOperations = () => {
@@ -23,50 +23,51 @@ const BasicOperations = () => {
   const [brightness, setBrightnessState] = useState(0);
   const [autoBrightness, setAutoBrightnessState] = useState(false);
 
+  const dirtyRef = useRef({ volume: false, brightness: false });
+
   useEffect(() => {
     if (!adb) return;
-    const load = async () => {
+    const poll = async () => {
       try {
         const [vol, bri, auto] = await Promise.all([getVolume(adb), getBrightness(adb), getBrightnessMode(adb)]);
-        setVolumeState(vol);
-        setBrightnessState(bri);
+        if (!dirtyRef.current.volume) setVolumeState(vol);
+        if (!dirtyRef.current.brightness) setBrightnessState(bri);
         setAutoBrightnessState(auto);
       } catch {
         /** ignore */
       }
     };
-    load();
+    poll();
+    const id = setInterval(poll, 5000);
+    return () => clearInterval(id);
   }, [adb]);
 
-  useEffect(() => {
-    if (!adb || !autoBrightness) return;
-    const id = setInterval(async () => {
-      try {
-        const bri = await getBrightness(adb);
-        setBrightnessState(bri);
-      } catch {
-        /** ignore */
-      }
-    }, 3000);
-    return () => clearInterval(id);
-  }, [adb, autoBrightness]);
+  const clearDirtyVolume = useCallback(() => {
+    dirtyRef.current.volume = false;
+  }, []);
+
+  const clearDirtyBrightness = useCallback(() => {
+    dirtyRef.current.brightness = false;
+  }, []);
 
   const handleVolumeChange = useCallback(
     (_e: unknown, data: { value: number }) => {
       setVolumeState(data.value);
+      dirtyRef.current.volume = true;
       if (!adb) return;
-      setVolume(adb, data.value).catch(() => {});
+      setVolume(adb, data.value).then(clearDirtyVolume).catch(clearDirtyVolume);
     },
-    [adb]
+    [adb, clearDirtyVolume]
   );
 
   const handleBrightnessChange = useCallback(
     (_e: unknown, data: { value: number }) => {
       setBrightnessState(data.value);
+      dirtyRef.current.brightness = true;
       if (!adb) return;
-      setBrightness(adb, data.value).catch(() => {});
+      setBrightness(adb, data.value).then(clearDirtyBrightness).catch(clearDirtyBrightness);
     },
-    [adb]
+    [adb, clearDirtyBrightness]
   );
 
   const handleAutoBrightnessToggle = useCallback(
