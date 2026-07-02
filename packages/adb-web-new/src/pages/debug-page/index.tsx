@@ -3,6 +3,7 @@ import { debugDataStore, refreshDebugData } from '@/store/debug-data-store.js';
 import { devicesStore } from '@/store/devices-store.js';
 import { observabilityStore } from '@/store/observability-store.js';
 import { themeStore } from '@/store/theme-store.js';
+import { clearTraces } from '@/utils/db.js';
 import { getCurrentTOTPCode } from '@/utils/totp.js';
 import { Button, Text } from '@fluentui/react-components';
 import { useSelector } from '@tanstack/react-store';
@@ -228,6 +229,16 @@ const DebugPage = () => {
       </Section>
 
       <Section title={t('debug.traces')}>
+        <Button
+          appearance='subtle'
+          size='small'
+          onClick={() => {
+            clearTraces();
+            observabilityStore.setState(() => ({ events: [] }));
+          }}
+        >
+          {t('debug.clear')}
+        </Button>
         {traceEvents.length === 0 && <KV label={t('debug.noEvents')} value='' />}
         {[...traceEvents]
           .reverse()

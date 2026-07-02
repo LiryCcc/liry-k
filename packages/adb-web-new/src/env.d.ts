@@ -9,6 +9,7 @@ declare global {
     I18N: I18nInstance;
     I18N_READY: boolean;
     T_FUNCTION: TFunction;
+    __ADB_DB__?: IDBDatabase;
   }
 }
 

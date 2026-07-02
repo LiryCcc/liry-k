@@ -39,6 +39,7 @@ export const zhResources: TranslationTree = {
     testSend: '测试发送',
     traces: '链路追踪',
     noEvents: '暂无事件',
+    clear: '清除',
     theme: '主题',
     font: '字体',
     adb: 'ADB 设备'

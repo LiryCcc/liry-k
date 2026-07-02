@@ -1,3 +1,4 @@
+import { saveTrace } from '@/utils/db.js';
 import { snowflakeId } from '@liry-k/stellar';
 import { Store } from '@tanstack/react-store';
 
@@ -18,7 +19,9 @@ export const observabilityStore = new Store<ObservabilityState>({
 });
 
 export const pushObservabilityEvent = (event: Omit<ObservabilityEvent, 'id'>): void => {
+  const full: ObservabilityEvent = { ...event, id: snowflakeId() };
   observabilityStore.setState((state) => ({
-    events: [...state.events.slice(-499), { ...event, id: snowflakeId() }]
+    events: [...state.events.slice(-499), full]
   }));
+  saveTrace(full);
 };
