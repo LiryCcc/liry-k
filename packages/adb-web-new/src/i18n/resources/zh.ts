@@ -31,6 +31,7 @@ export const zhResources: TranslationTree = {
     disconnected: '未连接'
   },
   basicOperations: {
+    autoBrightness: '自动',
     brightness: '亮度',
     noDevice: '未连接设备。',
     title: '基础操作',

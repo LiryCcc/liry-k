@@ -26,6 +26,7 @@ export type TranslationTree = {
     disconnected: string;
   };
   basicOperations: {
+    autoBrightness: string;
     brightness: string;
     noDevice: string;
     title: string;

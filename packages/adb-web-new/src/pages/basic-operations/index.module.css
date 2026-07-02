@@ -11,10 +11,21 @@
   margin-bottom: 0.5rem;
 }
 
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
 .slider-row {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.slider-grow {
+  flex: 1;
 }
 
 .slider-value {

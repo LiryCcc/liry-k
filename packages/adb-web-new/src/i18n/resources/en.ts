@@ -37,6 +37,7 @@ export const enResources: TranslationTree = {
     disconnected: 'Disconnected'
   },
   basicOperations: {
+    autoBrightness: 'Auto',
     brightness: 'Brightness',
     noDevice: 'No device connected.',
     title: 'Basic Operations',

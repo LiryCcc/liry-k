@@ -1,33 +1,36 @@
+import { BRIGHTNESS_MAX, VOLUME_MAX } from '@/adb/constant.js';
+import {
+  getBrightness,
+  getBrightnessMode,
+  getVolume,
+  setBrightness,
+  setBrightnessMode,
+  setVolume
+} from '@/adb/operations.js';
 import { useTranslation } from '@/i18n/use-translation.js';
 import { devicesStore } from '@/store/devices-store.js';
-import { Slider, Text } from '@fluentui/react-components';
+import { Slider, Switch, Text } from '@fluentui/react-components';
 import { useSelector } from '@tanstack/react-store';
-import { Settings } from '@yume-chan/android-bin';
 import { useCallback, useEffect, useState } from 'react';
 import styles from './index.module.css';
-
-const BRIGHTNESS_MAX = 255;
-const VOLUME_MAX = 15;
 
 const BasicOperations = () => {
   const { t } = useTranslation();
   const currentDevice = useSelector(devicesStore, (state) => state.currentDevice);
   const adb = useSelector(devicesStore, (state) => state.adb);
 
-  const [volume, setVolume] = useState(0);
-  const [brightness, setBrightness] = useState(0);
+  const [volume, setVolumeState] = useState(0);
+  const [brightness, setBrightnessState] = useState(0);
+  const [autoBrightness, setAutoBrightnessState] = useState(false);
 
   useEffect(() => {
     if (!adb) return;
-    const settings = new Settings(adb);
     const load = async () => {
       try {
-        const [volStr, briStr] = await Promise.all([
-          settings.get('system', 'volume_music'),
-          settings.get('system', 'screen_brightness')
-        ]);
-        setVolume(Number(volStr));
-        setBrightness(Number(briStr));
+        const [vol, bri, auto] = await Promise.all([getVolume(adb), getBrightness(adb), getBrightnessMode(adb)]);
+        setVolumeState(vol);
+        setBrightnessState(bri);
+        setAutoBrightnessState(auto);
       } catch {
         /** ignore */
       }
@@ -37,20 +40,36 @@ const BasicOperations = () => {
 
   const handleVolumeChange = useCallback(
     (_e: unknown, data: { value: number }) => {
-      setVolume(data.value);
+      setVolumeState(data.value);
       if (!adb) return;
-      const settings = new Settings(adb);
-      settings.put('system', 'volume_music', String(data.value)).catch(() => {});
+      setVolume(adb, data.value).catch(() => {});
     },
     [adb]
   );
 
   const handleBrightnessChange = useCallback(
     (_e: unknown, data: { value: number }) => {
-      setBrightness(data.value);
+      setBrightnessState(data.value);
       if (!adb) return;
-      const settings = new Settings(adb);
-      settings.put('system', 'screen_brightness', String(data.value)).catch(() => {});
+      setBrightness(adb, data.value).catch(() => {});
+    },
+    [adb]
+  );
+
+  const handleAutoBrightnessToggle = useCallback(
+    (_e: unknown, data: { checked: boolean }) => {
+      setAutoBrightnessState(data.checked);
+      if (!adb) return;
+      if (data.checked) {
+        setBrightnessMode(adb, true).catch(() => {});
+      } else {
+        getBrightness(adb)
+          .then((bri) => {
+            setBrightnessState(bri);
+            setBrightnessMode(adb, false).catch(() => {});
+          })
+          .catch(() => {});
+      }
     },
     [adb]
   );
@@ -74,33 +93,44 @@ const BasicOperations = () => {
           {t('basicOperations.volume')}
         </Text>
         <div className={styles['slider-row']}>
-          <Slider
-            aria-label={t('basicOperations.volume')}
-            min={0}
-            max={VOLUME_MAX}
-            step={1}
-            value={volume}
-            disabled={!adb}
-            onChange={handleVolumeChange}
-          />
+          <div className={styles['slider-grow']}>
+            <Slider
+              aria-label={t('basicOperations.volume')}
+              min={0}
+              max={VOLUME_MAX}
+              step={1}
+              value={volume}
+              disabled={!adb}
+              onChange={handleVolumeChange}
+            />
+          </div>
           <Text className={styles['slider-value']}>{volume}</Text>
         </div>
       </div>
 
       <div className={styles['section']}>
-        <Text as='h2' size={500} weight='semibold' className={styles['section-title']}>
-          {t('basicOperations.brightness')}
-        </Text>
-        <div className={styles['slider-row']}>
-          <Slider
-            aria-label={t('basicOperations.brightness')}
-            min={0}
-            max={BRIGHTNESS_MAX}
-            step={1}
-            value={brightness}
-            disabled={!adb}
-            onChange={handleBrightnessChange}
+        <div className={styles['section-header']}>
+          <Text as='h2' size={500} weight='semibold' className={styles['section-title']}>
+            {t('basicOperations.brightness')}
+          </Text>
+          <Switch
+            label={t('basicOperations.autoBrightness')}
+            checked={autoBrightness}
+            onChange={handleAutoBrightnessToggle}
           />
+        </div>
+        <div className={styles['slider-row']}>
+          <div className={styles['slider-grow']}>
+            <Slider
+              aria-label={t('basicOperations.brightness')}
+              min={0}
+              max={BRIGHTNESS_MAX}
+              step={1}
+              value={brightness}
+              disabled={!adb || autoBrightness}
+              onChange={handleBrightnessChange}
+            />
+          </div>
           <Text className={styles['slider-value']}>{brightness}</Text>
         </div>
       </div>
