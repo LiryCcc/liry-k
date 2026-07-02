@@ -85,11 +85,7 @@ const cspellConfig = defineConfig({
     'undici',
     'hono',
     'protobufjs',
-    'tsdown',
-    'ZCOOL',
-    'XiaoWei',
-    'STKaiti',
-    'Kaiti'
+    'tsdown'
   ]
 });
 

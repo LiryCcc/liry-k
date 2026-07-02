@@ -12,13 +12,11 @@ import { useSelector } from '@tanstack/react-store';
 import type { ReactNode } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
-const FONT_FAMILY = "'ZCOOL XiaoWei', '楷体', 'KaiTi', 'STKaiti', serif";
-
 const themeMap: Record<ThemeName, typeof webLightTheme> = {
-  dark: { ...webDarkTheme, fontFamilyBase: FONT_FAMILY },
-  light: { ...webLightTheme, fontFamilyBase: FONT_FAMILY },
-  teamsDark: { ...teamsDarkTheme, fontFamilyBase: FONT_FAMILY },
-  teamsLight: { ...teamsLightTheme, fontFamilyBase: FONT_FAMILY }
+  dark: webDarkTheme,
+  light: webLightTheme,
+  teamsDark: teamsDarkTheme,
+  teamsLight: teamsLightTheme
 };
 
 /**
