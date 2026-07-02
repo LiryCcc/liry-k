@@ -1,0 +1,9 @@
+{
+  "extends": "@liry-k/tsconfig",
+  "compilerOptions": {
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "erasableSyntaxOnly": false,
+    "verbatimModuleSyntax": false
+  },
+  "include": ["."]
+}

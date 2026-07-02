@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "rootDir": "src",
+    "outDir": "esm",
+    "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "esm",
+    "declarationMap": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true,
+    "types": []
+  },
+  "include": ["src"],
+  "exclude": ["src/**/*.spec.ts", "src/worker/**"]
+}

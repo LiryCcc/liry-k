@@ -1,0 +1,63 @@
+{
+  "name": "@yume-chan/adb-cli",
+  "version": "0.0.19",
+  "private": true,
+  "description": "Re-implement `adb`",
+  "keywords": [
+    "adb",
+    "cli"
+  ],
+  "homepage": "https://github.com/yume-chan/ya-webadb/tree/main/apps/adb-cli#readme",
+  "bugs": {
+    "url": "https://github.com/yume-chan/ya-webadb/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yume-chan/ya-webadb.git",
+    "directory": "apps/adb-cli"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Simon Chan",
+    "email": "cnsimonchan@live.com",
+    "url": "https://chensi.moe/blog"
+  },
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "tango-cli": "esm/index.js"
+  },
+  "scripts": {
+    "build": "liry-build",
+    "lint": "pnpm lint:type && pnpm lint:code",
+    "lint:code": "eslint . --cache",
+    "lint:type": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@yume-chan/adb": "workspace:^",
+    "@yume-chan/adb-server-node-tcp": "workspace:^",
+    "@yume-chan/android-bin": "workspace:^",
+    "@yume-chan/stream-extra": "workspace:^",
+    "commander": "^15.0.0",
+    "source-map-support": "^0.5.21"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@liry-k/build": "workspace:*",
+    "@liry-k/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "globals": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:"
+  }
+}

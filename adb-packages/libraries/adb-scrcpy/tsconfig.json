@@ -1,0 +1,10 @@
+{
+  "extends": "@liry-k/tsconfig",
+  "compilerOptions": {
+    "lib": ["ESNext"],
+    "erasableSyntaxOnly": false,
+    "types": ["node"],
+    "verbatimModuleSyntax": false
+  },
+  "include": ["."]
+}

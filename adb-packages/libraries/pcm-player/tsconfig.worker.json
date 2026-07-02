@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ESNext"],
+    "types": ["audioworklet"],
+    "rootDir": "worker",
+    "outDir": "esm/worker",
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "verbatimModuleSyntax": true,
+    "esModuleInterop": true
+  },
+  "include": ["worker"]
+}
