@@ -1,6 +1,7 @@
 import { useTranslation } from '@/i18n/use-translation.js';
 import { debugDataStore, refreshDebugData } from '@/store/debug-data-store.js';
 import { devicesStore } from '@/store/devices-store.js';
+import { observabilityStore } from '@/store/observability-store.js';
 import { themeStore } from '@/store/theme-store.js';
 import { getCurrentTOTPCode } from '@/utils/totp.js';
 import { Button, Text } from '@fluentui/react-components';
@@ -29,6 +30,7 @@ const DebugPage = () => {
   const dd = useSelector(debugDataStore, (state) => state);
   const deviceState = useSelector(devicesStore, (state) => state);
   const themeState = useSelector(themeStore, (state) => state);
+  const traceEvents = useSelector(observabilityStore, (state) => state.events);
   const [totpCode, setTotpCode] = useState('');
   const [notifTitle, setNotifTitle] = useState('Debug Test');
   const [notifBody, setNotifBody] = useState('Notification test from ADB Web debug page');
@@ -223,6 +225,20 @@ const DebugPage = () => {
 
       <Section title={t('debug.theme')}>
         <KV label='Theme' value={themeState.theme} />
+      </Section>
+
+      <Section title={t('debug.traces')}>
+        {traceEvents.length === 0 && <KV label={t('debug.noEvents')} value='' />}
+        {[...traceEvents]
+          .reverse()
+          .slice(0, 50)
+          .map((e) => (
+            <KV
+              key={e.id}
+              label={`${new Date(e.timestamp).toLocaleTimeString()} [${e.level}] ${e.label}`}
+              value={e.data}
+            />
+          ))}
       </Section>
 
       <Section title={t('debug.adb')}>

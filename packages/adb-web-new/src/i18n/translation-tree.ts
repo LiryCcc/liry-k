@@ -32,6 +32,8 @@ export type TranslationTree = {
     refresh: string;
     notification: string;
     testSend: string;
+    traces: string;
+    noEvents: string;
     theme: string;
     font: string;
     adb: string;

@@ -23,6 +23,9 @@ const viteConfig = defineConfig({
   builder: {},
   server: {
     port: 45892
+  },
+  optimizeDeps: {
+    include: ['@liry-k/stellar']
   }
 });
 

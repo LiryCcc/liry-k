@@ -1,8 +1,5 @@
+import { info as log } from '@/utils/observability.js';
 import { Store } from '@tanstack/react-store';
-
-const log = (...args: unknown[]): void => {
-  console.log('[debug-data]', ...args);
-};
 
 type ConnType = { effectiveType: string; downlink: string; rtt: string };
 

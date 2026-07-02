@@ -12,6 +12,10 @@
   "dependencies": {
     "@fluentui/react-components": "catalog:",
     "@fluentui/react-icons": "catalog:",
+    "@liry-k/stellar": "workspace:*",
+    "@opentelemetry/api": "^1.9.1",
+    "@opentelemetry/sdk-trace-base": "^2.8.0",
+    "@opentelemetry/sdk-trace-web": "^2.8.0",
     "@tanstack/react-form": "catalog:",
     "@tanstack/react-hotkeys": "catalog:",
     "@tanstack/react-query": "catalog:",
