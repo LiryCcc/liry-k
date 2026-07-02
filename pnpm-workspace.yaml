@@ -1,7 +1,6 @@
 packages:
   - packages/*
   - infra/*
-  - adb-packages/apps/*
   - adb-packages/libraries/*
 
 catalog:

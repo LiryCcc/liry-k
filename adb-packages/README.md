@@ -1,57 +1,55 @@
-<p align="center">
-    <img alt="Tango" src="https://raw.githubusercontent.com/yume-chan/ya-webadb/main/.github/logo.svg" width="200">
-</p>
+# ADB Libraries
 
-<h1 align="center">Tango</h1>
+本目录为 [Tango](https://github.com/yume-chan/ya-webadb)（原 `@yume-chan/*` 系列包）的子集，基于 [MIT](https://github.com/yume-chan/ya-webadb/blob/main/LICENSE) 协议引入，作者 Simon Chan。
 
-<p align="center">
-    ADB in your browser
-</p>
+Tango 是 **Android Debug Bridge (ADB) 协议** 的 TypeScript 实现，支持浏览器（Chromium）、Node.js 及 Electron 环境。
 
-<p align="center">
-    <a href="https://github.com/yume-chan/ya-webadb/blob/main/LICENSE">
-        <img alt="MIT License" src="https://img.shields.io/github/license/yume-chan/ya-webadb">
-    </a>
-    <a href="https://github.com/yume-chan/ya-webadb/releases">
-        <img alt="GitHub release" src="https://img.shields.io/github/v/release/yume-chan/ya-webadb?logo=github">
-    </a>
-    <a href="https://www.npmjs.com/package/@yume-chan/adb">
-        <img alt="npm" src="https://img.shields.io/npm/dm/%40yume-chan/adb?logo=npm">
-    </a>
-    <a href="https://tangoadb.dev/discord">
-        <img alt="Discord" src="https://img.shields.io/discord/1120215514732564502?logo=discord&logoColor=%23ffffff&label=Discord">
-    </a>
-    <a href="https://tangoadb.dev/wechat">
-        <img alt="WeChat Group" src="https://img.shields.io/badge/WeChat-Group-%2307C160?logo=wechat&logoColor=white">
-    </a>
-</p>
+## 协议来源
 
-Tango is a TypeScript re-implementation of ADB (Android Debugging Bridge) client that works in Chromium-based browsers (including Chrome for Android), Node.js, and Electron.
+ADB 协议由 Android Open Source Project (AOSP) 定义，核心规范参见：
 
-Try it out at https://tangoapp.dev
+- [Android ADB 协议文档](https://android.googlesource.com/platform/packages/modules/adb/+/refs/heads/main/protocol.txt)
+- [AOSP adb 源码](https://android.googlesource.com/platform/packages/modules/adb/)
+- `OVERVIEW.TXT` — 协议总览
+- `SYNC.TXT` — sync 服务协议
 
-## Documentation
+本目录中所有 ADB 协议相关实现均基于上述公开文档。
 
-Check the latest documentation at https://tangoadb.dev/
+## 包列表
 
-## Contribute
+| 包名                            | 说明                                                                              |
+| ------------------------------- | --------------------------------------------------------------------------------- |
+| `@yume-chan/adb`                | ADB 协议核心：连接管理、认证（RSA）、数据包解析、Shell/Subprocess/Sync 服务       |
+| `@yume-chan/adb-daemon-webusb`  | ADB Daemon 的 WebUSB 传输层，支持浏览器直连 Android 设备                          |
+| `@yume-chan/adb-credential-web` | 浏览器端 ADB 密钥存储（IndexedDB + 密码加密 / WebAuthn PRF）                      |
+| `@yume-chan/android-bin`        | Android 命令行工具封装（`am`, `pm`, `bugreport`, `dumpsys`, 等）                  |
+| `@yume-chan/stream-extra`       | Web Streams API 扩展工具（PushReadableStream, Consumable, DistributionStream 等） |
+| `@yume-chan/struct`             | C 风格结构体序列化/反序列化库                                                     |
+| `@yume-chan/event`              | 事件系统（EventEmitter, StickyEvent, AutoDisposable）                             |
+| `@yume-chan/no-data-view`       | 避免创建 `DataView` 的二进制数据读写方法                                          |
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for how to run and develop this project.
+## 许可
 
-## Sponsors
+```
+MIT License
 
-This project is tested with BrowserStack
+Copyright (c) 2021 Simon Chan
 
-[Become a backer](https://opencollective.com/ya-webadb) and get your image on our README on GitHub with a link to your site.
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-<a href="https://opencollective.com/ya-webadb/backer/0/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/0/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/1/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/1/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/2/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/2/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/3/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/3/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/4/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/4/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/5/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/5/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/6/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/6/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/7/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/7/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/8/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/8/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/9/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/9/avatar.svg?requireActive=false"></a>
-<a href="https://opencollective.com/ya-webadb/backer/10/website?requireActive=false" target="_blank"><img src="https://opencollective.com/ya-webadb/backer/10/avatar.svg?requireActive=false"></a>
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```

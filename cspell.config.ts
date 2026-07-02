@@ -127,6 +127,8 @@ const cspellConfig = defineConfig({
     'webcodecs',
     'webglcontextlost',
     'webglcontextrestored',
+    'AOSP',
+    'bugreport',
     'Dmore',
     'bcde',
     'eial'
