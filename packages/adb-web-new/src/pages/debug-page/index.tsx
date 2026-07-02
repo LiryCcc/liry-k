@@ -1,4 +1,5 @@
 import { useTranslation } from '@/i18n/use-translation.js';
+import { debugDataStore } from '@/store/debug-data-store.js';
 import { devicesStore } from '@/store/devices-store.js';
 import { themeStore } from '@/store/theme-store.js';
 import { Text } from '@fluentui/react-components';
@@ -14,6 +15,7 @@ const KV = ({ label, value }: { label: string; value: string }) => (
 
 const DebugPage = () => {
   const { t } = useTranslation();
+  const debugData = useSelector(debugDataStore, (state) => state);
   const deviceState = useSelector(devicesStore, (state) => state);
   const themeState = useSelector(themeStore, (state) => state);
 
@@ -27,10 +29,10 @@ const DebugPage = () => {
         <Text as='h2' size={500} weight='semibold'>
           {t('debug.environment')}
         </Text>
-        <KV label='User Agent' value={navigator.userAgent} />
-        <KV label='Platform' value={navigator.platform} />
-        <KV label='Language' value={navigator.language} />
-        <KV label='URL' value={location.href} />
+        <KV label='User Agent' value={debugData.userAgent} />
+        <KV label='Platform' value={debugData.platform} />
+        <KV label='Language' value={debugData.language} />
+        <KV label='URL' value={debugData.url} />
       </div>
 
       <div className={styles['section']}>
@@ -62,3 +64,4 @@ const DebugPage = () => {
 };
 
 export const DebugPageComponent = DebugPage;
+export default DebugPageComponent;

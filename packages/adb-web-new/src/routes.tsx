@@ -1,15 +1,11 @@
-import { BasicOperationsComponent } from '@/pages/basic-operations/index.js';
-import { ConnectedDevicesManageComponent } from '@/pages/connected-devices-manage/index.js';
-import { DebugPageComponent } from '@/pages/debug-page/index.js';
-import { HomePageComponent } from '@/pages/home-page/index.js';
-import { NotFoundPageComponent } from '@/pages/not-found-page/index.js';
 import { RootLayoutComponent } from '@/pages/root-layout/index.js';
 import { isDebugUnlocked } from '@/utils/debug-guard.js';
 import { createRootRoute, createRoute, createRouter, redirect } from '@tanstack/react-router';
+import { lazy } from 'react';
 
 const rootRoute = createRootRoute({
   component: RootLayoutComponent,
-  notFoundComponent: NotFoundPageComponent
+  notFoundComponent: lazy(() => import('@/pages/not-found-page/index.js'))
 });
 
 /**
@@ -20,22 +16,22 @@ const routeTree = rootRoute.addChildren([
   createRoute({
     getParentRoute: () => rootRoute,
     path: '/',
-    component: HomePageComponent
+    component: lazy(() => import('@/pages/home-page/index.js'))
   }),
   createRoute({
     getParentRoute: () => rootRoute,
     path: '/devices',
-    component: ConnectedDevicesManageComponent
+    component: lazy(() => import('@/pages/connected-devices-manage/index.js'))
   }),
   createRoute({
     getParentRoute: () => rootRoute,
     path: '/basic-operations',
-    component: BasicOperationsComponent
+    component: lazy(() => import('@/pages/basic-operations/index.js'))
   }),
   createRoute({
     getParentRoute: () => rootRoute,
     path: '/debug',
-    component: DebugPageComponent,
+    component: lazy(() => import('@/pages/debug-page/index.js')),
     beforeLoad: () => {
       if (!isDebugUnlocked()) {
         throw redirect({ to: '/' });

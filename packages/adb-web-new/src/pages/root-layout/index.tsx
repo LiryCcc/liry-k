@@ -26,7 +26,7 @@ import { Outlet, useNavigate } from '@tanstack/react-router';
 import { useSelector } from '@tanstack/react-store';
 import { Adb, AdbDaemonTransport } from '@yume-chan/adb';
 import type { ReactElement } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import styles from './index.module.css';
 
 const themeIconMap: Record<ThemeName, ReactElement> = {
@@ -219,7 +219,9 @@ const RootLayout = () => {
       <div className={styles['body']}>
         <Sidebar collapsed={collapsed} />
         <main className={styles['main']}>
-          <Outlet />
+          <Suspense fallback={null}>
+            <Outlet />
+          </Suspense>
         </main>
       </div>
     </div>

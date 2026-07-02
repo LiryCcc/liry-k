@@ -134,3 +134,4 @@ const ConnectedDevicesManage = () => {
 };
 
 export const ConnectedDevicesManageComponent = ConnectedDevicesManage;
+export default ConnectedDevicesManageComponent;

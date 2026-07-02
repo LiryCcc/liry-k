@@ -153,3 +153,4 @@ const BasicOperations = () => {
 };
 
 export const BasicOperationsComponent = BasicOperations;
+export default BasicOperationsComponent;

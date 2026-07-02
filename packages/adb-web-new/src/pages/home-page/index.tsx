@@ -24,3 +24,4 @@ const HomePage = () => {
 };
 
 export const HomePageComponent = HomePage;
+export default HomePageComponent;

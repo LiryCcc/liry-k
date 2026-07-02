@@ -1,7 +1,15 @@
-let unlocked = false;
+import { Store } from '@tanstack/react-store';
 
-export const unlockDebug = (): void => {
-  unlocked = true;
+type DebugState = {
+  unlocked: boolean;
 };
 
-export const isDebugUnlocked = (): boolean => unlocked;
+export const debugStore = new Store<DebugState>({
+  unlocked: false
+});
+
+export const unlockDebug = (): void => {
+  debugStore.setState(() => ({ unlocked: true }));
+};
+
+export const isDebugUnlocked = (): boolean => debugStore.state.unlocked;

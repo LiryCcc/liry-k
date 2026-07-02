@@ -27,3 +27,4 @@ const NotFoundPage = () => {
 };
 
 export const NotFoundPageComponent = NotFoundPage;
+export default NotFoundPageComponent;
