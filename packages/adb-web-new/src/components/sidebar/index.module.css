@@ -27,6 +27,9 @@
   text-decoration: none;
   color: var(--colorNeutralForeground1);
   font-size: 0.875rem;
+  line-height: 1;
+  height: 36px;
+  box-sizing: border-box;
   white-space: nowrap;
   overflow: hidden;
 }
