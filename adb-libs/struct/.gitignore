@@ -1,0 +1,12 @@
+coverage
+node_modules
+
+# Output
+cjs
+esm
+dts
+
+# Logs
+*.log
+
+*.tsbuildinfo
