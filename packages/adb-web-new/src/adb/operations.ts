@@ -19,8 +19,20 @@ export const getVolume = async (adb: Adb): Promise<number> => {
 
 export const setVolume = async (adb: Adb, value: number): Promise<void> => {
   const clamped = Math.max(0, Math.min(value, VOLUME_MAX));
-  const settings = new Settings(adb);
-  await settings.put(SETTINGS_NAMESPACE_SYSTEM, SETTING_VOLUME_MUSIC, String(clamped));
+  const valueStr = String(clamped);
+  const methods: Array<{ cmd: string; args: readonly string[] }> = [
+    { cmd: 'cmd', args: ['media_session', 'volume', '--stream', '3', '--index', valueStr] as const },
+    { cmd: 'media', args: ['volume', '--stream', '3', '--set', valueStr] as const },
+    { cmd: 'settings', args: ['put', 'system', 'volume_music', valueStr] as const }
+  ];
+  for (const { cmd, args } of methods) {
+    try {
+      const result = await adb.subprocess.spawnAndWait([cmd, ...args]);
+      if (!result.stderr) return;
+    } catch {
+      /** try next method */
+    }
+  }
 };
 
 export const getBrightness = async (adb: Adb): Promise<number> => {
