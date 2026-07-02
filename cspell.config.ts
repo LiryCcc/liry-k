@@ -92,7 +92,8 @@ const cspellConfig = defineConfig({
     'oathtool',
     'notif',
     'Notif',
-    'tsdown'
+    'tsdown',
+    'napi'
   ]
 });
 

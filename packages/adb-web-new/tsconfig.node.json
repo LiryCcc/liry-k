@@ -1,5 +1,5 @@
 {
   "extends": ["@liry-k/tsconfig"],
   "compilerOptions": {},
-  "include": ["vite.config.ts"]
+  "include": ["./*.ts"]
 }
