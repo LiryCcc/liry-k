@@ -22,5 +22,8 @@ export const enResources: TranslationTree = {
     themeLight: 'Light',
     themeTeamsDark: 'Teams Dark',
     themeTeamsLight: 'Teams Light'
+  },
+  connect: {
+    buttonLabel: 'Connect Device'
   }
 };

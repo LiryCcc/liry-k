@@ -80,6 +80,7 @@ const RootLayout = () => {
         >
           {langLabel}
         </Button>
+        <Button onClick={() => {}}>{t('connect.buttonLabel')}</Button>
       </header>
       <div className={styles['body']}>
         <Sidebar collapsed={collapsed} />

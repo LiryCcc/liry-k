@@ -22,5 +22,8 @@ export const zhResources: TranslationTree = {
     themeLight: '亮色',
     themeTeamsDark: 'Teams 暗色',
     themeTeamsLight: 'Teams 亮色'
+  },
+  connect: {
+    buttonLabel: '连接设备'
   }
 };

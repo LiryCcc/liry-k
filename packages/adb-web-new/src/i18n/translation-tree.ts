@@ -18,6 +18,9 @@ export type TranslationTree = {
     themeTeamsDark: string;
     themeTeamsLight: string;
   };
+  connect: {
+    buttonLabel: string;
+  };
 };
 
 /**
