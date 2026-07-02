@@ -13,6 +13,7 @@ export const zhResources: TranslationTree = {
     desc: '页面不存在。',
     title: '404'
   },
+  debug: { title: '调试信息', environment: '环境', envVars: '环境变量', theme: '主题', font: '字体', adb: 'ADB 设备' },
   ui: {
     adbDocLabel: 'ADB 文档',
     switchToEn: 'English',

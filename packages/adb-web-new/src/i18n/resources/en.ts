@@ -19,6 +19,14 @@ export const enResources: TranslationTree = {
     desc: 'This page does not exist.',
     title: '404'
   },
+  debug: {
+    title: 'Debug Info',
+    environment: 'Environment',
+    envVars: 'Environment Variables',
+    theme: 'Theme',
+    font: 'Font',
+    adb: 'ADB Device'
+  },
   ui: {
     adbDocLabel: 'ADB Documentation',
     switchToEn: 'English',

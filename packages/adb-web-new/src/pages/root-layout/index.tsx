@@ -5,6 +5,7 @@ import { useTranslation } from '@/i18n/use-translation.js';
 import { addDevice, devicesStore, removeDeviceBySerial, setCurrentDevice } from '@/store/devices-store.js';
 import type { ThemeName } from '@/store/theme-store.js';
 import { setTheme, themeNames, themeStore } from '@/store/theme-store.js';
+import { unlockDebug } from '@/utils/debug-guard.js';
 import {
   Button,
   Dialog,
@@ -21,7 +22,7 @@ import {
   Tooltip
 } from '@fluentui/react-components';
 import { CheckmarkRegular, NavigationRegular, WeatherMoonRegular, WeatherSunnyRegular } from '@fluentui/react-icons';
-import { Outlet } from '@tanstack/react-router';
+import { Outlet, useNavigate } from '@tanstack/react-router';
 import { useSelector } from '@tanstack/react-store';
 import { Adb, AdbDaemonTransport } from '@yume-chan/adb';
 import type { ReactElement } from 'react';
@@ -50,6 +51,18 @@ const RootLayout = () => {
   const devices = useSelector(devicesStore, (state) => state.devices);
 
   const [connecting, setConnecting] = useState(false);
+  const [titleClickCount, setTitleClickCount] = useState(0);
+  const navigate = useNavigate();
+
+  const handleTitleClick = useCallback(() => {
+    const next = titleClickCount + 1;
+    setTitleClickCount(next);
+    if (next >= 7) {
+      setTitleClickCount(0);
+      unlockDebug();
+      navigate({ to: '/debug' });
+    }
+  }, [titleClickCount, navigate]);
 
   useEffect(() => {
     const onDisconnect = (event: USBConnectionEvent) => {
@@ -125,7 +138,9 @@ const RootLayout = () => {
           />
         </Tooltip>
         <div className={styles['title']}>
-          <span>{appTitle}</span>
+          <span onClick={handleTitleClick} style={{ cursor: 'default' }}>
+            {appTitle}
+          </span>
           {currentDevice ? (
             <Menu>
               <MenuTrigger disableButtonEnhancement>

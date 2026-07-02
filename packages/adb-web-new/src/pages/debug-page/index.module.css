@@ -1,0 +1,26 @@
+.page {
+  padding: 2rem;
+}
+
+.section {
+  margin-top: 1.5rem;
+}
+
+.row {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.label {
+  color: var(--colorNeutralForeground3);
+  min-width: 140px;
+  flex-shrink: 0;
+}
+
+.value {
+  color: var(--colorNeutralForeground1);
+  word-break: break-all;
+}
