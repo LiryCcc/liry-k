@@ -21,11 +21,16 @@
 .slider-row {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
 }
 
 .slider-grow {
   flex: 1;
+  min-width: 0;
+}
+
+.slider-grow > * {
+  width: 100%;
 }
 
 .slider-value {
