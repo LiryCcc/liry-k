@@ -20,7 +20,16 @@ export type TranslationTree = {
     totpTitle: string;
     totpPlaceholder: string;
     totpVerify: string;
+    totpCancel: string;
     totpError: string;
+    performance: string;
+    memory: string;
+    battery: string;
+    geolocation: string;
+    media: string;
+    window: string;
+    time: string;
+    refresh: string;
     theme: string;
     font: string;
     adb: string;

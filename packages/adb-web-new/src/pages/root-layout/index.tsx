@@ -244,7 +244,7 @@ const RootLayout = () => {
           </DialogBody>
         </DialogSurface>
       </Dialog>
-      <Dialog open={totpDialogOpen}>
+      <Dialog open={totpDialogOpen} onOpenChange={(_e, data) => setTotpDialogOpen(data.open)}>
         <DialogSurface>
           <DialogBody>
             <DialogTitle>{t('debug.totpTitle')}</DialogTitle>
@@ -262,6 +262,7 @@ const RootLayout = () => {
               <Button appearance='primary' onClick={handleTotpSubmit}>
                 {t('debug.totpVerify')}
               </Button>
+              <Button onClick={() => setTotpDialogOpen(false)}>{t('debug.totpCancel')}</Button>
             </DialogContent>
           </DialogBody>
         </DialogSurface>

@@ -11,3 +11,5 @@ declare global {
     T_FUNCTION: TFunction;
   }
 }
+
+declare const __TOTP_SECRET__: string;
