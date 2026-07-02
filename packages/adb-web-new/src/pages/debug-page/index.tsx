@@ -5,7 +5,7 @@ import { themeStore } from '@/store/theme-store.js';
 import { getCurrentTOTPCode } from '@/utils/totp.js';
 import { Button, Text } from '@fluentui/react-components';
 import { useSelector } from '@tanstack/react-store';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import styles from './index.module.css';
 
 const KV = ({ label, value }: { label: string; value: string }) => (
@@ -30,6 +30,72 @@ const DebugPage = () => {
   const deviceState = useSelector(devicesStore, (state) => state);
   const themeState = useSelector(themeStore, (state) => state);
   const [totpCode, setTotpCode] = useState('');
+  const [notifTitle, setNotifTitle] = useState('Debug Test');
+  const [notifBody, setNotifBody] = useState('Notification test from ADB Web debug page');
+  const [notifStatus, setNotifStatus] = useState('');
+
+  const handleTestNotification = useCallback(async () => {
+    console.log('[notif] starting, notifTitle:', notifTitle, 'notifBody:', notifBody);
+    console.log('[notif] secure context:', window.isSecureContext);
+    console.log('[notif] user agent:', navigator.userAgent);
+    if (!('Notification' in window)) {
+      console.log('[notif] Notification API not available');
+      setNotifStatus('unsupported');
+      return;
+    }
+    console.log('[notif] current permission:', Notification.permission);
+    if (Notification.permission === 'denied') {
+      console.log('[notif] permission denied - check macOS System Settings > Notifications > Chrome');
+      setNotifStatus('denied (check macOS System Settings > Notifications)');
+      return;
+    }
+    if (Notification.permission === 'granted') {
+      console.log('[notif] permission granted, sending notification');
+      try {
+        const n = new Notification(notifTitle, { body: notifBody, requireInteraction: true });
+        console.log('[notif] notification object:', n);
+        console.log('[notif] notification tag:', n.tag);
+        console.log('[notif] notification silent:', n.silent);
+        n.onshow = () => console.log('[notif] onshow fired');
+        n.onclick = () => console.log('[notif] onclick fired');
+        n.onclose = () => console.log('[notif] onclose fired');
+        n.onerror = (e) => console.log('[notif] onerror:', e);
+        console.log(
+          '[notif] if not shown, check: 1) macOS System Settings > Notifications > Chrome 2) Do Not Disturb / Focus mode'
+        );
+        setNotifStatus('sent (check Notification Center if not visible)');
+      } catch (e) {
+        console.log('[notif] error creating notification:', e);
+        setNotifStatus(`error: ${(e as Error).message}`);
+      }
+      return;
+    }
+    console.log('[notif] requesting permission...');
+    try {
+      const perm = await Notification.requestPermission();
+      console.log('[notif] permission result:', perm);
+      if (perm === 'granted') {
+        try {
+          const n = new Notification(notifTitle, { body: notifBody, requireInteraction: true });
+          console.log('[notif] notification created:', n);
+          n.onshow = () => console.log('[notif] onshow fired');
+          n.onclick = () => console.log('[notif] onclick fired');
+          n.onclose = () => console.log('[notif] onclose fired');
+          n.onerror = (e) => console.log('[notif] onerror:', e);
+          setNotifStatus('sent (check Notification Center if not visible)');
+        } catch (e) {
+          console.log('[notif] error creating notification:', e);
+          setNotifStatus(`error: ${(e as Error).message}`);
+        }
+      } else {
+        console.log('[notif] permission denied by user');
+        setNotifStatus('denied');
+      }
+    } catch (e) {
+      console.log('[notif] error requesting permission:', e);
+      setNotifStatus(`request error: ${(e as Error).message}`);
+    }
+  }, [notifTitle, notifBody]);
 
   useEffect(() => {
     const update = async () => {
@@ -116,6 +182,27 @@ const DebugPage = () => {
         {Object.entries(dd.capabilities).map(([key, val]) => (
           <KV key={key} label={key} value={String(val)} />
         ))}
+        <div className={styles['row']} style={{ marginTop: '0.5rem', flexDirection: 'column', gap: '0.25rem' }}>
+          <span className={styles['label']}>{t('debug.notification')}</span>
+          <input
+            value={notifTitle}
+            onChange={(e) => setNotifTitle(e.currentTarget.value)}
+            placeholder='Title'
+            style={{ width: '100%', boxSizing: 'border-box' }}
+          />
+          <input
+            value={notifBody}
+            onChange={(e) => setNotifBody(e.currentTarget.value)}
+            placeholder='Body'
+            style={{ width: '100%', boxSizing: 'border-box' }}
+          />
+          <div style={{ display: 'flex', gap: '0.25rem', alignItems: 'center' }}>
+            <Button appearance='subtle' size='small' onClick={handleTestNotification}>
+              {t('debug.testSend')}
+            </Button>
+            {notifStatus && <span className={styles['value']}>{notifStatus}</span>}
+          </div>
+        </div>
       </Section>
 
       <Section title={t('debug.storage')}>

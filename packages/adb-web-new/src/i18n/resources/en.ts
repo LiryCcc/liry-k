@@ -41,6 +41,8 @@ export const enResources: TranslationTree = {
     window: 'Window',
     time: 'Local Time',
     refresh: 'Refresh',
+    notification: 'Notification',
+    testSend: 'Test Send',
     theme: 'Theme',
     font: 'Font',
     adb: 'ADB Device'
