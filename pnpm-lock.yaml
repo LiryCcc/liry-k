@@ -1215,23 +1215,7 @@ importers:
 
   packages/tsconfig: {}
 
-  rust-packages/wasm-demo1:
-    devDependencies:
-      '@eslint/js':
-        specifier: 'catalog:'
-        version: 10.0.1(eslint@10.6.0(jiti@2.7.0))
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      eslint:
-        specifier: 'catalog:'
-        version: 10.6.0(jiti@2.7.0)
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-      typescript-eslint:
-        specifier: 'catalog:'
-        version: 8.62.1(eslint@10.6.0(jiti@2.7.0))(typescript@6.0.3)
+  rust-packages/wasm-demo1: {}
 
 packages:
   '@babel/code-frame@7.29.7':

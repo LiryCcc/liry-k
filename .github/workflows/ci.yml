@@ -39,7 +39,7 @@ jobs:
           targets: wasm32-unknown-unknown
 
       - name: Install pnpm dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: pnpm install
 
       - name: Build pnpm workspace
         run: pnpm build

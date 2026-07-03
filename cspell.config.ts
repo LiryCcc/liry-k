@@ -95,7 +95,9 @@ const cspellConfig = defineConfig({
     'tsdown',
     'napi',
     'cdylib',
-    'bindgen'
+    'bindgen',
+    'liryccc',
+    'Liry'
   ]
 });
 
