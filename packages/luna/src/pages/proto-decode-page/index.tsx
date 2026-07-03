@@ -187,7 +187,7 @@ export const ProtoDecodePage = () => {
       <div class={styles['tabs']}>
         <Button
           type='button'
-          class={mode() === 'decode' ? styles['tabActive'] : styles['tab']}
+          class={mode() === 'decode' ? styles['tab-active'] : styles['tab']}
           onClick={() => {
             switchMode('decode');
           }}
@@ -196,7 +196,7 @@ export const ProtoDecodePage = () => {
         </Button>
         <Button
           type='button'
-          class={mode() === 'encode' ? styles['tabActive'] : styles['tab']}
+          class={mode() === 'encode' ? styles['tab-active'] : styles['tab']}
           onClick={() => {
             switchMode('encode');
           }}
@@ -223,7 +223,7 @@ export const ProtoDecodePage = () => {
             ref={(element) => {
               protoFileInput = element;
             }}
-            class={styles['fileInput']}
+            class={styles['file-input']}
             type='file'
             accept='.proto,text/plain'
             onChange={onProtoFileChange}
@@ -316,7 +316,7 @@ export const ProtoDecodePage = () => {
               ref={(element) => {
                 payloadFileInput = element;
               }}
-              class={styles['fileInput']}
+              class={styles['file-input']}
               type='file'
               accept='application/octet-stream,.bin'
               onChange={onPayloadFileChange}

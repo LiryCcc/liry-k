@@ -30,7 +30,7 @@ export const HexViewer = ({ className, data }: HexViewerProps) => {
   return (
     <div className={mergeClasses(styles.root, className)}>
       <div className={styles.flex}>
-        <div className={mergeClasses(styles.cell, styles.lineNumber)}>{children.lineNumbers}</div>
+        <div className={mergeClasses(styles.cell, styles['line-number'])}>{children.lineNumbers}</div>
         <div className={mergeClasses(styles.cell, styles.hex)}>{children.hexRows}</div>
         <div className={styles.cell}>{children.textRows}</div>
       </div>

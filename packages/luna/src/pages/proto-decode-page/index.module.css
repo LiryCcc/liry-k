@@ -25,7 +25,7 @@
   opacity: 0.85;
 }
 
-.tabActive {
+.tab-active {
   font-weight: 600;
 }
 
@@ -71,7 +71,7 @@
   gap: 8px;
 }
 
-.fileInput {
+.file-input {
   display: none;
 }
 

@@ -6,7 +6,7 @@
   line-height: 1.5;
 }
 
-.titleBar {
+.title-bar {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -36,7 +36,7 @@
   overflow-y: auto;
 }
 
-.sidebarHidden {
+.sidebar-hidden {
   display: none;
 }
 
@@ -53,18 +53,18 @@
   gap: 2px;
 }
 
-.navLink {
+.nav-link {
   text-decoration: none;
   color: inherit;
   padding: 8px 10px;
   border-radius: 4px;
 }
 
-.navLink:hover {
+.nav-link:hover {
   background: var(--colorNeutralBackground3);
 }
 
-.navLinkActive {
+.nav-link-active {
   background: var(--colorBrandBackground2);
   font-weight: 600;
 }

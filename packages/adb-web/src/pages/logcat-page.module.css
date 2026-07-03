@@ -40,18 +40,18 @@
   overflow: hidden;
 }
 
-.rowVerbose,
-.rowDebug,
-.rowInfo {
+.row-verbose,
+.row-debug,
+.row-info {
   color: #000;
 }
 
-.rowWarn {
+.row-warn {
   color: #645607;
 }
 
-.rowError,
-.rowFatal {
+.row-error,
+.row-fatal {
   color: #cd0000;
 }
 

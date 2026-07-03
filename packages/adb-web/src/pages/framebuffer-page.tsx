@@ -96,7 +96,7 @@ export const FramebufferPage = () => {
           <canvas ref={canvasRef} className={styles.canvas} />
         </DeviceView>
 
-        <div className={demoVisible ? undefined : styles.demoHidden} style={{ width: 320, flexShrink: 0 }}>
+        <div className={demoVisible ? undefined : styles['demo-hidden']} style={{ width: 320, flexShrink: 0 }}>
           <DemoModePanel />
         </div>
       </div>

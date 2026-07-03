@@ -114,7 +114,7 @@ const BugReportPageInner = ({ adb }: { adb: Adb }) => {
         </Button>
       </div>
 
-      <div className={`${styles.row} ${styles.rowInline}`}>
+      <div className={`${styles.row} ${styles['row-inline']}`}>
         <Button disabled={!tool?.supportsBugReportZ || zipInProgress} onClick={generateZip}>
           {strings.bugReport.generateZip}
         </Button>

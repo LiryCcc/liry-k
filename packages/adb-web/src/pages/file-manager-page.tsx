@@ -601,7 +601,7 @@ export const FileManagerPage = () => {
 
       {c.breadcrumbs(navigatePath)}
 
-      <div className={styles.tableWrap}>
+      <div className={styles['table-wrap']}>
         <table className={styles.table}>
           <thead>
             <tr>
@@ -645,7 +645,7 @@ export const FileManagerPage = () => {
             {c.sortedList.map((item) => (
               <tr
                 key={item.key}
-                className={c.selectedKeys.has(item.key) ? styles.rowSelected : undefined}
+                className={c.selectedKeys.has(item.key) ? styles['row-selected'] : undefined}
                 onClick={(e) => {
                   c.toggleRow(item.key, e.metaKey || e.ctrlKey);
                 }}
@@ -659,7 +659,7 @@ export const FileManagerPage = () => {
                     ? strings.fileManager.kindDir
                     : strings.fileManager.kindFile}
                 </td>
-                <td className={styles.nameCell}>{item.name}</td>
+                <td className={styles['name-cell']}>{item.name}</td>
                 <td>
                   {`${(((item.mode >> 6) & 0b100) >>> 0).toString(8)}${(((item.mode >> 3) & 0b100) >>> 0).toString(8)}${((item.mode & 0b100) >>> 0).toString(8)}`}
                 </td>

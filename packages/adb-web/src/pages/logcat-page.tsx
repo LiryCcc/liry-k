@@ -288,15 +288,15 @@ export const LogcatPage = () => {
 
   const Row = useMemo(() => {
     const priorityClass: Record<AndroidLogPriority, string> = {
-      [AndroidLogPriority.Default]: styles.rowVerbose ?? '',
-      [AndroidLogPriority.Unknown]: styles.rowVerbose ?? '',
-      [AndroidLogPriority.Silent]: styles.rowVerbose ?? '',
-      [AndroidLogPriority.Verbose]: styles.rowVerbose ?? '',
-      [AndroidLogPriority.Debug]: styles.rowDebug ?? '',
-      [AndroidLogPriority.Info]: styles.rowInfo ?? '',
-      [AndroidLogPriority.Warn]: styles.rowWarn ?? '',
-      [AndroidLogPriority.Error]: styles.rowError ?? '',
-      [AndroidLogPriority.Fatal]: styles.rowFatal ?? ''
+      [AndroidLogPriority.Default]: styles['row-verbose'] ?? '',
+      [AndroidLogPriority.Unknown]: styles['row-verbose'] ?? '',
+      [AndroidLogPriority.Silent]: styles['row-verbose'] ?? '',
+      [AndroidLogPriority.Verbose]: styles['row-verbose'] ?? '',
+      [AndroidLogPriority.Debug]: styles['row-debug'] ?? '',
+      [AndroidLogPriority.Info]: styles['row-info'] ?? '',
+      [AndroidLogPriority.Warn]: styles['row-warn'] ?? '',
+      [AndroidLogPriority.Error]: styles['row-error'] ?? '',
+      [AndroidLogPriority.Fatal]: styles['row-fatal'] ?? ''
     };
     const R = ({ className, rowIndex, ...rest }: GridRowProps) => {
       const item = list[rowIndex];
@@ -313,7 +313,7 @@ export const LogcatPage = () => {
             className,
             styles.row,
             selection.has(rowIndex) ? styles.selected : '',
-            priorityClass[pri] ?? styles.rowInfo
+            priorityClass[pri] ?? styles['row-info']
           )}
           onPointerDown={handlePointerDown}
           {...rest}

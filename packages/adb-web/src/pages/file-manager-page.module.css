@@ -22,7 +22,7 @@
   font: inherit;
 }
 
-.tableWrap {
+.table-wrap {
   overflow: auto;
   flex: 1;
   min-height: 200px;
@@ -47,15 +47,15 @@
   background: var(--colorNeutralBackground3);
 }
 
-.rowSelected {
+.row-selected {
   background: var(--colorBrandBackground2);
 }
 
-.nameCell {
+.name-cell {
   cursor: pointer;
 }
 
-.nameCell:hover {
+.name-cell:hover {
   text-decoration: underline;
 }
 

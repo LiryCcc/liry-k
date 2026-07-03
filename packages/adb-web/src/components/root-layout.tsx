@@ -32,14 +32,14 @@ export const RootLayout = () => {
   return (
     <>
       <div className={styles.shell}>
-        <header className={styles.titleBar}>
+        <header className={styles['title-bar']}>
           <Button appearance='subtle' aria-label={strings.toggleMenu} onClick={toggleSidebar}>
             {sidebarOpen ? '◀' : '☰'}
           </Button>
           <div className={styles.title}>{strings.appTitle}</div>
         </header>
         <div className={styles.body}>
-          <aside className={`${styles.sidebar} ${sidebarOpen ? '' : styles.sidebarHidden}`}>
+          <aside className={`${styles.sidebar} ${sidebarOpen ? '' : styles['sidebar-hidden']}`}>
             <Connect />
             <nav className={styles.nav} aria-label={strings.nav.home}>
               {nav.map((item) => {
@@ -49,7 +49,7 @@ export const RootLayout = () => {
                   <Link
                     key={item.to}
                     to={item.to}
-                    className={`${styles.navLink} ${active ? styles.navLinkActive : ''}`}
+                    className={`${styles['nav-link']} ${active ? styles['nav-link-active'] : ''}`}
                   >
                     {item.label}
                   </Link>

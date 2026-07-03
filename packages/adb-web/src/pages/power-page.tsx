@@ -76,7 +76,7 @@ export const PowerPage = () => {
           {strings.power.edl}
         </Button>
         <Tooltip content={strings.power.qualcommTooltip} relationship='label'>
-          <InfoRegular className={styles.infoIcon} />
+          <InfoRegular className={styles['info-icon']} />
         </Tooltip>
       </div>
     </PageShell>

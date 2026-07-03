@@ -5,14 +5,14 @@ import { Link, useRouterState } from '@tanstack/react-router';
 import styles from './index.module.css';
 
 const linkClass = (currentPath: string, target: string) =>
-  `${styles['navLink']} ${currentPath === target ? styles['navLinkActive'] : ''}`;
+  `${styles['nav-link']} ${currentPath === target ? styles['nav-link-active'] : ''}`;
 
 export const Sidebar = ({ collapsed }: { collapsed: boolean }) => {
   const { t } = useTranslation();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
   return (
-    <aside className={`${styles['sidebar']} ${collapsed ? styles['sidebarCollapsed'] : ''}`}>
+    <aside className={`${styles['sidebar']} ${collapsed ? styles['sidebar-collapsed'] : ''}`}>
       <nav className={styles['nav']}>
         <Link to='/' className={linkClass(pathname, '/')}>
           <HomeRegular />

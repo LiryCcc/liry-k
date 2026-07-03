@@ -11,10 +11,10 @@ export const RootLayout = () => {
       <header class={styles['header']}>
         <h1 class={styles['title']}>{t('app.title')}</h1>
         <div class={styles['lang']}>
-          <Button class={styles['langButton']} type='button' onClick={() => changeLanguage('zh')}>
+          <Button class={styles['lang-button']} type='button' onClick={() => changeLanguage('zh')}>
             {t('ui.switchToZh')}
           </Button>
-          <Button class={styles['langButton']} type='button' onClick={() => changeLanguage('en')}>
+          <Button class={styles['lang-button']} type='button' onClick={() => changeLanguage('en')}>
             {t('ui.switchToEn')}
           </Button>
         </div>

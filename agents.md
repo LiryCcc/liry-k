@@ -35,6 +35,13 @@
 - **禁止**文件名或目录名中出现 **大写字母**（`A`–`Z`）。
 - **范围**：凡由本仓库**维护并提交**的源码、样式、脚本、文档、工作流配置等，均须遵守；**第三方目录**（如 `node_modules`）及机器生成且未手改的产物不在此列。
 
+## CSS 类名与变量命名
+
+- **CSS 类名一律 kebab-case**：`.css` 文件中所有类选择器、CSS Modules 中的类名，均使用小写字母与连字符 `-`，例如 `my-class-name`、`section-header`；**禁止**使用 camelCase（如 `myClassName`）或下划线分隔。
+- **CSS 自定义属性（变量）亦用 kebab-case**：`--my-variable-name`、`--color-brand-foreground` 等。
+- **例外**：来自第三方库或框架自带的类名/变量（如 Fluent UI、Tailwind 等）不受此限。
+- **JS/TS 中访问 CSS Modules 类名**：使用 `styles['kebab-case-name']` 括号形式，而非 `styles.kebabCaseName`，以与 `noPropertyAccessFromIndexSignature` 约束对齐。
+
 ## `@liry-k/luna`（前端）
 
 ### 技术栈

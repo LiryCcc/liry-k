@@ -142,7 +142,7 @@ const TcpipPageInner = ({ adb }: { adb: Adb | undefined }) => {
             <Switch checked={!!serviceListenAddresses} disabled />
           </div>
           {serviceListenAddresses?.map((address) => (
-            <Input key={address} className={styles.inputNarrow} readOnly value={address} />
+            <Input key={address} className={styles['input-narrow']} readOnly value={address} />
           ))}
         </Field>
 
@@ -156,7 +156,7 @@ const TcpipPageInner = ({ adb }: { adb: Adb | undefined }) => {
               }}
             />
             <Input
-              className={styles.inputNarrow}
+              className={styles['input-narrow']}
               disabled={!adb || tcpPortBlocked}
               value={servicePort}
               onChange={(_, d) => {
@@ -170,7 +170,7 @@ const TcpipPageInner = ({ adb }: { adb: Adb | undefined }) => {
           <div className={styles.row}>
             <Switch checked={persistPortEnabled} disabled />
           </div>
-          {persistPort ? <Input className={styles.inputNarrow} readOnly value={persistPort} /> : null}
+          {persistPort ? <Input className={styles['input-narrow']} readOnly value={persistPort} /> : null}
         </Field>
       </div>
     </PageShell>
