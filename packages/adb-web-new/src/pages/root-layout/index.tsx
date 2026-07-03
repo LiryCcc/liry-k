@@ -158,7 +158,7 @@ const RootLayout = () => {
 
   return (
     <div className={styles['shell']}>
-      <header className={styles['titleBar']}>
+      <header className={styles['title-bar']}>
         <Tooltip content={sidebarCollapseLabel} relationship='label'>
           <Button
             appearance='subtle'
