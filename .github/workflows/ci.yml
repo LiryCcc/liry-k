@@ -39,7 +39,7 @@ jobs:
           targets: wasm32-unknown-unknown
 
       - name: Install pnpm dependencies
-        run: pnpm install --frozen-lockfile --ignore-scripts
+        run: pnpm install
 
       - name: Build pnpm workspace
         run: pnpm build
@@ -47,23 +47,8 @@ jobs:
       - name: Build Java workspace
         run: ./gradlew build
 
-      - name: Check format
-        run: pnpm check-format
-
-      - name: Check spell
-        run: pnpm check-spell
-
-      - name: Check CSS style
-        run: pnpm lint:style
-
-      - name: Lint workspace
-        run: pnpm -r lint
-
-      - name: Lint Rust
-        run: pnpm lint:rust
-
-      - name: Check Rust format
-        run: pnpm lint:rustfmt
+      - name: Lint
+        run: pnpm pre-commit
 
   release:
     needs: check
