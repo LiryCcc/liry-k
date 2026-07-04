@@ -104,5 +104,4 @@
 - 新增用户可见文案时：同步 `src/i18n/resources` 与 `translation-tree` 等类型定义，并走 `useTranslation` / `TypedT` 约定。
 - 接入 **API、postMessage、Worker 消息** 等外部输入时：遵守「外部输入与 Zod」，在边界用 `zod/v4` 解析，勿用断言代替校验。
 - **避免匿名 `export default`**：禁止直接 `export default function(…)` / `export default class` / `export default { … }` 等匿名形式；必须先声明具名 `const` / `function` / `class`，再单独 `export default <名称>`，例如 `const foo = …; export default foo;`。此规则便于在 import 侧推断名称、利于重构工具和 tree-shaking 分析。
-- **箭头函数优先**：所有 TypeScript/JavaScript 函数在能使用箭头函数表达式的场景下均须使用箭头函数（`const foo = () => { … }`），**禁止**使用 `function` 声明/表达式。例外：必须在编译阶段作为顶层声明、需要使用 `this` 绑定、或声明 `generator` 时，方可用 `function`。
 - **搜索代码优先使用 ast-grep**：仓库已全局安装 `ast-grep`（`sg` 命令）与 `tree-ast-grep-mcp`。搜索源码时优先使用 ast-grep 的 `tree-ast-grep` MCP 工具（基于 AST 的结构化搜索），而非纯文本 grep，以提高查准率，尤其在寻找函数定义、类声明、import 语句等语法结构时。
