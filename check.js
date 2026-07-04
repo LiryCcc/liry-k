@@ -9,7 +9,7 @@ if (numVer < 22) {
   exit(1);
 }
 
-const userAgent = env?.npm_config_user_agent || '';
+const userAgent = env?.['npm_config_user_agent'] || '';
 
 if (!userAgent.includes('pnpm')) {
   console.log('this project requires pnpm to be installed');
