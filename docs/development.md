@@ -12,36 +12,6 @@
 
 ---
 
-## Monorepo 目录与包
-
-| 目录                          | 说明                                                                   |
-| ----------------------------- | ---------------------------------------------------------------------- |
-| `packages/`                   | 前端应用、工具库、普通 npm workspace 包                                |
-| `infra/`                      | 内部基础设施 npm workspace 包                                          |
-| `rust-packages/`              | Rust workspace 包；其中带 `package.json` 的目录也会纳入 pnpm workspace |
-| `packages/polaris/src-tauri/` | Tauri 应用的 Rust 部分，同时属于 Cargo workspace                       |
-| `mc-plugins/`                 | Gradle 管理的 Java 插件                                                |
-
-包命名遵循根目录 `README.md` 与 `agents.md`：npm 包统一使用 `@liry-k/` 作用域；业务/库存包必须使用项目代号表中的名称，工具/演示/基础设施包可使用描述性名称。
-
----
-
-## 零、三分钟快速上手
-
-```bash
-# 1. 确保 Node.js >= 24、pnpm >= 10、Rust 工具链已安装
-# 2. 克隆仓库并安装依赖（自动触发构建）
-pnpm install
-
-# 3. 启动 luna 前端开发服务器
-pnpm --filter @liry-k/luna dev
-
-# 4. 运行完整检查（提交前也会自动执行）
-pnpm pre-commit
-```
-
----
-
 ## 一、Node.js 环境
 
 ### 版本要求
@@ -134,27 +104,6 @@ xcode-select --install
 cargo fetch
 ```
 
-### WASM 包
-
-`rust-packages/wasm-demo1` 同时是 Rust crate 与 pnpm workspace 包，npm 包名为 `@liry-k/wasm-demo1`。
-
-```bash
-# 构建 WASM npm 包
-pnpm --filter @liry-k/wasm-demo1 build
-
-# 其他 workspace 包中引用
-import { add, greet } from '@liry-k/wasm-demo1';
-```
-
-WASM 构建使用 `cargo run --bin wd1-build`，由 Rust 构建辅助程序完成以下动作：
-
-- 安装 `wasm32-unknown-unknown` target（若本机尚未安装）。
-- 通过 `cargo install wasm-pack --root target/.cargo-tools` 安装本仓库局部 `wasm-pack`。
-- 调用局部 `target/.cargo-tools/bin/wasm-pack`，禁止依赖系统全局 `wasm-pack`。
-- 输出 npm 产物到 `rust-packages/wasm-demo1/target/wasm-pkg/`。
-
-`target/` 已被根 `.gitignore` 忽略，WASM 产物与局部工具不会提交到仓库。
-
 ---
 
 ## 三、Java 环境
@@ -241,31 +190,7 @@ pnpm --filter @liry-k/polaris tauri dev
 
 ---
 
-## 七、CI 流程
-
-GitHub Actions 配置位于 `.github/workflows/ci.yml`，主要分为检查与发布两个阶段。
-
-### 检查阶段
-
-触发条件：`push` 到 `main`、以及指向 `main` 的 `pull_request`。
-
-流程：
-
-1. 检出代码并设置 Node.js / pnpm。
-2. 设置 Rust stable 工具链，包含 `clippy`、`rustfmt` 与 `wasm32-unknown-unknown` target。
-3. 执行 `pnpm install --frozen-lockfile --ignore-scripts`，避免安装阶段隐式构建。
-4. 执行 `pnpm build`，显式构建所有 workspace 包，包含 WASM npm 包。
-5. 执行 `pnpm pre-commit`，覆盖格式、拼写、CSS、各包 lint、Rust clippy 与 rustfmt 检查。
-
-### 发布阶段
-
-仅在 `main` 分支 `push` 且检查阶段通过后执行。
-
-每次 push 会创建一个 GitHub Release，tag 采用 `auto-<run_number>-<short_sha>`，用于标记该次完整 CI 通过的仓库快照。发布使用仓库默认 `GITHUB_TOKEN`，无需额外 npm token。
-
----
-
-## 八、调试页面
+## 七、调试页面
 
 `adb-web-new` 包包含一个隐藏的调试页面，用于查看运行时状态、环境信息和依赖版本。
 

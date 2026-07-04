@@ -93,9 +93,7 @@ const cspellConfig = defineConfig({
     'notif',
     'Notif',
     'tsdown',
-    'napi',
-    'cdylib',
-    'bindgen'
+    'napi'
   ]
 });
 
