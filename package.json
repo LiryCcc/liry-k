@@ -19,14 +19,12 @@
     "pre-commit": "pnpm pre-commit",
     "commit-msg": "pnpm commitlint --edit"
   },
-  "dependencies": {
-    "cspell": "^10.0.1"
-  },
   "devDependencies": {
     "@commitlint/cli": "^21.2.0",
     "@commitlint/config-conventional": "^21.2.0",
     "@liry-k/tsconfig": "workspace:*",
     "@types/node": "catalog:",
+    "cspell": "^10.0.1",
     "eslint": "catalog:",
     "pkg-types": "^2.3.1",
     "prettier": "^3.9.4",
