@@ -2,7 +2,7 @@
  * 首先，自身回文的只能出现一个，其余的必须有对应的reverse word
  */
 
-function longestPalindrome(words: string[]): number {
+const longestPalindrome = (words: string[]): number => {
   const isPalindrome = (word1: string, word2?: string) => {
     if (word2) {
       if (word2[1] === word1[0] && word2[0] === word1[1]) {
@@ -67,6 +67,6 @@ function longestPalindrome(words: string[]): number {
   //   }
   // }
   return length;
-}
+};
 
 export default longestPalindrome;

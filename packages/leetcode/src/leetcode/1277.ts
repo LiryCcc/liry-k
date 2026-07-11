@@ -32,7 +32,7 @@
 正方形的总数 = 6 + 1 = 7.
 */
 
-function countSquares(matrix: number[][]): number {
+const countSquares = (matrix: number[][]): number => {
   const m = matrix.length;
   const n = matrix[0].length;
   const f: number[][] = Array.from({ length: m }, () => Array(n).fill(0));
@@ -52,5 +52,5 @@ function countSquares(matrix: number[][]): number {
       }, 0),
     0
   );
-}
+};
 export default countSquares;

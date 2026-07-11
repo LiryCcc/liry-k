@@ -29,16 +29,16 @@ class Mat {
 }
 
 /* 单位矩阵 */
-function I(): Mat {
+const I = (): Mat => {
   const m = new Mat();
   for (let i = 0; i < L; i++) {
     m.a[i][i] = 1n;
   }
   return m;
-}
+};
 
 /* 矩阵快速幂 */
-function quickMul(x: Mat, y: number): Mat {
+const quickMul = (x: Mat, y: number): Mat => {
   let ans = I();
   let cur = new Mat(x);
   while (y > 0) {
@@ -49,9 +49,9 @@ function quickMul(x: Mat, y: number): Mat {
     y >>= 1;
   }
   return ans;
-}
+};
 
-function lengthAfterTransformations(s: string, t: number, nums: number[]): number {
+const lengthAfterTransformations = (s: string, t: number, nums: number[]): number => {
   const T = new Mat();
   for (let i = 0; i < L; i++) {
     for (let j = 1; j <= nums[i]; j++) {
@@ -72,6 +72,6 @@ function lengthAfterTransformations(s: string, t: number, nums: number[]): numbe
     }
   }
   return Number(ans);
-}
+};
 
 export default lengthAfterTransformations;

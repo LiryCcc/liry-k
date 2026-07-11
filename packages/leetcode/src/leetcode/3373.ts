@@ -23,7 +23,7 @@ const build = (edges: [number, number][], color: number[]): [number, number] => 
   return [countColor0, countColor1];
 };
 
-function maxTargetNodes(edges1: [number, number][], edges2: [number, number][]): number[] {
+const maxTargetNodes = (edges1: [number, number][], edges2: [number, number][]): number[] => {
   const n = edges1.length + 1;
   const m = edges2.length + 1;
 
@@ -40,6 +40,6 @@ function maxTargetNodes(edges1: [number, number][], edges2: [number, number][]):
   }
 
   return res;
-}
+};
 
 export default maxTargetNodes;

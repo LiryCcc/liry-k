@@ -1,4 +1,4 @@
-function isValid(s: string): boolean {
+const isValid = (s: string): boolean => {
   const left = ['(', '{', '['];
 
   const stack: string[] = [];
@@ -21,7 +21,7 @@ function isValid(s: string): boolean {
     }
   }
   return !stack.length;
-}
+};
 
 console.log(isValid('()'));
 

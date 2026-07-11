@@ -31,7 +31,7 @@ const buildTree = (edges: number[][], k: number) => {
   return res;
 };
 
-function maxTargetNodes(edges1: number[][], edges2: number[][], k: number): number[] {
+const maxTargetNodes = (edges1: number[][], edges2: number[][], k: number): number[] => {
   const len = edges1.length + 1;
   const count1 = buildTree(edges1, k);
   // edge2
@@ -42,6 +42,6 @@ function maxTargetNodes(edges1: number[][], edges2: number[][], k: number): numb
     res[i] = count1[i] + maxCount2;
   }
   return res;
-}
+};
 
 export default maxTargetNodes;

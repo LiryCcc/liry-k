@@ -9,7 +9,7 @@ interface State {
   dist: number;
 }
 
-function solution(moveTime: number[][]): number {
+const solution = (moveTime: number[][]): number => {
   const n = moveTime.length;
   const m = moveTime[0].length;
   const d: number[][] = Array.from({ length: n }, () => Array(m).fill(Infinity));
@@ -45,7 +45,7 @@ function solution(moveTime: number[][]): number {
   }
 
   return d[n - 1][m - 1];
-}
+};
 
 describe('对拍', () => {
   it('对拍', () => {

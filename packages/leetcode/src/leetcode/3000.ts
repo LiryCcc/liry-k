@@ -38,7 +38,7 @@ dimensions[i].length == 2
 type NumberTuple = [number, number];
 type NotBlankArray<T> = [T, ...T[]];
 
-function areaOfMaxDiagonal(dimensions: NotBlankArray<NumberTuple>): number {
+const areaOfMaxDiagonal = (dimensions: NotBlankArray<NumberTuple>): number => {
   const max = {
     length: dimensions[0][0] * dimensions[0][0] + dimensions[0][1] * dimensions[0][1],
     area: dimensions[0][0] * dimensions[0][1]
@@ -56,7 +56,7 @@ function areaOfMaxDiagonal(dimensions: NotBlankArray<NumberTuple>): number {
     }
   }
   return max.area;
-}
+};
 
 console.log(
   areaOfMaxDiagonal([

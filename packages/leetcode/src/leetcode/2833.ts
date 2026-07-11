@@ -1,4 +1,4 @@
-function furthestDistanceFromOrigin(moves: string): number {
+const furthestDistanceFromOrigin = (moves: string): number => {
   // const ms = [...moves];
   const map: Record<string, number> = {
     L: 0,
@@ -9,6 +9,6 @@ function furthestDistanceFromOrigin(moves: string): number {
     map[m] = map[m] ? map[m] + 1 : 1;
   }
   return Math.abs(map['L'] - map['R']) + map['_'];
-}
+};
 
 export default furthestDistanceFromOrigin;

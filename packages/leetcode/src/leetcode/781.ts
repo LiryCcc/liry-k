@@ -7,7 +7,7 @@
  * 其中 answers[i] 是第 i 只兔子的回答。
  */
 
-function numRabbits(answers: number[]): number {
+const numRabbits = (answers: number[]): number => {
   const count: Record<number, number> = {};
   for (const answer of answers) {
     if (count[answer] === undefined) {
@@ -24,6 +24,6 @@ function numRabbits(answers: number[]): number {
       return Math.ceil(group / (num + 1)) * (num + 1);
     })
     .reduce((a, b) => a + b, 0);
-}
+};
 
 export default numRabbits;

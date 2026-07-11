@@ -101,7 +101,7 @@ const infix2Postfix = (tokens: string[]): string[] => {
   return res;
 };
 
-function calculate(s: string): number {
+const calculate = (s: string): number => {
   const expression = infix2Postfix(token(s));
   const stack: number[] = [];
   for (const token of expression) {
@@ -119,7 +119,7 @@ function calculate(s: string): number {
     }
   }
   return stack.pop()!;
-}
+};
 
 console.log(calculate('1+2'));
 console.log(calculate('1+(2*1)'));

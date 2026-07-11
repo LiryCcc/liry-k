@@ -1,4 +1,4 @@
-function idealArrays(n: number, maxValue: number): number {
+const idealArrays = (n: number, maxValue: number): number => {
   const MOD = 1e9 + 7;
   const MAX_N = 10010;
   const MAX_P = 15;
@@ -50,6 +50,6 @@ function idealArrays(n: number, maxValue: number): number {
     ans = parseInt(((BigInt(ans) + mul) % BigInt(MOD)).toString());
   }
   return ans;
-}
+};
 
 export default idealArrays;

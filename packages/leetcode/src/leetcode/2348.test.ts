@@ -9,7 +9,7 @@ const generateArr = (length: number): number[] => {
   return res;
 };
 
-function solution(nums: number[]): number {
+const solution = (nums: number[]): number => {
   let [ans, cnt] = [0, 0];
   for (const x of nums) {
     if (!x) {
@@ -19,7 +19,7 @@ function solution(nums: number[]): number {
     }
   }
   return ans;
-}
+};
 
 describe('2348 leetcode cases', () => {
   for (let i = 0; i < 100; i++) {

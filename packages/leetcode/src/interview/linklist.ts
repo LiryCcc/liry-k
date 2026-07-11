@@ -7,7 +7,7 @@ export class ListNode {
   }
 }
 
-export function reverseList(head: ListNode | null): ListNode | null {
+export const reverseList = (head: ListNode | null): ListNode | null => {
   if (head === null || head.next === null) {
     return head;
   } else {
@@ -21,4 +21,4 @@ export function reverseList(head: ListNode | null): ListNode | null {
     }
     return prev;
   }
-}
+};

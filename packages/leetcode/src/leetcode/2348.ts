@@ -3,7 +3,7 @@
  * 然后获得每个块中有几个子数组，然后加起来
  */
 
-function zeroFilledSubarray(nums: number[]): number {
+const zeroFilledSubarray = (nums: number[]): number => {
   const lens: number[] = [];
   let i = 0;
   for (const num of nums) {
@@ -27,7 +27,7 @@ function zeroFilledSubarray(nums: number[]): number {
         return p + (c * (c + 1)) / 2;
       }, 0)
   );
-}
+};
 
 console.log(zeroFilledSubarray([0, 0, 0, 1, 0, 0]));
 

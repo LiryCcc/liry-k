@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import countSubarrays from './3392.ts';
 import { generateRandomArray } from './utils.ts';
 
-function solution(nums: number[]): number {
+const solution = (nums: number[]): number => {
   const n = nums.length;
   let ans = 0;
   for (let i = 1; i < n - 1; ++i) {
@@ -11,7 +11,7 @@ function solution(nums: number[]): number {
     }
   }
   return ans;
-}
+};
 
 describe('countSubarrays', () => {
   it('should equal to solution', () => {

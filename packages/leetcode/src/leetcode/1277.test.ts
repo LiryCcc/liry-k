@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import countSquares from './1277.ts';
 
-function solution(matrix: number[][]): number {
+const solution = (matrix: number[][]): number => {
   const m = matrix.length,
     n = matrix[0].length;
   const f: number[][] = new Array(m).fill(0).map(() => new Array(n).fill(0));
@@ -19,7 +19,7 @@ function solution(matrix: number[][]): number {
     }
   }
   return ans;
-}
+};
 
 describe('1277 ', () => {
   it('leetcode case 1', () => {

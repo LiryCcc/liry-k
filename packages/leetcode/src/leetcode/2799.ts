@@ -1,6 +1,6 @@
 // 抄的滑动窗口
 
-function countCompleteSubarrays(nums: number[]): number {
+const countCompleteSubarrays = (nums: number[]): number => {
   const length = nums.length;
   const differentElements = new Set(nums).size;
   const count = (left: number): number => {
@@ -15,6 +15,6 @@ function countCompleteSubarrays(nums: number[]): number {
   };
 
   return nums.reduce((res, _, left) => res + count(left), 0);
-}
+};
 
 export default countCompleteSubarrays;

@@ -20,6 +20,6 @@ const jsonPayloadSchema = z
   });
 
 /** 将用户输入的 JSON 文本解析为对象，供 Protobuf 编码使用。 */
-export function parseJsonPayload(text: string) {
+export const parseJsonPayload = (text: string) => {
   return jsonPayloadSchema.safeParse(text);
-}
+};

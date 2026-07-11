@@ -37,7 +37,7 @@ text 由若干用单个空格分隔的单词组成，且不含任何前导和尾
 brokenLetters 由 互不相同 的小写英文字母组成
  */
 
-function canBeTypedWords(text: string, brokenLetters: string): number {
+const canBeTypedWords = (text: string, brokenLetters: string): number => {
   const words = text.split(' ');
   const letters = [...brokenLetters];
   let res = 0;
@@ -49,6 +49,6 @@ function canBeTypedWords(text: string, brokenLetters: string): number {
     }
   }
   return res;
-}
+};
 
 export default canBeTypedWords;

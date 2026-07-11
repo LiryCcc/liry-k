@@ -31,7 +31,7 @@ premium lock icon
 -109 <= nums[i] <= 109
  */
 
-function longestConsecutive(nums: number[]): number {
+const longestConsecutive = (nums: number[]): number => {
   if (nums.length === 0) {
     return 0;
   }
@@ -52,7 +52,7 @@ function longestConsecutive(nums: number[]): number {
     }
   }
   return res;
-}
+};
 
 console.log(longestConsecutive([100, 4, 200, 1, 3, 2]));
 console.log(longestConsecutive([100, 4, 200, 1, 3, 2]) === 4);

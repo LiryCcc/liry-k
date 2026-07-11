@@ -41,7 +41,7 @@ nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。
 -105 <= nums[i] <= 105
  */
 
-function threeSum(_nums: [number, ...number[]]): [number, number, number][] {
+const threeSum = (_nums: [number, ...number[]]): [number, number, number][] => {
   //
   const nums = _nums.sort((a, b) => a - b);
   const res: ReturnType<typeof threeSum> = [];
@@ -72,7 +72,7 @@ function threeSum(_nums: [number, ...number[]]): [number, number, number][] {
     }
   }
   return res;
-}
+};
 
 console.log(JSON.stringify(threeSum([-1, 0, 1, 2, -1, -4]))); // [[-1,-1,2],[-1,0,1]]
 console.log(JSON.stringify(threeSum([0, 1, 1]))); // []

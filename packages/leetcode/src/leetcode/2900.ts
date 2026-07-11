@@ -1,4 +1,4 @@
-function getLongestSubsequence(words: string[], groups: number[]): string[] {
+const getLongestSubsequence = (words: string[], groups: number[]): string[] => {
   const res: string[] = [];
   const len = words.length;
 
@@ -8,6 +8,6 @@ function getLongestSubsequence(words: string[], groups: number[]): string[] {
     }
   }
   return res;
-}
+};
 
 export default getLongestSubsequence;

@@ -52,7 +52,7 @@ z 是第 3 个人的位置，第 3 个人 不会移动 。
 由于两个人同时到达，所以输出为 0。
  */
 
-function findClosest(x: number, y: number, z: number): 0 | 1 | 2 {
+const findClosest = (x: number, y: number, z: number): 0 | 1 | 2 => {
   const [xx, yy] = [Math.abs(x - z), Math.abs(y - z)];
   if (xx === yy) {
     return 0;
@@ -63,7 +63,7 @@ function findClosest(x: number, y: number, z: number): 0 | 1 | 2 {
       return 1;
     }
   }
-}
+};
 
 console.log(findClosest(1, 5, 3) === 0);
 console.log(findClosest(2, 5, 6) === 2);

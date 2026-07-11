@@ -58,7 +58,7 @@ type UserRole = 'superAdmin' | 'admin' | 'editor';
 type UserConstructor = new (name: string) => User;
 
 /** 根据传入的职责，return 响应的类 */
-export function getAbstractUserFactory(role: UserRole): UserConstructor {
+export const getAbstractUserFactory = (role: UserRole): UserConstructor => {
   switch (role) {
     case 'superAdmin':
       return SuperAdmin;
@@ -67,7 +67,7 @@ export function getAbstractUserFactory(role: UserRole): UserConstructor {
     case 'editor':
       return Editor;
   }
-}
+};
 
 const UserClass = getAbstractUserFactory('editor');
 export const userInstance = new UserClass('liry');

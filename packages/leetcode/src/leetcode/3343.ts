@@ -1,4 +1,4 @@
-function countBalancedPermutations(num: string): number {
+const countBalancedPermutations = (num: string): number => {
   const MOD = BigInt(1e9 + 7);
   let tot = 0;
   const n = num.length;
@@ -64,6 +64,6 @@ function countBalancedPermutations(num: string): number {
   };
 
   return Number(dfs(0, 0, maxOdd));
-}
+};
 
 export default countBalancedPermutations;

@@ -1,4 +1,4 @@
-function triangleType(nums: number[]): string {
+const triangleType = (nums: number[]): string => {
   if (!(nums[0] + nums[1] > nums[2] && nums[0] + nums[2] > nums[1] && nums[1] + nums[2] > nums[0])) {
     return 'none';
   }
@@ -9,6 +9,6 @@ function triangleType(nums: number[]): string {
     return 'isosceles';
   }
   return 'scalene';
-}
+};
 
 export default triangleType;

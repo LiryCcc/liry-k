@@ -1,6 +1,6 @@
 import { MaxPriorityQueue } from 'datastructures-js';
 
-function maxRemoval(nums: number[], queries: number[][]): number {
+const maxRemoval = (nums: number[], queries: number[][]): number => {
   queries.sort((a, b) => a[0] - b[0]);
   const que = new MaxPriorityQueue<number>();
   const delta: number[] = new Array(nums.length + 1).fill(0);
@@ -21,6 +21,6 @@ function maxRemoval(nums: number[], queries: number[][]): number {
     }
   }
   return que.size();
-}
+};
 
 export default maxRemoval;

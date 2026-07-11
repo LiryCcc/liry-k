@@ -40,7 +40,7 @@ premium lock icon
 strings[i] 仅包含小写字母
  */
 
-function groupAnagrams(strings: string[]): string[][] {
+const groupAnagrams = (strings: string[]): string[][] => {
   const map: Record<string, string[]> = {};
   for (const str of strings) {
     const key = str
@@ -53,7 +53,7 @@ function groupAnagrams(strings: string[]): string[][] {
     map[key].push(str);
   }
   return Object.values(map);
-}
+};
 
 console.log(JSON.stringify(groupAnagrams(['eat', 'tea', 'tan', 'ate', 'nat', 'bat'])));
 

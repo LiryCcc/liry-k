@@ -12,7 +12,7 @@
  * 将找出的所有互不相同的整数按 递增顺序 排列，并以数组形式返回。
  */
 
-function findEvenNumbers(digits: number[]): number[] {
+const findEvenNumbers = (digits: number[]): number[] => {
   if (digits.filter((v) => v % 2 === 0).length === 0) {
     return [];
   }
@@ -38,6 +38,6 @@ function findEvenNumbers(digits: number[]): number[] {
     .sort((a, b) => {
       return a - b;
     });
-}
+};
 
 export default findEvenNumbers;

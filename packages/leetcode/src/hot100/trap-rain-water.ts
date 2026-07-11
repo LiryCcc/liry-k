@@ -1,4 +1,4 @@
-function trap(height: number[]): number {
+const trap = (height: number[]): number => {
   let res = 0;
   const stack: number[] = [];
   const len = height.length;
@@ -16,7 +16,7 @@ function trap(height: number[]): number {
     stack.push(i);
   }
   return res;
-}
+};
 
 const case1 = [0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1];
 const res1 = 6;

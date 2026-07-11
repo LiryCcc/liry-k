@@ -33,7 +33,7 @@ nums 为 无重复元素 的 升序 排列数组
  */
 
 // nums[i] < nums[i + 1]
-function searchInsert(nums: number[], target: number): number {
+const searchInsert = (nums: number[], target: number): number => {
   let left = 0,
     right = nums.length - 1;
 
@@ -49,6 +49,6 @@ function searchInsert(nums: number[], target: number): number {
   }
 
   return left; // 找不到，left 就是插入位置
-}
+};
 
 export default searchInsert;

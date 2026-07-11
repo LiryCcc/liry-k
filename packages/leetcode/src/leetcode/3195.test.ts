@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import minimumArea from './3195.ts';
 import { generateRandom2DArray } from './utils.ts';
 
-function solution(grid: number[][]): number {
+const solution = (grid: number[][]): number => {
   const n = grid.length,
     m = grid[0].length;
   let min_i = n,
@@ -20,7 +20,7 @@ function solution(grid: number[][]): number {
     }
   }
   return (max_i - min_i + 1) * (max_j - min_j + 1);
-}
+};
 
 describe('3195', () => {
   for (let i = 0; i < 15; i++) {

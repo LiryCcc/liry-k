@@ -36,7 +36,7 @@ classes[i].length == 2
 
 import { PriorityQueue } from 'datastructures-js';
 
-function maxAverageRatio(classes: number[][], extraStudents: number): number {
+const maxAverageRatio = (classes: number[][], extraStudents: number): number => {
   const pq = new PriorityQueue<number[]>((a, b) => {
     const val1 = (b[1] + 1) * b[1] * (a[1] - a[0]);
     const val2 = (a[1] + 1) * a[1] * (b[1] - b[0]);
@@ -63,7 +63,7 @@ function maxAverageRatio(classes: number[][], extraStudents: number): number {
     res += pass / total;
   }
   return res / count;
-}
+};
 
 const case1 = [
   [

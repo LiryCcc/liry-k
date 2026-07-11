@@ -1,4 +1,4 @@
-function twoSum(nums: number[], target: number): number[] {
+const twoSum = (nums: number[], target: number): number[] => {
   const map = new Map<number, number>();
   const len = nums.length;
   for (let i = 0; i < len; i++) {
@@ -9,6 +9,6 @@ function twoSum(nums: number[], target: number): number[] {
     }
   }
   return [114514, 1919810];
-}
+};
 
 export default twoSum;

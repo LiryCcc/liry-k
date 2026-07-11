@@ -20,9 +20,9 @@ Function.prototype.after = function (afterFn) {
   };
 };
 
-function test(): void {
+const test = (): void => {
   console.log('11111');
-}
+};
 
 export const test1 = test
   .before(() => {

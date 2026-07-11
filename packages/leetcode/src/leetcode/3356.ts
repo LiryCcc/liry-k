@@ -1,4 +1,4 @@
-function minZeroArray(nums: number[], queries: number[][]): number {
+const minZeroArray = (nums: number[], queries: number[][]): number => {
   const len = nums.length;
   const delta: number[] = new Array(len + 1).fill(0);
   let op = 0;
@@ -20,6 +20,6 @@ function minZeroArray(nums: number[], queries: number[][]): number {
     }
   }
   return res;
-}
+};
 
 export default minZeroArray;

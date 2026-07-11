@@ -30,7 +30,7 @@ s 只包含小写英文字母
 
 */
 
-function maxFreqSum(s: string): number {
+const maxFreqSum = (s: string): number => {
   const a: Record<string, number> = {};
   const b: Record<string, number> = {};
   const _ = ['a', 'e', 'i', 'o', 'u'];
@@ -42,6 +42,6 @@ function maxFreqSum(s: string): number {
     }
   }
   return (Object.values(a).sort((a, b) => b - a)[0] ?? 0) + (Object.values(b).sort((a, b) => b - a)[0] ?? 0);
-}
+};
 
 export default maxFreqSum;

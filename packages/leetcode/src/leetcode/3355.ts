@@ -1,4 +1,4 @@
-function isZeroArray(nums: number[], queries: number[][]): boolean {
+const isZeroArray = (nums: number[], queries: number[][]): boolean => {
   const d = Array(nums.length + 1).fill(0);
   for (const [i, j] of queries) {
     d[i]++;
@@ -17,6 +17,6 @@ function isZeroArray(nums: number[], queries: number[][]): boolean {
     }
   }
   return true;
-}
+};
 
 export default isZeroArray;

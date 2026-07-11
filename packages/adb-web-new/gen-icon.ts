@@ -11,7 +11,7 @@ type IconSize = 192 | 512;
  * 生成单张 maskable PWA 图标
  * @param size 尺寸 192 / 512
  */
-async function generateIcon(size: IconSize) {
+const generateIcon = async (size: IconSize) => {
   // 创建画布
   const canvas = createCanvas(size, size);
   const ctx = canvas.getContext('2d');
@@ -42,12 +42,12 @@ async function generateIcon(size: IconSize) {
   const outputPath = path.join(OUTPUT_DIR, `icon-${size}.png`);
   await writeFile(outputPath, pngBuffer);
   console.log(`✅ 已生成: ${outputPath}`);
-}
+};
 
 // 批量生成 192 + 512
-async function main() {
+const main = async () => {
   await generateIcon(192);
   await generateIcon(512);
-}
+};
 
 main().catch(console.error);

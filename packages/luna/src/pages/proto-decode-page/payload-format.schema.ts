@@ -32,13 +32,13 @@ const base64PayloadSchema = z
   });
 
 /** 将用户输入的十六进制或 Base64 文本解析为二进制载荷。 */
-export function parsePayloadText(text: string, format: PayloadFormat) {
+export const parsePayloadText = (text: string, format: PayloadFormat) => {
   const schema = format === 'hex' ? hexPayloadSchema : base64PayloadSchema;
   return schema.safeParse(text);
-}
+};
 
 /** 将二进制载荷格式化为十六进制或 Base64 文本。 */
-export function formatPayloadBytes(bytes: Uint8Array, format: PayloadFormat): string {
+export const formatPayloadBytes = (bytes: Uint8Array, format: PayloadFormat): string => {
   if (format === 'hex') {
     return Array.from(bytes, (byte) => byte.toString(16).padStart(2, '0')).join('');
   }
@@ -47,4 +47,4 @@ export function formatPayloadBytes(bytes: Uint8Array, format: PayloadFormat): st
     binary += String.fromCharCode(byte);
   }
   return btoa(binary);
-}
+};

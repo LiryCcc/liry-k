@@ -1,4 +1,4 @@
-function solveSudoku(board: string[][]): void {
+const solveSudoku = (board: string[][]): void => {
   const rows: number[] = new Array(9).fill(0); // 保存每一行已填写的数字
   const cols: number[] = new Array(9).fill(0); // 保存每一列已填写的数字
   const blocks: number[][] = new Array(3).fill(0).map(() => new Array(3).fill(0)); // 保存每一个3*3宫已填写的数字
@@ -41,6 +41,6 @@ function solveSudoku(board: string[][]): void {
   };
 
   backtrack(0);
-}
+};
 
 export default solveSudoku;

@@ -33,7 +33,7 @@
 
  */
 
-function countSubarrays(nums: number[]): number {
+const countSubarrays = (nums: number[]): number => {
   const n = nums.length;
   let l = 0,
     f = 2,
@@ -46,6 +46,6 @@ function countSubarrays(nums: number[]): number {
     f++;
   }
   return sum;
-}
+};
 
 export default countSubarrays;

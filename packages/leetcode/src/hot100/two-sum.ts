@@ -27,7 +27,7 @@
 
 // 进阶：你可以想出一个时间复杂度小于 O(n2) 的算法吗？
 
-function twoSum(nums: number[], target: number): number[] {
+const twoSum = (nums: number[], target: number): number[] => {
   // 存储一个map，key是数字，value是下标
   const map = new Map<number, number>();
   for (let i = 0; i < nums.length; i++) {
@@ -41,6 +41,6 @@ function twoSum(nums: number[], target: number): number[] {
   }
   console.log('not locate');
   return [0, 0];
-}
+};
 
 console.log(twoSum([3, 2, 4], 6));

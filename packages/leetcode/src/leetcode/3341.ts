@@ -1,6 +1,6 @@
 import { PriorityQueue } from 'datastructures-js';
 
-function minTimeToReach(moveTime: number[][]): number {
+const minTimeToReach = (moveTime: number[][]): number => {
   interface State {
     x: number;
     y: number;
@@ -39,6 +39,6 @@ function minTimeToReach(moveTime: number[][]): number {
     }
   }
   return distance[n - 1][m - 1];
-}
+};
 
 export default minTimeToReach;

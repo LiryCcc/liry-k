@@ -1,4 +1,4 @@
-export function getSmallestString(s: string): string {
+export const getSmallestString = (s: string): string => {
   const res = s.split('');
   for (let i = 0; i + 1 < s.length; i++) {
     if (Number(s[i]) % 2 === Number(s[i + 1]) % 2 && Number(s[i + 1]) < Number(s[i])) {
@@ -7,6 +7,6 @@ export function getSmallestString(s: string): string {
     }
   }
   return res.join('');
-}
+};
 
 console.log(getSmallestString('001'));

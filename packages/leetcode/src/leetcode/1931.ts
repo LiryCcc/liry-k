@@ -1,4 +1,4 @@
-function colorTheGrid(m: number, n: number): number {
+const colorTheGrid = (m: number, n: number): number => {
   const mod = 1000000007;
   const valid = new Map<number, number[]>();
 
@@ -60,6 +60,6 @@ function colorTheGrid(m: number, n: number): number {
     ans = (ans + num) % mod;
   }
   return ans;
-}
+};
 
 export default colorTheGrid;

@@ -3,7 +3,7 @@ type SumFn = {
   (x: number): SumFn; // 有参数继续链式调用
 };
 
-function sum(x: number): SumFn {
+const sum = (x: number): SumFn => {
   let total = x;
 
   const inner = ((y?: number) => {
@@ -15,7 +15,7 @@ function sum(x: number): SumFn {
   }) as SumFn;
 
   return inner;
-}
+};
 
 // 测试
 console.log(sum(1)()); // 1

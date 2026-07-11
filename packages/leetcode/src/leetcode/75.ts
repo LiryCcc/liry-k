@@ -5,7 +5,7 @@ const swap = (nums: number[], i: number, j: number) => {
   [nums[i], nums[j]] = [nums[j], nums[i]];
 };
 
-function sortColors(nums: number[]): void {
+const sortColors = (nums: number[]): void => {
   const len = nums.length;
   let l = 0;
   let r = len - 1;
@@ -22,6 +22,6 @@ function sortColors(nums: number[]): void {
       r--;
     }
   }
-}
+};
 
 export default sortColors;

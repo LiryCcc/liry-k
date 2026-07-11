@@ -1,4 +1,4 @@
-function maximumValueSum(nums: number[], k: number, _edges: number[][]): number {
+const maximumValueSum = (nums: number[], k: number, _edges: number[][]): number => {
   let result = nums.reduce((a, b) => a + b, 0);
   // ^ 异或
   const diff = nums.map((x) => (x ^ k) - x);
@@ -11,6 +11,6 @@ function maximumValueSum(nums: number[], k: number, _edges: number[][]): number 
     result += diff[i - 1];
   }
   return result;
-}
+};
 
 export default maximumValueSum;

@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import countLargestGroup from './1339.ts';
 
-function solution(n: number): number {
+const solution = (n: number): number => {
   const hashMap: { [key: number]: number } = {};
   let maxValue = 0;
   for (let i = 1; i <= n; ++i) {
@@ -22,7 +22,7 @@ function solution(n: number): number {
     }
   }
   return count;
-}
+};
 
 describe('对拍', () => {
   it('和原题一致', () => {

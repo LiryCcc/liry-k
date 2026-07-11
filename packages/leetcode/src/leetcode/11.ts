@@ -28,7 +28,7 @@ premium lock icon
 输出：1
  */
 
-function maxArea(height: number[]): number {
+const maxArea = (height: number[]): number => {
   let l = 0;
   let r = height.length - 1;
   let max = Math.min(height[l], height[r]) * (r - l);
@@ -50,6 +50,6 @@ function maxArea(height: number[]): number {
     }
   }
   return max;
-}
+};
 
 export default maxArea;

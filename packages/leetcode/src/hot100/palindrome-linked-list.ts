@@ -37,7 +37,7 @@ const middleNode = (head: Pointer): Pointer => {
  * 3. 判断前半段和后半段是否相等
  */
 
-function isPalindrome(head: Pointer): boolean {
+const isPalindrome = (head: Pointer): boolean => {
   // let tail = middleNode(head)?.next || null;
   let tail = reverseList(middleNode(head)?.next || null);
   while (tail) {
@@ -48,6 +48,6 @@ function isPalindrome(head: Pointer): boolean {
     head = head.next;
   }
   return true;
-}
+};
 
 export default isPalindrome;

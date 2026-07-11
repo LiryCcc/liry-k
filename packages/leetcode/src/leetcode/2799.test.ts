@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import countCompleteSubarrays from './2799.ts';
 
-function solution(nums: number[]): number {
+const solution = (nums: number[]): number => {
   let res = 0;
   const cnt = new Map<number, number>();
   const n = nums.length;
@@ -26,16 +26,16 @@ function solution(nums: number[]): number {
     }
   }
   return res;
-}
+};
 
-function generateRandomArray(length: number, min: number, max: number) {
+const generateRandomArray = (length: number, min: number, max: number) => {
   const result = [];
   for (let i = 0; i < length; i++) {
     const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
     result.push(randomNum);
   }
   return result;
-}
+};
 
 describe('solution', () => {
   it('should return the number of subarrays with distinct elements', () => {

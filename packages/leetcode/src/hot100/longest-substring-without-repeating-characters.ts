@@ -1,4 +1,4 @@
-function lengthOfLongestSubstring(s: string): number {
+const lengthOfLongestSubstring = (s: string): number => {
   let max = 0;
   for (let i = 0; i < s.length; i++) {
     const m: Record<string, number> = {};
@@ -15,6 +15,6 @@ function lengthOfLongestSubstring(s: string): number {
     max = Math.max(max, _max);
   }
   return max;
-}
+};
 
 export default lengthOfLongestSubstring;

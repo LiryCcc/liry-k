@@ -59,9 +59,9 @@ const resolveMessageType = (
 };
 
 /** 从 .proto 文本解析出所有 message 类型全名（如 user.User）。 */
-export function listMessageTypes(
+export const listMessageTypes = (
   protoText: string
-): { ok: true; value: string[] } | { ok: false; code: 'empty_proto' | 'invalid_proto' } {
+): { ok: true; value: string[] } | { ok: false; code: 'empty_proto' | 'invalid_proto' } => {
   const trimmed = protoText.trim();
   if (trimmed.length === 0) {
     return { ok: false, code: 'empty_proto' };
@@ -76,7 +76,7 @@ export function listMessageTypes(
   } catch {
     return { ok: false, code: 'invalid_proto' };
   }
-}
+};
 
 type DecodeProtoInput = {
   protoText: string;
@@ -87,7 +87,7 @@ type DecodeProtoInput = {
 };
 
 /** 根据 .proto 定义与二进制载荷解码为 JSON 可序列化对象。 */
-export function decodeProtoMessage(input: DecodeProtoInput): ProtoCodecResult<unknown> {
+export const decodeProtoMessage = (input: DecodeProtoInput): ProtoCodecResult<unknown> => {
   let bytes = input.payloadBytes;
   if (!bytes) {
     const payloadTrimmed = input.payloadText.trim();
@@ -122,7 +122,7 @@ export function decodeProtoMessage(input: DecodeProtoInput): ProtoCodecResult<un
   } catch {
     return { ok: false, code: 'decode_failed' };
   }
-}
+};
 
 type EncodeProtoInput = {
   protoText: string;
@@ -131,7 +131,7 @@ type EncodeProtoInput = {
 };
 
 /** 根据 .proto 定义将 JSON 对象编码为 Protobuf 二进制。 */
-export function encodeProtoMessage(input: EncodeProtoInput): ProtoCodecResult<Uint8Array> {
+export const encodeProtoMessage = (input: EncodeProtoInput): ProtoCodecResult<Uint8Array> => {
   const parsedJson = parseJsonPayload(input.jsonText);
   if (!parsedJson.success) {
     const issue = parsedJson.error.issues[0];
@@ -157,4 +157,4 @@ export function encodeProtoMessage(input: EncodeProtoInput): ProtoCodecResult<Ui
   } catch {
     return { ok: false, code: 'encode_failed' };
   }
-}
+};

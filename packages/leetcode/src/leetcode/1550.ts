@@ -1,4 +1,4 @@
-function threeConsecutiveOdds(arr: number[]): boolean {
+const threeConsecutiveOdds = (arr: number[]): boolean => {
   const len = arr.length;
   for (let i = 0; i < len - 2; i++) {
     if (arr[i] % 2 === 1) {
@@ -10,6 +10,6 @@ function threeConsecutiveOdds(arr: number[]): boolean {
     }
   }
   return false;
-}
+};
 
 export default threeConsecutiveOdds;

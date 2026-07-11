@@ -1,4 +1,4 @@
-function countDays(days: number, meetings: [number, number][]): number {
+const countDays = (days: number, meetings: [number, number][]): number => {
   meetings.sort((a, b) => a[0] - b[0]);
   let l = 1,
     r = 0;
@@ -11,6 +11,6 @@ function countDays(days: number, meetings: [number, number][]): number {
   }
   days -= r - l + 1;
   return days;
-}
+};
 
 export default countDays;

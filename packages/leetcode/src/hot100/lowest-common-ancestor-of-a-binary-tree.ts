@@ -11,7 +11,7 @@ class TreeNode {
 
 type MyNode = TreeNode | null;
 
-function lowestCommonAncestor(root: MyNode, p: MyNode, q: MyNode): MyNode {
+const lowestCommonAncestor = (root: MyNode, p: MyNode, q: MyNode): MyNode => {
   let result: MyNode = null;
   const dfs = (root: MyNode, p: MyNode, q: MyNode): boolean => {
     if (root === null) {
@@ -28,6 +28,6 @@ function lowestCommonAncestor(root: MyNode, p: MyNode, q: MyNode): MyNode {
   };
   dfs(root, p, q);
   return result;
-}
+};
 
 export default lowestCommonAncestor;

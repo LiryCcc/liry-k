@@ -27,7 +27,7 @@ premium lock icon
 1 <= numRows <= 30
  */
 
-function generate(numRows: number): number[][] {
+const generate = (numRows: number): number[][] => {
   const res: number[][] = [];
   res.push([1]);
   for (let i = 1; i < numRows; i++) {
@@ -39,7 +39,7 @@ function generate(numRows: number): number[][] {
     res.push(curr);
   }
   return res;
-}
+};
 
 console.dir(JSON.stringify(generate(5)));
 

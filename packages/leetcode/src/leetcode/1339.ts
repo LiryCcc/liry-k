@@ -1,4 +1,4 @@
-function countLargestGroup(n: number): number {
+const countLargestGroup = (n: number): number => {
   const map = new Map<number, number[]>();
   for (let i = 1; i <= n; i++) {
     let sum = 0;
@@ -27,6 +27,6 @@ function countLargestGroup(n: number): number {
     // max = Math.max(max, value.length);
   }
   return maxNum;
-}
+};
 
 export default countLargestGroup;

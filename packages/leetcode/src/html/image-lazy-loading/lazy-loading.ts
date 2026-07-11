@@ -1,4 +1,4 @@
-function textToImage(text: string, width = 400, height = 300): string {
+const textToImage = (text: string, width = 400, height = 300): string => {
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
@@ -14,7 +14,7 @@ function textToImage(text: string, width = 400, height = 300): string {
   ctx.fillText(text, width / 2, height / 2);
 
   return canvas.toDataURL('image/png');
-}
+};
 
 const imageMap = new WeakMap<HTMLImageElement, number>();
 

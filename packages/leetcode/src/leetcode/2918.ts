@@ -2,7 +2,7 @@
  * 1. 只要都有0，那就可以
  */
 
-function minSum(nums1: number[], nums2: number[]): number {
+const minSum = (nums1: number[], nums2: number[]): number => {
   const zeros = [nums1.filter((n) => n === 0).length, nums2.filter((n) => n === 0).length];
   const sum = [nums1.reduce((a, b) => a + b, 0), nums2.reduce((a, b) => a + b, 0)];
   const min = [sum[0] + zeros[0], sum[1] + zeros[1]];
@@ -21,6 +21,6 @@ function minSum(nums1: number[], nums2: number[]): number {
   } else {
     return min[1] <= min[0] ? min[0] : -1;
   }
-}
+};
 
 export default minSum;

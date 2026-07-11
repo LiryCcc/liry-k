@@ -9,7 +9,7 @@ const d = (node: number, edges: number[]): number[] => {
   return dist;
 };
 
-function closestMeetingNode(edges: number[], node1: number, node2: number): number {
+const closestMeetingNode = (edges: number[], node1: number, node2: number): number => {
   const len = edges.length;
 
   const d1 = d(node1, edges);
@@ -24,6 +24,6 @@ function closestMeetingNode(edges: number[], node1: number, node2: number): numb
     }
   }
   return res;
-}
+};
 
 export default closestMeetingNode;

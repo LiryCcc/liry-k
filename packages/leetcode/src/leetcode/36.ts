@@ -67,7 +67,7 @@ const isValid = (s: string[]): boolean => {
   return true;
 };
 
-function isValidSudoku(board: string[][]): boolean {
+const isValidSudoku = (board: string[][]): boolean => {
   // 1. 横向
   for (const edge of board) {
     if (isValid(edge)) {
@@ -118,7 +118,7 @@ function isValidSudoku(board: string[][]): boolean {
   }
 
   return true;
-}
+};
 
 const case1 = [
   ['5', '3', '.', '.', '7', '.', '.', '.', '.'],

@@ -22,7 +22,7 @@
 
 // 这个最小矩形的高度和宽度都是 1，因此面积为 1 * 1 = 1。
 
-function minimumArea(grid: number[][]): number {
+const minimumArea = (grid: number[][]): number => {
   let left = 1001;
   let right = -1;
   let top = 1001;
@@ -40,7 +40,7 @@ function minimumArea(grid: number[][]): number {
     }
   }
   return (bottom - top + 1) * (right - left + 1);
-}
+};
 console.log(
   minimumArea([
     [1, 0, 0],

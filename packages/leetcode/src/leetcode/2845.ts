@@ -1,5 +1,5 @@
 // 抄的leetcode题解
-function countInterestingSubarrays(nums: number[], modulo: number, k: number): number {
+const countInterestingSubarrays = (nums: number[], modulo: number, k: number): number => {
   const p = nums.map((item) => (item % modulo === k ? 1 : 0));
   const preSum: number[] = [0];
   let sum = 0;
@@ -18,6 +18,6 @@ function countInterestingSubarrays(nums: number[], modulo: number, k: number): n
   }
 
   return ans;
-}
+};
 
 export default countInterestingSubarrays;

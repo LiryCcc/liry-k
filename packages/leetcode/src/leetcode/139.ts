@@ -1,4 +1,4 @@
-function findLucky(arr: number[]): number {
+const findLucky = (arr: number[]): number => {
   const a: number[] = [];
   for (const i of arr) {
     if (a[i]) {
@@ -19,6 +19,6 @@ function findLucky(arr: number[]): number {
   } else {
     return res.sort((a, b) => b - a)[0];
   }
-}
+};
 
 export default findLucky;

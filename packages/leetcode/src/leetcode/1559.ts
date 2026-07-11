@@ -5,7 +5,7 @@ const D = [
   [-1, 0]
 ] as const;
 
-function containsCycle(grid: string[][]): boolean {
+const containsCycle = (grid: string[][]): boolean => {
   const m = grid.length;
   const n = grid[0].length;
   const visited: boolean[][] = Array.from({ length: m }, () => Array(n).fill(false));
@@ -32,6 +32,6 @@ function containsCycle(grid: string[][]): boolean {
   }
 
   return false;
-}
+};
 
 export default containsCycle;

@@ -13,7 +13,7 @@
  * 请你返回 符合 要求的隐藏数组的数目。如果没有符合要求的隐藏数组，请返回 0 。
  */
 
-function numberOfArrays(differences: number[], lower: number, upper: number): number {
+const numberOfArrays = (differences: number[], lower: number, upper: number): number => {
   let max = 0;
   let min = 0;
   let cur = 0;
@@ -31,6 +31,6 @@ function numberOfArrays(differences: number[], lower: number, upper: number): nu
   // 则可以有  [0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]; 这6个隐藏数组则为upper - lower + 1 - (max - min);
 
   return upper - lower + 1 - (max - min) > 0 ? upper - lower + 1 - (max - min) : 0;
-}
+};
 
 export default numberOfArrays;
