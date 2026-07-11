@@ -95,7 +95,8 @@ const cspellConfig = defineConfig({
     'tsdown',
     'napi',
     'workerd',
-    'esbuild'
+    'esbuild',
+    'KHTML'
   ]
 });
 
