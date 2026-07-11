@@ -34,6 +34,7 @@
 | `pnpm lint`         | 别名，指向 `pnpm pre-commit`                                       |
 | `pnpm lint:rust`    | `cargo clippy --workspace --all-targets -- -D warnings`            |
 | `pnpm lint:rustfmt` | `cargo fmt --all --check`                                          |
+| `pnpm sg`           | ast-grep CLI（代码搜索与替换，见下文「ast-grep」）                 |
 
 `pnpm pre-commit` 依次执行：`check-format` → `check-spell` → `lint:style` → `pnpm -r lint` → `lint:rust` → `lint:rustfmt`。
 
@@ -130,6 +131,38 @@ Workspace 成员：`rust-packages/leetcode`、`rust-packages/sirius`、`packages
 ```bash
 pnpm --filter @liry-k/proto format   # buf format -w ./protos
 ```
+
+### ast-grep（代码搜索与替换）
+
+根目录 `devDependencies` 含 `@ast-grep/cli`，通过 **`pnpm sg`** 调用（无需全局安装 `sg`）。
+
+**代码搜索**与**代码替换**场景下，**优先 ast-grep，而非 `grep` / `rg`**：前者按 AST 匹配语法结构，查准率更高，适合查找函数/类定义、`import` / `export`、按节点类型筛选等；后者仅做纯文本匹配，易在注释或字符串中误报，或因换行与格式差异漏报。
+
+仍可用 `grep` / `rg` 的场景：配置文件字面量、日志、文档、以及不涉及语法结构的简单字符串搜索。
+
+```bash
+# 搜索：TypeScript 函数声明
+pnpm sg run -p 'function $NAME($$$)' -l typescript packages/
+
+# 搜索：来自特定模块的 import
+pnpm sg run -p 'import $$$ from "$MODULE"' -l typescript packages/luna
+
+# 替换：先不带 -U 预览匹配，确认后写回
+pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo
+pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
+```
+
+常用选项：
+
+| 选项                  | 说明                                                                   |
+| --------------------- | ---------------------------------------------------------------------- |
+| `-p <pattern>`        | AST 模式；`$VAR` 匹配单节点，`$$$` 匹配多节点                          |
+| `-l <lang>`           | 语言（如 `typescript`、`tsx`、`rust`、`java`）；多语言仓库中应显式指定 |
+| `-r <rewrite>`        | 替换模板，与 `-p` 配对使用                                             |
+| `-U` / `--update-all` | 将替换写回文件；大范围改动前务必先预览                                 |
+| `-i`                  | 交互式逐条确认替换                                                     |
+
+模式语法与语言列表见 [ast-grep 文档](https://ast-grep.github.io/)。
 
 ## npm 包命名
 
@@ -298,4 +331,4 @@ pnpm --filter @liry-k/proto format   # buf format -w ./protos
 - 修改后在本包或根目录执行与改动相关的 **format / lint / build**，确认通过后再声称完成。
 - 新增用户可见文案时：同步 `src/i18n/resources` 与 `translation-tree` 等类型定义，并走 `useTranslation` / `TypedT` 约定。
 - 接入 **API、postMessage、Worker 消息** 等外部输入时：遵守「外部输入与 Zod」，在边界用 `zod/v4` 解析，勿用断言代替校验。
-- **搜索代码优先使用 ast-grep**：仓库已全局安装 `ast-grep`（`sg` 命令）与 `tree-ast-grep-mcp`。搜索源码时优先使用 ast-grep 的 `tree-ast-grep` MCP 工具（基于 AST 的结构化搜索），而非纯文本 grep，以提高查准率，尤其在寻找函数定义、类声明、import 语句等语法结构时。
+- **代码搜索与替换优先 ast-grep**：详见上文「ast-grep（代码搜索与替换）」；通过 **`pnpm sg`** 调用，在涉及语法结构的搜索与批量替换时优先于 `grep` / `rg`。若环境配置了 `tree-ast-grep-mcp`，亦可使用其 MCP 工具做结构化搜索。

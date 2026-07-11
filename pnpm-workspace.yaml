@@ -3,6 +3,7 @@ packages:
   - infra/*
 
 allowBuilds:
+  '@ast-grep/cli': false
   '@bufbuild/buf': false
   esbuild: false
   sharp: false

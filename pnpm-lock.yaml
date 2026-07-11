@@ -270,6 +270,9 @@ catalogs:
 importers:
   .:
     devDependencies:
+      '@ast-grep/cli':
+        specifier: ^0.44.1
+        version: 0.44.1
       '@commitlint/cli':
         specifier: ^21.2.0
         version: 21.2.0(@types/node@24.13.2)(conventional-commits-parser@6.4.0)(typescript@6.0.3)
@@ -1246,6 +1249,63 @@ importers:
   packages/tsconfig: {}
 
 packages:
+  '@ast-grep/cli-darwin-arm64@0.44.1':
+    resolution:
+      { integrity: sha512-wOzb+IqFy4Pdhvs+PeaHdQJ1VemsI1SgoOGJf+x0J0KBSJ+s/hUg2n1fVJwfsrw/XDIbz9m7PGKTGCLxsgYa1g== }
+    engines: { node: '>= 10' }
+    cpu: [arm64]
+    os: [darwin]
+
+  '@ast-grep/cli-darwin-x64@0.44.1':
+    resolution:
+      { integrity: sha512-X3OzzsnO9Q3ISQ4qO3jasWk8EZhJA03xfmJHhuS9rGJZZCbNEuqjicrwrDMKK8EgEGJ7MG4oL0BE5qUcn3twLw== }
+    engines: { node: '>= 10' }
+    cpu: [x64]
+    os: [darwin]
+
+  '@ast-grep/cli-linux-arm64-gnu@0.44.1':
+    resolution:
+      { integrity: sha512-2F1YBRd9tQnfrGX+4BlkfXWLb2jqNgTmjp0ETLNRLMmSDinR905QsZn2A55qcAZxhQDU982mEzzgT4NduPXIGg== }
+    engines: { node: '>= 10' }
+    cpu: [arm64]
+    os: [linux]
+    libc: [glibc]
+
+  '@ast-grep/cli-linux-x64-gnu@0.44.1':
+    resolution:
+      { integrity: sha512-d5UNoDLT2i6xV4GGqcPnrAR6CB3H078+v3BiqjKxZdZMHFnDe46+i+DxfH1IK6yvJqViqv2F611+wiAAn/s7qw== }
+    engines: { node: '>= 10' }
+    cpu: [x64]
+    os: [linux]
+    libc: [glibc]
+
+  '@ast-grep/cli-win32-arm64-msvc@0.44.1':
+    resolution:
+      { integrity: sha512-r6K49Z14BLOeJdBSmaoK+TdgtPRqJfJ562F0n0KvRi0qH3o8is8N2dXtEMYKynYm/tdOd65i69Mc1WKSuIeWyA== }
+    engines: { node: '>= 10' }
+    cpu: [arm64]
+    os: [win32]
+
+  '@ast-grep/cli-win32-ia32-msvc@0.44.1':
+    resolution:
+      { integrity: sha512-AusXTP5SfUQEL/EkF0fhHoA4H30M7hsVgvsVEZ7PeZrxB69trzUcqKnHC8pBDYTmgIsJsr9dtXjTPDcBauaPiA== }
+    engines: { node: '>= 10' }
+    cpu: [ia32]
+    os: [win32]
+
+  '@ast-grep/cli-win32-x64-msvc@0.44.1':
+    resolution:
+      { integrity: sha512-gDMHT17Edmp/tXTDdMSQHd9vJki2Y2WSXq9ycrvjziHwpmnsnc6xlCQ7SEOGA1987vepSpkOkqBCPliP2TVW0w== }
+    engines: { node: '>= 10' }
+    cpu: [x64]
+    os: [win32]
+
+  '@ast-grep/cli@0.44.1':
+    resolution:
+      { integrity: sha512-wSjtu0/9xSYzzo/EW31w5pf1qB33tejYKmKXb2nBAlZ5PpYtOqwFmk9H1nywhjzO913beugsKAZYxrwciqW9AQ== }
+    engines: { node: '>= 12.0.0' }
+    hasBin: true
+
   '@babel/code-frame@7.29.7':
     resolution:
       { integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw== }
@@ -8341,6 +8401,39 @@ packages:
       { integrity: sha512-ytENFjIJFl2UwYglde2jchW2Hwm4GJFLDiSXWdTrJQBIN9Fcyp7n4DhxJEiWNAJMV1/BqWfW/kkg71UDcHJyTQ== }
 
 snapshots:
+  '@ast-grep/cli-darwin-arm64@0.44.1':
+    optional: true
+
+  '@ast-grep/cli-darwin-x64@0.44.1':
+    optional: true
+
+  '@ast-grep/cli-linux-arm64-gnu@0.44.1':
+    optional: true
+
+  '@ast-grep/cli-linux-x64-gnu@0.44.1':
+    optional: true
+
+  '@ast-grep/cli-win32-arm64-msvc@0.44.1':
+    optional: true
+
+  '@ast-grep/cli-win32-ia32-msvc@0.44.1':
+    optional: true
+
+  '@ast-grep/cli-win32-x64-msvc@0.44.1':
+    optional: true
+
+  '@ast-grep/cli@0.44.1':
+    dependencies:
+      detect-libc: 2.1.2
+    optionalDependencies:
+      '@ast-grep/cli-darwin-arm64': 0.44.1
+      '@ast-grep/cli-darwin-x64': 0.44.1
+      '@ast-grep/cli-linux-arm64-gnu': 0.44.1
+      '@ast-grep/cli-linux-x64-gnu': 0.44.1
+      '@ast-grep/cli-win32-arm64-msvc': 0.44.1
+      '@ast-grep/cli-win32-ia32-msvc': 0.44.1
+      '@ast-grep/cli-win32-x64-msvc': 0.44.1
+
   '@babel/code-frame@7.29.7':
     dependencies:
       '@babel/helper-validator-identifier': 7.29.7
@@ -11772,7 +11865,7 @@ snapshots:
       obug: 2.1.3
       std-env: 4.1.0
       tinyrainbow: 3.1.0
-      vitest: 4.1.9(@opentelemetry/api@1.9.1)(@types/node@26.0.0)(@vitest/coverage-v8@4.1.9)(vite@8.1.2(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
+      vitest: 4.1.9(@opentelemetry/api@1.9.1)(@types/node@24.13.2)(@vitest/coverage-v8@4.1.9)(vite@8.1.2(@types/node@24.13.2)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
 
   '@vitest/expect@3.2.6':
     dependencies:
