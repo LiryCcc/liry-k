@@ -2,6 +2,13 @@ packages:
   - packages/*
   - infra/*
 
+allowBuilds:
+  '@bufbuild/buf': false
+  esbuild: false
+  sharp: false
+  simple-git-hooks: false
+  workerd: false
+
 catalog:
   '@babel/core': ^7.29.7
   '@bufbuild/buf': ^1.71.0

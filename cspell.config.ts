@@ -93,7 +93,9 @@ const cspellConfig = defineConfig({
     'notif',
     'Notif',
     'tsdown',
-    'napi'
+    'napi',
+    'workerd',
+    'esbuild'
   ]
 });
 
