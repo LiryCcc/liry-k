@@ -134,7 +134,7 @@ pnpm --filter @liry-k/proto format   # buf format -w ./protos
 
 ### ast-grep（代码搜索与替换）
 
-根目录 `devDependencies` 含 `@ast-grep/cli`，通过 **`pnpm sg`** 调用（无需全局安装 `sg`）。
+根目录 `devDependencies` 含 `@ast-grep/cli`，通过 **`pnpm sg`** 调用（无需全局安装 `sg`）。程序化场景可使用 **`@liry-k/infra-ast-grep`**（`liry-sg` CLI + JS API，基于 `@ast-grep/napi`）。
 
 **代码搜索**与**代码替换**场景下，**优先 ast-grep，而非 `grep` / `rg`**：前者按 AST 匹配语法结构，查准率更高，适合查找函数/类定义、`import` / `export`、按节点类型筛选等；后者仅做纯文本匹配，易在注释或字符串中误报，或因换行与格式差异漏报。
 
@@ -196,12 +196,13 @@ pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
 
 ### 基础设施（`infra/`）
 
-| 路径                  | npm 名                  | 说明                |
-| --------------------- | ----------------------- | ------------------- |
-| `infra/eslint-config` | `@liry-k/eslint-config` | 共享 ESLint 配置    |
-| `infra/core`          | `@liry-k/infra-core`    | 通用 TS 工具        |
-| `infra/lc`            | `@liry-k/infra-lc`      | 解压等工具          |
-| `infra/proto`         | `@liry-k/proto`         | protobuf 定义与生成 |
+| 路径                  | npm 名                   | 说明                |
+| --------------------- | ------------------------ | ------------------- |
+| `infra/eslint-config` | `@liry-k/eslint-config`  | 共享 ESLint 配置    |
+| `infra/core`          | `@liry-k/infra-core`     | 通用 TS 工具        |
+| `infra/lc`            | `@liry-k/infra-lc`       | 解压等工具          |
+| `infra/ast-grep`      | `@liry-k/infra-ast-grep` | ast-grep NAPI 工具  |
+| `infra/proto`         | `@liry-k/proto`          | protobuf 定义与生成 |
 
 ### Rust / Java
 

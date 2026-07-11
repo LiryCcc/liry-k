@@ -4,6 +4,7 @@ packages:
 
 allowBuilds:
   '@ast-grep/cli': false
+  '@ast-grep/napi': false
   '@bufbuild/buf': false
   esbuild: false
   sharp: false

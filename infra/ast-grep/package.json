@@ -1,0 +1,39 @@
+{
+  "name": "@liry-k/infra-ast-grep",
+  "version": "1.0.0",
+  "private": true,
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "liry-sg": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "node ./build.ts",
+    "lint": "pnpm lint:type && pnpm lint:code",
+    "lint:code": "eslint . --cache",
+    "lint:type": "tsc -b"
+  },
+  "devDependencies": {
+    "@ast-grep/napi": "^0.44.1",
+    "@eslint/js": "catalog:",
+    "@liry-k/build": "workspace:*",
+    "@liry-k/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "eslint": "catalog:",
+    "globals": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "zod": "catalog:"
+  }
+}
