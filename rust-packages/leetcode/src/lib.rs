@@ -5,4 +5,5 @@ pub mod hot100;
 pub mod process_string_with_special_operations_ii;
 pub mod remove_covered_intervals_1288;
 pub mod remove_element_2;
+pub mod sequential_digits_1291;
 pub mod trapping_rain_water_42;
