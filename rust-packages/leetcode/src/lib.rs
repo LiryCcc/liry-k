@@ -1,5 +1,6 @@
 pub mod angle_between_hands_of_a_clock_1344;
 pub mod best_time_to_buy_and_sell_stock_121;
+pub mod find_greatest_common_divisor_of_array_1979;
 pub mod find_the_highest_altitude_1732;
 pub mod hot100;
 pub mod process_string_with_special_operations_ii;
