@@ -1,0 +1,11 @@
+{
+  "extends": ["./.wxt/tsconfig.json", "@liry-k/tsconfig"],
+  "compilerOptions": {
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "types": ["./.wxt/wxt.d.ts"],
+    "noEmit": true
+  },
+  "include": ["entrypoints"]
+}

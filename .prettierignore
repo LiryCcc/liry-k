@@ -4,3 +4,5 @@ rust-packages/*/target
 Cargo.lock
 **/generated
 .wrangler
+.wxt
+.output

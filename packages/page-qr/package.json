@@ -1,0 +1,28 @@
+{
+  "name": "@liry-k/page-qr",
+  "version": "0.0.0",
+  "private": true,
+  "description": "manifest.json description",
+  "type": "module",
+  "scripts": {
+    "build": "wxt build",
+    "build:firefox": "wxt build -b firefox",
+    "compile": "tsc --noEmit",
+    "dev": "wxt",
+    "dev:firefox": "wxt -b firefox",
+    "postinstall": "wxt prepare",
+    "lint": "tsc -b",
+    "zip": "wxt zip",
+    "zip:firefox": "wxt zip -b firefox"
+  },
+  "dependencies": {
+    "normalize.css": "catalog:",
+    "solid-js": "^1.9.11"
+  },
+  "devDependencies": {
+    "@liry-k/tsconfig": "workspace:*",
+    "@wxt-dev/module-solid": "^1.1.4",
+    "typescript": "catalog:",
+    "wxt": "^0.20.27"
+  }
+}

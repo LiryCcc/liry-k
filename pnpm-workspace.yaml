@@ -9,6 +9,7 @@ allowBuilds:
   esbuild: false
   sharp: false
   simple-git-hooks: false
+  spawn-sync: false
   workerd: false
 
 catalog:
