@@ -1,1 +1,12 @@
 @import url('normalize.css');
+
+:root {
+  --color-foreground: #1a1a1a;
+  --color-muted: #5c5c5c;
+  --color-surface: #f7f5f2;
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface);
+}

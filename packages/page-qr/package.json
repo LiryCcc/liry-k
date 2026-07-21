@@ -2,7 +2,7 @@
   "name": "@liry-k/page-qr",
   "version": "0.0.0",
   "private": true,
-  "description": "manifest.json description",
+  "description": "Generate a QR code for the current page URL",
   "type": "module",
   "scripts": {
     "build": "wxt build",
@@ -17,7 +17,9 @@
   },
   "dependencies": {
     "normalize.css": "catalog:",
-    "solid-js": "^1.9.11"
+    "solid-js": "catalog:",
+    "uqr": "^0.1.3",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@liry-k/tsconfig": "workspace:*",
