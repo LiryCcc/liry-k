@@ -1,6 +1,7 @@
 import type { MdFilledButton } from '@material/web/button/filled-button.js';
 import type { MdFilledTonalButton } from '@material/web/button/filled-tonal-button.js';
 import type { MdOutlinedButton } from '@material/web/button/outlined-button.js';
+import type { MdIconButton } from '@material/web/iconbutton/icon-button.js';
 import type { MdOutlinedCard } from '@material/web/labs/card/outlined-card.js';
 import type { MdOutlinedTextField } from '@material/web/textfield/outlined-text-field.js';
 import type { JSX } from 'solid-js';
@@ -13,6 +14,20 @@ type MaterialElementProps<T extends HTMLElement, Prop extends keyof T> = JSX.HTM
 
 type MdButtonProp =
   'disabled' | 'download' | 'hasIcon' | 'href' | 'name' | 'softDisabled' | 'target' | 'trailingIcon' | 'type' | 'value';
+
+type MdIconButtonProp =
+  | 'ariaLabelSelected'
+  | 'disabled'
+  | 'download'
+  | 'flipIconInRtl'
+  | 'href'
+  | 'name'
+  | 'selected'
+  | 'softDisabled'
+  | 'target'
+  | 'toggle'
+  | 'type'
+  | 'value';
 
 type MdTextFieldProp =
   | 'cols'
@@ -49,6 +64,7 @@ declare module 'solid-js' {
       'md-filled-button': MaterialElementProps<MdFilledButton, MdButtonProp>;
       'md-filled-tonal-button': MaterialElementProps<MdFilledTonalButton, MdButtonProp>;
       'md-outlined-button': MaterialElementProps<MdOutlinedButton, MdButtonProp>;
+      'md-icon-button': MaterialElementProps<MdIconButton, MdIconButtonProp>;
       'md-outlined-text-field': MaterialElementProps<MdOutlinedTextField, MdTextFieldProp>;
       'md-outlined-card': JSX.HTMLAttributes<MdOutlinedCard>;
     }

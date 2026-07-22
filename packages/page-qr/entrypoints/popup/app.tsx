@@ -3,6 +3,7 @@ import { encode } from 'uqr';
 import { z } from 'zod/v4';
 
 import styles from './app.module.css';
+import { persistColorScheme, resolveColorScheme, toggleColorScheme, type ColorScheme } from './color-scheme.js';
 
 const tabUrlSchema = z.url();
 
@@ -19,6 +20,28 @@ type ToastItem = {
   kind: ToastKind;
   open: boolean;
 };
+
+const MoonIcon = () => (
+  <svg class={styles['theme-icon']} viewBox='0 0 24 24' aria-hidden='true'>
+    <path fill='currentColor' d='M12 3.1A9 9 0 1 0 20.9 12 7.2 7.2 0 0 1 12 3.1Z' />
+  </svg>
+);
+
+const SunIcon = () => (
+  <svg class={styles['theme-icon']} viewBox='0 0 24 24' aria-hidden='true'>
+    <circle cx='12' cy='12' r='4' fill='currentColor' />
+    <g fill='currentColor'>
+      <rect x='11' y='1.5' width='2' height='3' rx='1' />
+      <rect x='11' y='19.5' width='2' height='3' rx='1' />
+      <rect x='1.5' y='11' width='3' height='2' rx='1' />
+      <rect x='19.5' y='11' width='3' height='2' rx='1' />
+      <rect x='11' y='1.5' width='2' height='3' rx='1' transform='rotate(45 12 12)' />
+      <rect x='11' y='1.5' width='2' height='3' rx='1' transform='rotate(135 12 12)' />
+      <rect x='11' y='1.5' width='2' height='3' rx='1' transform='rotate(225 12 12)' />
+      <rect x='11' y='1.5' width='2' height='3' rx='1' transform='rotate(315 12 12)' />
+    </g>
+  </svg>
+);
 
 const getActiveTabUrl = async (): Promise<string> => {
   const tabs = await browser['tabs'].query({
@@ -94,6 +117,7 @@ const downloadPngDataUrl = (dataUrl: string, filename: string): void => {
 const App = () => {
   const [pageUrl] = createResource(getActiveTabUrl);
   const [draftUrl, setDraftUrl] = createSignal('');
+  const [colorScheme, setColorScheme] = createSignal<ColorScheme>(resolveColorScheme());
   const [toasts, setToasts] = createSignal<ToastItem[]>([]);
   let nextToastId = 0;
 
@@ -145,6 +169,7 @@ const App = () => {
    * Invalid URLs still encode; only the module color changes.
    */
   const qrPngDataUrl = createMemo(() => {
+    colorScheme();
     const text = trimmedDraftUrl();
     if (text === '') {
       return undefined;
@@ -157,6 +182,12 @@ const App = () => {
     const loaded = pageUrl();
     return loaded !== undefined && draftUrl() !== loaded;
   });
+
+  const onToggleColorScheme = () => {
+    const next = toggleColorScheme(colorScheme());
+    persistColorScheme(next);
+    setColorScheme(next);
+  };
 
   const copyLink = async () => {
     const text = trimmedDraftUrl();
@@ -209,6 +240,16 @@ const App = () => {
 
   return (
     <div class={styles['app']}>
+      <md-icon-button
+        class={styles['theme-toggle']}
+        aria-label={colorScheme() === 'dark' ? '切换到浅色模式' : '切换到深色模式'}
+        onClick={onToggleColorScheme}
+      >
+        <Show when={colorScheme() === 'dark'} fallback={<SunIcon />}>
+          <MoonIcon />
+        </Show>
+      </md-icon-button>
+
       <div class={styles['toast-stack']} aria-live='polite'>
         <Index each={toasts()}>
           {(toast) => (
