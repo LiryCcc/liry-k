@@ -1163,6 +1163,9 @@ importers:
       '@material/web':
         specifier: ^2.5.0
         version: 2.5.0
+      '@solid-primitives/i18n':
+        specifier: ^2.2.1
+        version: 2.2.1(solid-js@1.9.14)
       normalize.css:
         specifier: 'catalog:'
         version: 8.0.1
@@ -4775,6 +4778,12 @@ packages:
     resolution:
       { integrity: sha512-tlqY9xq5ukxTUZBmoOp+m61cqwQD5pHJtFY3Mn8CA8ps6yghLH/Hw8UPdqg4OLmFW3IFlcXnQNmo/dh8HzXYIQ== }
     engines: { node: '>=18' }
+
+  '@solid-primitives/i18n@2.2.1':
+    resolution:
+      { integrity: sha512-TnTnE2Ku11MGYZ1JzhJ8pYscwg1fr9MteoYxPwsfxWfh9Jp5K7RRJncJn9BhOHvNLwROjqOHZ46PT7sPHqbcXw== }
+    peerDependencies:
+      solid-js: ^1.6.12
 
   '@solid-primitives/refs@1.1.3':
     resolution:
@@ -12830,6 +12839,10 @@ snapshots:
   '@sindresorhus/is@7.2.0': {}
 
   '@sindresorhus/merge-streams@4.0.0': {}
+
+  '@solid-primitives/i18n@2.2.1(solid-js@1.9.14)':
+    dependencies:
+      solid-js: 1.9.14
 
   '@solid-primitives/refs@1.1.3(solid-js@1.9.14)':
     dependencies:

@@ -4,6 +4,7 @@ import { z } from 'zod/v4';
 
 import styles from './app.module.css';
 import { persistColorScheme, resolveColorScheme, toggleColorScheme, type ColorScheme } from './color-scheme.js';
+import { getLocale, t, toggleLocale } from './i18n/i18n.js';
 
 const tabUrlSchema = z.url();
 
@@ -25,13 +26,13 @@ type ToastItem = {
 };
 
 const MoonIcon = () => (
-  <svg class={styles['theme-icon']} viewBox='0 0 24 24' aria-hidden='true'>
+  <svg class={styles['toolbar-icon']} viewBox='0 0 24 24' aria-hidden='true'>
     <path fill='currentColor' d='M12 3.1A9 9 0 1 0 20.9 12 7.2 7.2 0 0 1 12 3.1Z' />
   </svg>
 );
 
 const SunIcon = () => (
-  <svg class={styles['theme-icon']} viewBox='0 0 24 24' aria-hidden='true'>
+  <svg class={styles['toolbar-icon']} viewBox='0 0 24 24' aria-hidden='true'>
     <circle cx='12' cy='12' r='4' fill='currentColor' />
     <g fill='currentColor'>
       <rect x='11' y='1.5' width='2' height='3' rx='1' />
@@ -205,9 +206,9 @@ const App = () => {
     }
     try {
       await copyText(text);
-      showToast('链接已复制', 'success');
+      showToast(t.toast.linkCopied(), 'success');
     } catch {
-      showToast('复制链接失败', 'error');
+      showToast(t.toast.copyLinkFailed(), 'error');
     }
   };
 
@@ -218,9 +219,9 @@ const App = () => {
     }
     try {
       await copyPngDataUrl(dataUrl);
-      showToast('图片已复制', 'success');
+      showToast(t.toast.imageCopied(), 'success');
     } catch {
-      showToast('复制图片失败', 'error');
+      showToast(t.toast.copyImageFailed(), 'error');
     }
   };
 
@@ -231,33 +232,37 @@ const App = () => {
     }
     try {
       downloadPngDataUrl(dataUrl, 'page-qr.png');
-      showToast('图片已下载', 'success');
+      showToast(t.toast.imageDownloaded(), 'success');
     } catch {
-      showToast('下载图片失败', 'error');
+      showToast(t.toast.downloadFailed(), 'error');
     }
   };
 
   const resetUrl = () => {
     const loaded = pageUrl();
     if (loaded === undefined) {
-      showToast('重置失败', 'error');
+      showToast(t.toast.resetFailed(), 'error');
       return;
     }
     setDraftUrl(loaded);
-    showToast('已重置为当前页面 URL', 'success');
+    showToast(t.toast.urlReset(), 'success');
   };
 
   return (
     <div class={styles['app']}>
-      <md-icon-button
-        class={styles['theme-toggle']}
-        aria-label={colorScheme() === 'dark' ? '切换到浅色模式' : '切换到深色模式'}
-        onClick={onToggleColorScheme}
-      >
-        <Show when={colorScheme() === 'dark'} fallback={<SunIcon />}>
-          <MoonIcon />
-        </Show>
-      </md-icon-button>
+      <div class={styles['toolbar']}>
+        <md-icon-button aria-label={getLocale() === 'zh' ? t.locale.toEn() : t.locale.toZh()} onClick={toggleLocale}>
+          <span class={styles['locale-label']}>{getLocale() === 'zh' ? '中' : 'EN'}</span>
+        </md-icon-button>
+        <md-icon-button
+          aria-label={colorScheme() === 'dark' ? t.theme.toLight() : t.theme.toDark()}
+          onClick={onToggleColorScheme}
+        >
+          <Show when={colorScheme() === 'dark'} fallback={<SunIcon />}>
+            <MoonIcon />
+          </Show>
+        </md-icon-button>
+      </div>
 
       <div class={styles['toast-stack']} aria-live='polite'>
         <Index each={toasts()}>
@@ -280,37 +285,37 @@ const App = () => {
       </md-outlined-card>
 
       <Show when={pageUrl.error}>
-        <p class={styles['status']}>{'Unable to read this page URL.'}</p>
+        <p class={styles['status']}>{t.status.readUrlFailed()}</p>
       </Show>
 
       <div class={styles['url-row']}>
         <md-outlined-text-field
           class={styles['url-field']}
-          label='页面 URL'
+          label={t.url.label()}
           type='url'
           value={draftUrl()}
-          placeholder={pageUrl.loading ? 'Loading…' : 'https://'}
+          placeholder={pageUrl.loading ? t.url.loading() : 'https://'}
           error={urlFieldInvalid()}
-          errorText={urlFieldInvalid() ? 'URL 不合法' : ''}
-          supportingText={trimmedDraftUrl() === '' ? '\u00a0' : isUrlValid() ? 'URL 合法' : ''}
+          errorText={urlFieldInvalid() ? t.url.invalid() : ''}
+          supportingText={trimmedDraftUrl() === '' ? '\u00a0' : isUrlValid() ? t.url.valid() : ''}
           onInput={(event) => {
             setDraftUrl(event.currentTarget.value);
           }}
         />
         <md-outlined-button disabled={!canReset()} onClick={resetUrl}>
-          {'重置'}
+          {t.action.reset()}
         </md-outlined-button>
       </div>
 
       <div class={styles['actions']}>
         <md-filled-tonal-button disabled={trimmedDraftUrl() === ''} onClick={copyLink}>
-          {'复制链接'}
+          {t.action.copyLink()}
         </md-filled-tonal-button>
         <md-filled-button disabled={qrPngDataUrl() === undefined} onClick={copyImage}>
-          {'复制图片'}
+          {t.action.copyImage()}
         </md-filled-button>
         <md-filled-button disabled={qrPngDataUrl() === undefined} onClick={downloadImage}>
-          {'下载'}
+          {t.action.download()}
         </md-filled-button>
       </div>
     </div>

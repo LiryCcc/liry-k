@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@material/web": "^2.5.0",
+    "@solid-primitives/i18n": "^2.2.1",
     "normalize.css": "catalog:",
     "solid-js": "catalog:",
     "uqr": "^0.1.3",
