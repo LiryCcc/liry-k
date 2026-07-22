@@ -2,16 +2,17 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: 12px;
-  min-width: 380px;
-  max-width: 420px;
+  width: 400px;
   padding: 16px;
   color: var(--color-foreground);
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
 }
 
 .qr-frame {
+  width: 100%;
+  aspect-ratio: 1 / 1;
   flex-shrink: 0;
   overflow: hidden;
 }

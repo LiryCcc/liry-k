@@ -6,7 +6,6 @@ import styles from './app.module.css';
 
 const tabUrlSchema = z.url();
 
-const QR_DISPLAY_SIZE = 200;
 const QR_EXPORT_SIZE = 4096;
 const QR_COLOR_VALID = '#000000';
 const QR_COLOR_INVALID = '#c62828';
@@ -155,17 +154,9 @@ const App = () => {
 
   return (
     <div class={styles['app']}>
-      <div
-        class={styles['qr-frame']}
-        style={{
-          width: `${QR_DISPLAY_SIZE}px`,
-          height: `${QR_DISPLAY_SIZE}px`
-        }}
-      >
+      <div class={styles['qr-frame']}>
         <Show when={qrPngDataUrl()} fallback={<div class={styles['qr-placeholder']} aria-hidden='true' />}>
-          {(src) => (
-            <img class={styles['qr']} src={src()} alt={draftUrl()} width={QR_DISPLAY_SIZE} height={QR_DISPLAY_SIZE} />
-          )}
+          {(src) => <img class={styles['qr']} src={src()} alt={draftUrl()} />}
         </Show>
       </div>
 
