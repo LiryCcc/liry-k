@@ -21,19 +21,19 @@
   },
   "devDependencies": {
     "@ast-grep/cli": "^0.44.1",
-    "@commitlint/cli": "^21.2.0",
+    "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
     "@liry-k/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "cspell": "^10.0.1",
     "eslint": "catalog:",
     "pkg-types": "^2.3.1",
-    "prettier": "^3.9.4",
+    "prettier": "^3.9.6",
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-packagejson": "^3.0.2",
     "prettier-plugin-toml": "^2.0.6",
     "simple-git-hooks": "^2.13.1",
-    "stylelint": "^17.14.0",
+    "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
     "typescript-eslint": "catalog:"
   }
