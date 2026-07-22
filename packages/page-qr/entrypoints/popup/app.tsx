@@ -8,7 +8,10 @@ import { persistColorScheme, resolveColorScheme, toggleColorScheme, type ColorSc
 const tabUrlSchema = z.url();
 
 const QR_EXPORT_SIZE = 4096;
-const QR_COLOR_VALID = '#000000';
+const QR_COLOR_VALID_LIGHT = '#2b2930';
+const QR_COLOR_VALID_DARK = '#cac4d0';
+const QR_BACKGROUND_LIGHT = '#f3edf7';
+const QR_BACKGROUND_DARK = '#211f26';
 const TOAST_DURATION_MS = 3200;
 const TOAST_TRANSITION_MS = 1200;
 
@@ -59,7 +62,7 @@ const readCssColor = (token: string, fallback: string): string => {
 /**
  * Encode text as a high-resolution QR PNG (export size), shown smaller in the UI.
  */
-const renderQrPngDataUrl = (text: string, foreground: string): string => {
+const renderQrPngDataUrl = (text: string, foreground: string, background: string): string => {
   const { data, size } = encode(text, { border: 2 });
   const moduleSize = Math.max(1, Math.floor(QR_EXPORT_SIZE / size));
   const drawnSize = moduleSize * size;
@@ -74,7 +77,7 @@ const renderQrPngDataUrl = (text: string, foreground: string): string => {
     throw new Error('Canvas 2D context unavailable');
   }
 
-  context.fillStyle = '#ffffff';
+  context.fillStyle = background;
   context.fillRect(0, 0, QR_EXPORT_SIZE, QR_EXPORT_SIZE);
   context.fillStyle = foreground;
 
@@ -169,13 +172,19 @@ const App = () => {
    * Invalid URLs still encode; only the module color changes.
    */
   const qrPngDataUrl = createMemo(() => {
-    colorScheme();
+    const scheme = colorScheme();
     const text = trimmedDraftUrl();
     if (text === '') {
       return undefined;
     }
-    const foreground = isUrlValid() ? QR_COLOR_VALID : readCssColor('--md-sys-color-error', '#b3261e');
-    return renderQrPngDataUrl(text, foreground);
+    const dark = scheme === 'dark';
+    const foreground = isUrlValid()
+      ? dark
+        ? QR_COLOR_VALID_DARK
+        : QR_COLOR_VALID_LIGHT
+      : readCssColor('--md-sys-color-error', dark ? '#f2b8b5' : '#b3261e');
+    const background = dark ? QR_BACKGROUND_DARK : QR_BACKGROUND_LIGHT;
+    return renderQrPngDataUrl(text, foreground, background);
   });
 
   const canReset = createMemo(() => {
