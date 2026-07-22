@@ -8,6 +8,8 @@
   --color-button: #efece7;
   --color-button-hover: #e4e0d9;
   --color-placeholder: #e8e4de;
+  --color-danger: #c62828;
+  --color-success: #2e7d32;
 }
 
 body {

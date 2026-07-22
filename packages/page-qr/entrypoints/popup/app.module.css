@@ -55,6 +55,27 @@
   color: var(--color-muted);
 }
 
+.url-input-invalid {
+  border-color: var(--color-danger);
+}
+
+.url-hint {
+  margin: 0;
+  width: 100%;
+  min-height: 1.4em;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.url-hint-valid {
+  color: var(--color-success);
+}
+
+.url-hint-invalid {
+  color: var(--color-danger);
+}
+
 .status {
   margin: 0;
   width: 100%;

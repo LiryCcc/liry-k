@@ -7,6 +7,8 @@ import styles from './app.module.css';
 const tabUrlSchema = z.url();
 
 const QR_DISPLAY_SIZE = 200;
+const QR_COLOR_VALID = '#000000';
+const QR_COLOR_INVALID = '#c62828';
 
 const getActiveTabUrl = async (): Promise<string> => {
   const tabs = await browser['tabs'].query({
@@ -19,7 +21,7 @@ const getActiveTabUrl = async (): Promise<string> => {
 /**
  * Encode text as a QR matrix and rasterize it to a PNG data URL.
  */
-const renderQrPngDataUrl = (text: string): string => {
+const renderQrPngDataUrl = (text: string, foreground: string): string => {
   const { data, size } = encode(text, { border: 2 });
   const scale = Math.max(1, Math.floor(QR_DISPLAY_SIZE / size));
   const canvas = document.createElement('canvas');
@@ -33,7 +35,7 @@ const renderQrPngDataUrl = (text: string): string => {
 
   context.fillStyle = '#ffffff';
   context.fillRect(0, 0, canvas.width, canvas.height);
-  context.fillStyle = '#000000';
+  context.fillStyle = foreground;
 
   for (let y = 0; y < size; y += 1) {
     const row = data[y];
@@ -79,15 +81,27 @@ const App = () => {
     });
   });
 
+  const trimmedDraftUrl = createMemo(() => draftUrl().trim());
+
+  const isUrlValid = createMemo(() => {
+    const text = trimmedDraftUrl();
+    if (text === '') {
+      return false;
+    }
+    return tabUrlSchema.safeParse(text).success;
+  });
+
   /**
-   * Always derived from the current draft so the QR matches the latest URL.
+   * Always derived from the current draft so the QR matches the latest text.
+   * Invalid URLs still encode; only the module color changes.
    */
   const qrPngDataUrl = createMemo(() => {
-    const parsed = tabUrlSchema.safeParse(draftUrl().trim());
-    if (!parsed.success) {
+    const text = trimmedDraftUrl();
+    if (text === '') {
       return undefined;
     }
-    return renderQrPngDataUrl(parsed.data);
+    const foreground = isUrlValid() ? QR_COLOR_VALID : QR_COLOR_INVALID;
+    return renderQrPngDataUrl(text, foreground);
   });
 
   const canReset = createMemo(() => {
@@ -96,7 +110,7 @@ const App = () => {
   });
 
   const copyLink = () => {
-    const text = draftUrl().trim();
+    const text = trimmedDraftUrl();
     if (text === '') {
       return;
     }
@@ -139,10 +153,20 @@ const App = () => {
         <p class={styles['status']}>{'Unable to read this page URL.'}</p>
       </Show>
 
+      <p
+        class={`${styles['url-hint']} ${
+          trimmedDraftUrl() === '' ? '' : isUrlValid() ? styles['url-hint-valid'] : styles['url-hint-invalid']
+        }`}
+      >
+        {trimmedDraftUrl() === '' ? '\u00a0' : isUrlValid() ? 'URL 合法' : 'URL 不合法'}
+      </p>
+
       <div class={styles['url-row']}>
         <input
-          class={styles['url-input']}
-          type='url'
+          class={`${styles['url-input']} ${
+            trimmedDraftUrl() !== '' && !isUrlValid() ? styles['url-input-invalid'] : ''
+          }`}
+          type='text'
           value={draftUrl()}
           placeholder={pageUrl.loading ? 'Loading…' : 'https://'}
           onInput={(event) => {
@@ -155,7 +179,7 @@ const App = () => {
       </div>
 
       <div class={styles['actions']}>
-        <button type='button' class={styles['button']} disabled={draftUrl().trim() === ''} onClick={copyLink}>
+        <button type='button' class={styles['button']} disabled={trimmedDraftUrl() === ''} onClick={copyLink}>
           {'复制链接'}
         </button>
         <button type='button' class={styles['button']} disabled={qrPngDataUrl() === undefined} onClick={copyImage}>
