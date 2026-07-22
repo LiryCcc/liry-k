@@ -1,6 +1,7 @@
 packages:
   - packages/*
   - infra/*
+  - demos/*
 
 allowBuilds:
   '@ast-grep/cli': false

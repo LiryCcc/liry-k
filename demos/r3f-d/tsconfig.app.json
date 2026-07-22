@@ -1,0 +1,16 @@
+{
+  "extends": ["@liry-k/tsconfig"],
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
+    "target": "esnext",
+    "lib": ["ESNext", "DOM"],
+    "types": ["vite/client"],
+
+    "jsx": "react-jsx",
+    "paths": {
+      "@/*": ["./src/*"],
+      "@@/*": ["./*"]
+    }
+  },
+  "include": ["src"]
+}
