@@ -98,7 +98,9 @@ const cspellConfig = defineConfig({
     'workerd',
     'esbuild',
     'KHTML',
-    'METAVAR'
+    'METAVAR',
+    'drei',
+    'metalness'
   ]
 });
 
