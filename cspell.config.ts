@@ -100,7 +100,11 @@ const cspellConfig = defineConfig({
     'KHTML',
     'METAVAR',
     'drei',
-    'metalness'
+    'metalness',
+    'Lightformer',
+    'Lightformers',
+    'githack',
+    'multisampling'
   ]
 });
 

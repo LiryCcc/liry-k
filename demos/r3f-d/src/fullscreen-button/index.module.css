@@ -1,0 +1,30 @@
+.button {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  z-index: 10;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0.55rem 1.15rem;
+  border: 1px solid rgb(248 250 252 / 28%);
+  border-radius: 999px;
+  background: rgb(2 6 23 / 72%);
+  color: #f8fafc;
+  font:
+    600 0.875rem/1.2 system-ui,
+    sans-serif;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 35%);
+}
+
+.button:hover {
+  border-color: rgb(248 250 252 / 55%);
+  background: rgb(15 23 42 / 85%);
+}
+
+.button:focus-visible {
+  outline: 2px solid #38bdf8;
+  outline-offset: 3px;
+}
