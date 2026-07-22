@@ -1,4 +1,4 @@
-import { createEffect, createMemo, createResource, createSignal, Show, untrack } from 'solid-js';
+import { createEffect, createMemo, createResource, createSignal, Index, Show, untrack } from 'solid-js';
 import { encode } from 'uqr';
 import { z } from 'zod/v4';
 
@@ -9,6 +9,17 @@ const tabUrlSchema = z.url();
 const QR_EXPORT_SIZE = 4096;
 const QR_COLOR_VALID = '#000000';
 const QR_COLOR_INVALID = '#c62828';
+const TOAST_DURATION_MS = 3200;
+const TOAST_TRANSITION_MS = 1200;
+
+type ToastKind = 'success' | 'error';
+
+type ToastItem = {
+  id: number;
+  message: string;
+  kind: ToastKind;
+  open: boolean;
+};
 
 const getActiveTabUrl = async (): Promise<string> => {
   const tabs = await browser['tabs'].query({
@@ -79,6 +90,27 @@ const downloadPngDataUrl = (dataUrl: string, filename: string): void => {
 const App = () => {
   const [pageUrl] = createResource(getActiveTabUrl);
   const [draftUrl, setDraftUrl] = createSignal('');
+  const [toasts, setToasts] = createSignal<ToastItem[]>([]);
+  let nextToastId = 0;
+
+  const showToast = (message: string, kind: ToastKind) => {
+    nextToastId += 1;
+    const id = nextToastId;
+    setToasts((current) => [...current, { id, message, kind, open: false }]);
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        setToasts((current) => current.map((toast) => (toast.id === id ? { ...toast, open: true } : toast)));
+      });
+    });
+
+    window.setTimeout(() => {
+      setToasts((current) => current.map((toast) => (toast.id === id ? { ...toast, open: false } : toast)));
+      window.setTimeout(() => {
+        setToasts((current) => current.filter((toast) => toast.id !== id));
+      }, TOAST_TRANSITION_MS);
+    }, TOAST_DURATION_MS);
+  };
 
   createEffect(() => {
     const loaded = pageUrl();
@@ -120,20 +152,30 @@ const App = () => {
     return loaded !== undefined && draftUrl() !== loaded;
   });
 
-  const copyLink = () => {
+  const copyLink = async () => {
     const text = trimmedDraftUrl();
     if (text === '') {
       return;
     }
-    copyText(text);
+    try {
+      await copyText(text);
+      showToast('链接已复制', 'success');
+    } catch {
+      showToast('复制链接失败', 'error');
+    }
   };
 
-  const copyImage = () => {
+  const copyImage = async () => {
     const dataUrl = qrPngDataUrl();
     if (dataUrl === undefined) {
       return;
     }
-    copyPngDataUrl(dataUrl);
+    try {
+      await copyPngDataUrl(dataUrl);
+      showToast('图片已复制', 'success');
+    } catch {
+      showToast('复制图片失败', 'error');
+    }
   };
 
   const downloadImage = () => {
@@ -141,19 +183,40 @@ const App = () => {
     if (dataUrl === undefined) {
       return;
     }
-    downloadPngDataUrl(dataUrl, 'page-qr.png');
+    try {
+      downloadPngDataUrl(dataUrl, 'page-qr.png');
+      showToast('图片已下载', 'success');
+    } catch {
+      showToast('下载图片失败', 'error');
+    }
   };
 
   const resetUrl = () => {
     const loaded = pageUrl();
     if (loaded === undefined) {
+      showToast('重置失败', 'error');
       return;
     }
     setDraftUrl(loaded);
+    showToast('已重置为当前页面 URL', 'success');
   };
 
   return (
     <div class={styles['app']}>
+      <div class={styles['toast-stack']} aria-live='polite'>
+        <Index each={toasts()}>
+          {(toast) => (
+            <div
+              class={`${styles['toast']} ${
+                toast().kind === 'success' ? styles['toast-success'] : styles['toast-error']
+              } ${toast().open ? styles['toast-open'] : ''}`}
+            >
+              {toast().message}
+            </div>
+          )}
+        </Index>
+      </div>
+
       <div class={styles['qr-frame']}>
         <Show when={qrPngDataUrl()} fallback={<div class={styles['qr-placeholder']} aria-hidden='true' />}>
           {(src) => <img class={styles['qr']} src={src()} alt={draftUrl()} />}

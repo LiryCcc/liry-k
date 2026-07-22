@@ -1,4 +1,5 @@
 .app {
+  position: relative;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
@@ -8,6 +9,47 @@
   padding: 16px;
   color: var(--color-foreground);
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+}
+
+.toast-stack {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  left: 8px;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  pointer-events: none;
+}
+
+.toast {
+  padding: 8px 12px;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 12px;
+  line-height: 1.4;
+  text-align: center;
+  background: rgb(26 26 26 / 70%);
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(6px);
+}
+
+.toast-open {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-success {
+  background: rgb(46 125 50 / 70%);
+}
+
+.toast-error {
+  background: rgb(198 40 40 / 70%);
 }
 
 .qr-frame {
