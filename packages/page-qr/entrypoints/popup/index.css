@@ -1,18 +1,8 @@
 @import url('normalize.css');
-
-:root {
-  --color-foreground: #1a1a1a;
-  --color-muted: #5c5c5c;
-  --color-surface: #f7f5f2;
-  --color-border: #d4d0ca;
-  --color-button: #efece7;
-  --color-button-hover: #e4e0d9;
-  --color-placeholder: #e8e4de;
-  --color-danger: #c62828;
-  --color-success: #2e7d32;
-}
+@import url('./material-theme.css');
 
 body {
   margin: 0;
-  background: var(--color-surface);
+  background: var(--md-sys-color-surface);
+  color: var(--md-sys-color-on-surface);
 }

@@ -16,6 +16,7 @@
     "zip:firefox": "wxt zip -b firefox"
   },
   "dependencies": {
+    "@material/web": "^2.5.0",
     "normalize.css": "catalog:",
     "solid-js": "catalog:",
     "uqr": "^0.1.3",

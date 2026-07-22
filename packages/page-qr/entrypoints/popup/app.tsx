@@ -8,7 +8,6 @@ const tabUrlSchema = z.url();
 
 const QR_EXPORT_SIZE = 4096;
 const QR_COLOR_VALID = '#000000';
-const QR_COLOR_INVALID = '#c62828';
 const TOAST_DURATION_MS = 3200;
 const TOAST_TRANSITION_MS = 1200;
 
@@ -27,6 +26,11 @@ const getActiveTabUrl = async (): Promise<string> => {
     currentWindow: true
   });
   return tabUrlSchema.parse(tabs[0]?.['url']);
+};
+
+const readCssColor = (token: string, fallback: string): string => {
+  const value = getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+  return value === '' ? fallback : value;
 };
 
 /**
@@ -134,6 +138,8 @@ const App = () => {
     return tabUrlSchema.safeParse(text).success;
   });
 
+  const urlFieldInvalid = createMemo(() => trimmedDraftUrl() !== '' && !isUrlValid());
+
   /**
    * Always derived from the current draft so the QR matches the latest text.
    * Invalid URLs still encode; only the module color changes.
@@ -143,7 +149,7 @@ const App = () => {
     if (text === '') {
       return undefined;
     }
-    const foreground = isUrlValid() ? QR_COLOR_VALID : QR_COLOR_INVALID;
+    const foreground = isUrlValid() ? QR_COLOR_VALID : readCssColor('--md-sys-color-error', '#b3261e');
     return renderQrPngDataUrl(text, foreground);
   });
 
@@ -207,9 +213,9 @@ const App = () => {
         <Index each={toasts()}>
           {(toast) => (
             <div
-              class={`${styles['toast']} ${
-                toast().kind === 'success' ? styles['toast-success'] : styles['toast-error']
-              } ${toast().open ? styles['toast-open'] : ''}`}
+              class={`${styles['snackbar']} ${
+                toast().kind === 'success' ? styles['snackbar-success'] : styles['snackbar-error']
+              } ${toast().open ? styles['snackbar-open'] : ''}`}
             >
               {toast().message}
             </div>
@@ -217,51 +223,45 @@ const App = () => {
         </Index>
       </div>
 
-      <div class={styles['qr-frame']}>
+      <md-outlined-card class={styles['qr-card']}>
         <Show when={qrPngDataUrl()} fallback={<div class={styles['qr-placeholder']} aria-hidden='true' />}>
           {(src) => <img class={styles['qr']} src={src()} alt={draftUrl()} />}
         </Show>
-      </div>
+      </md-outlined-card>
 
       <Show when={pageUrl.error}>
         <p class={styles['status']}>{'Unable to read this page URL.'}</p>
       </Show>
 
-      <p
-        class={`${styles['url-hint']} ${
-          trimmedDraftUrl() === '' ? '' : isUrlValid() ? styles['url-hint-valid'] : styles['url-hint-invalid']
-        }`}
-      >
-        {trimmedDraftUrl() === '' ? '\u00a0' : isUrlValid() ? 'URL 合法' : 'URL 不合法'}
-      </p>
-
       <div class={styles['url-row']}>
-        <input
-          class={`${styles['url-input']} ${
-            trimmedDraftUrl() !== '' && !isUrlValid() ? styles['url-input-invalid'] : ''
-          }`}
-          type='text'
+        <md-outlined-text-field
+          class={styles['url-field']}
+          label='页面 URL'
+          type='url'
           value={draftUrl()}
           placeholder={pageUrl.loading ? 'Loading…' : 'https://'}
+          error={urlFieldInvalid()}
+          errorText={urlFieldInvalid() ? 'URL 不合法' : ''}
+          supportingText={trimmedDraftUrl() === '' ? '\u00a0' : isUrlValid() ? 'URL 合法' : ''}
           onInput={(event) => {
             setDraftUrl(event.currentTarget.value);
           }}
         />
-        <button type='button' class={styles['button']} disabled={!canReset()} onClick={resetUrl}>
+        <md-outlined-button disabled={!canReset()} onClick={resetUrl}>
           {'重置'}
-        </button>
+        </md-outlined-button>
       </div>
 
       <div class={styles['actions']}>
-        <button type='button' class={styles['button']} disabled={trimmedDraftUrl() === ''} onClick={copyLink}>
+        <md-filled-tonal-button disabled={trimmedDraftUrl() === ''} onClick={copyLink}>
           {'复制链接'}
-        </button>
-        <button type='button' class={styles['button']} disabled={qrPngDataUrl() === undefined} onClick={copyImage}>
+        </md-filled-tonal-button>
+        <md-filled-button disabled={qrPngDataUrl() === undefined} onClick={copyImage}>
           {'复制图片'}
-        </button>
-        <button type='button' class={styles['button']} disabled={qrPngDataUrl() === undefined} onClick={downloadImage}>
+        </md-filled-button>
+        <md-filled-button disabled={qrPngDataUrl() === undefined} onClick={downloadImage}>
           {'下载'}
-        </button>
+        </md-filled-button>
       </div>
     </div>
   );
