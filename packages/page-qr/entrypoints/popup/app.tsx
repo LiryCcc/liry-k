@@ -50,12 +50,41 @@ const renderQrPngDataUrl = (text: string): string => {
   return canvas.toDataURL('image/png');
 };
 
+const copyText = async (text: string): Promise<void> => {
+  await navigator.clipboard.writeText(text);
+};
+
+const copyPngDataUrl = async (dataUrl: string): Promise<void> => {
+  const blob = await (await fetch(dataUrl)).blob();
+  await navigator.clipboard.write([
+    new ClipboardItem({
+      'image/png': blob
+    })
+  ]);
+};
+
 const App = () => {
   const [url] = createResource(getActiveTabUrl);
   const pngDataUrl = createMemo(() => {
     const currentUrl = url();
     return currentUrl === undefined ? undefined : renderQrPngDataUrl(currentUrl);
   });
+
+  const copyLink = () => {
+    const currentUrl = url();
+    if (currentUrl === undefined) {
+      return;
+    }
+    copyText(currentUrl);
+  };
+
+  const copyImage = () => {
+    const dataUrl = pngDataUrl();
+    if (dataUrl === undefined) {
+      return;
+    }
+    copyPngDataUrl(dataUrl);
+  };
 
   return (
     <div class={styles['app']}>
@@ -81,6 +110,14 @@ const App = () => {
           )}
         </Match>
       </Switch>
+      <div class={styles['actions']}>
+        <button type='button' class={styles['button']} disabled={url() === undefined} onClick={copyLink}>
+          {'复制链接'}
+        </button>
+        <button type='button' class={styles['button']} disabled={pngDataUrl() === undefined} onClick={copyImage}>
+          {'复制图片'}
+        </button>
+      </div>
     </div>
   );
 };

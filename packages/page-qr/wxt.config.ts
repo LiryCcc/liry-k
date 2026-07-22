@@ -6,6 +6,6 @@ export default defineConfig({
   manifest: {
     name: 'Page QR',
     description: 'Generate a QR code for the current page URL',
-    permissions: ['activeTab']
+    permissions: ['activeTab', 'clipboardWrite']
   }
 });
