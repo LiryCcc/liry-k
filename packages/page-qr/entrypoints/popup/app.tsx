@@ -7,6 +7,7 @@ import styles from './app.module.css';
 const tabUrlSchema = z.url();
 
 const QR_DISPLAY_SIZE = 200;
+const QR_EXPORT_SIZE = 4096;
 const QR_COLOR_VALID = '#000000';
 const QR_COLOR_INVALID = '#c62828';
 
@@ -19,14 +20,17 @@ const getActiveTabUrl = async (): Promise<string> => {
 };
 
 /**
- * Encode text as a QR matrix and rasterize it to a PNG data URL.
+ * Encode text as a high-resolution QR PNG (export size), shown smaller in the UI.
  */
 const renderQrPngDataUrl = (text: string, foreground: string): string => {
   const { data, size } = encode(text, { border: 2 });
-  const scale = Math.max(1, Math.floor(QR_DISPLAY_SIZE / size));
+  const moduleSize = Math.max(1, Math.floor(QR_EXPORT_SIZE / size));
+  const drawnSize = moduleSize * size;
+  const offset = Math.floor((QR_EXPORT_SIZE - drawnSize) / 2);
+
   const canvas = document.createElement('canvas');
-  canvas.width = size * scale;
-  canvas.height = size * scale;
+  canvas.width = QR_EXPORT_SIZE;
+  canvas.height = QR_EXPORT_SIZE;
 
   const context = canvas.getContext('2d');
   if (!context) {
@@ -34,7 +38,7 @@ const renderQrPngDataUrl = (text: string, foreground: string): string => {
   }
 
   context.fillStyle = '#ffffff';
-  context.fillRect(0, 0, canvas.width, canvas.height);
+  context.fillRect(0, 0, QR_EXPORT_SIZE, QR_EXPORT_SIZE);
   context.fillStyle = foreground;
 
   for (let y = 0; y < size; y += 1) {
@@ -44,7 +48,7 @@ const renderQrPngDataUrl = (text: string, foreground: string): string => {
     }
     for (let x = 0; x < size; x += 1) {
       if (row[x]) {
-        context.fillRect(x * scale, y * scale, scale, scale);
+        context.fillRect(offset + x * moduleSize, offset + y * moduleSize, moduleSize, moduleSize);
       }
     }
   }
