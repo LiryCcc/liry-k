@@ -1,4 +1,4 @@
-import { createMemo, createResource, Match, Switch } from 'solid-js';
+import { createEffect, createMemo, createResource, createSignal, Show, untrack } from 'solid-js';
 import { encode } from 'uqr';
 import { z } from 'zod/v4';
 
@@ -64,57 +64,101 @@ const copyPngDataUrl = async (dataUrl: string): Promise<void> => {
 };
 
 const App = () => {
-  const [url] = createResource(getActiveTabUrl);
-  const pngDataUrl = createMemo(() => {
-    const currentUrl = url();
-    return currentUrl === undefined ? undefined : renderQrPngDataUrl(currentUrl);
+  const [pageUrl] = createResource(getActiveTabUrl);
+  const [draftUrl, setDraftUrl] = createSignal('');
+
+  createEffect(() => {
+    const loaded = pageUrl();
+    if (loaded === undefined) {
+      return;
+    }
+    untrack(() => {
+      if (draftUrl() === '') {
+        setDraftUrl(loaded);
+      }
+    });
+  });
+
+  /**
+   * Always derived from the current draft so the QR matches the latest URL.
+   */
+  const qrPngDataUrl = createMemo(() => {
+    const parsed = tabUrlSchema.safeParse(draftUrl().trim());
+    if (!parsed.success) {
+      return undefined;
+    }
+    return renderQrPngDataUrl(parsed.data);
+  });
+
+  const canReset = createMemo(() => {
+    const loaded = pageUrl();
+    return loaded !== undefined && draftUrl() !== loaded;
   });
 
   const copyLink = () => {
-    const currentUrl = url();
-    if (currentUrl === undefined) {
+    const text = draftUrl().trim();
+    if (text === '') {
       return;
     }
-    copyText(currentUrl);
+    copyText(text);
   };
 
   const copyImage = () => {
-    const dataUrl = pngDataUrl();
+    const dataUrl = qrPngDataUrl();
     if (dataUrl === undefined) {
       return;
     }
     copyPngDataUrl(dataUrl);
   };
 
+  const resetUrl = () => {
+    const loaded = pageUrl();
+    if (loaded === undefined) {
+      return;
+    }
+    setDraftUrl(loaded);
+  };
+
   return (
     <div class={styles['app']}>
-      <Switch>
-        <Match when={url.loading}>
-          <p class={styles['status']}>{'Loading…'}</p>
-        </Match>
-        <Match when={url.error}>
-          <p class={styles['status']}>{'Unable to read this page URL.'}</p>
-        </Match>
-        <Match when={pngDataUrl()}>
+      <div
+        class={styles['qr-frame']}
+        style={{
+          width: `${QR_DISPLAY_SIZE}px`,
+          height: `${QR_DISPLAY_SIZE}px`
+        }}
+      >
+        <Show when={qrPngDataUrl()} fallback={<div class={styles['qr-placeholder']} aria-hidden='true' />}>
           {(src) => (
-            <>
-              <img
-                class={styles['qr']}
-                src={src()}
-                alt={url() ?? ''}
-                width={QR_DISPLAY_SIZE}
-                height={QR_DISPLAY_SIZE}
-              />
-              <p class={styles['url']}>{url()}</p>
-            </>
+            <img class={styles['qr']} src={src()} alt={draftUrl()} width={QR_DISPLAY_SIZE} height={QR_DISPLAY_SIZE} />
           )}
-        </Match>
-      </Switch>
+        </Show>
+      </div>
+
+      <Show when={pageUrl.error}>
+        <p class={styles['status']}>{'Unable to read this page URL.'}</p>
+      </Show>
+
+      <div class={styles['url-row']}>
+        <input
+          class={styles['url-input']}
+          type='url'
+          value={draftUrl()}
+          placeholder={pageUrl.loading ? 'Loading…' : 'https://'}
+          onInput={(event) => {
+            setDraftUrl(event.currentTarget.value);
+          }}
+        />
+        <button type='button' class={styles['button']} disabled={!canReset()} onClick={resetUrl}>
+          {'重置'}
+        </button>
+      </div>
+
       <div class={styles['actions']}>
-        <button type='button' class={styles['button']} disabled={url() === undefined} onClick={copyLink}>
+        <button type='button' class={styles['button']} disabled={draftUrl().trim() === ''} onClick={copyLink}>
           {'复制链接'}
         </button>
-        <button type='button' class={styles['button']} disabled={pngDataUrl() === undefined} onClick={copyImage}>
+        <button type='button' class={styles['button']} disabled={qrPngDataUrl() === undefined} onClick={copyImage}>
           {'复制图片'}
         </button>
       </div>
