@@ -69,6 +69,14 @@ const copyPngDataUrl = async (dataUrl: string): Promise<void> => {
   ]);
 };
 
+const downloadPngDataUrl = (dataUrl: string, filename: string): void => {
+  const link = document.createElement('a');
+  link.href = dataUrl;
+  link.download = filename;
+  link.rel = 'noopener';
+  link.click();
+};
+
 const App = () => {
   const [pageUrl] = createResource(getActiveTabUrl);
   const [draftUrl, setDraftUrl] = createSignal('');
@@ -127,6 +135,14 @@ const App = () => {
       return;
     }
     copyPngDataUrl(dataUrl);
+  };
+
+  const downloadImage = () => {
+    const dataUrl = qrPngDataUrl();
+    if (dataUrl === undefined) {
+      return;
+    }
+    downloadPngDataUrl(dataUrl, 'page-qr.png');
   };
 
   const resetUrl = () => {
@@ -188,6 +204,9 @@ const App = () => {
         </button>
         <button type='button' class={styles['button']} disabled={qrPngDataUrl() === undefined} onClick={copyImage}>
           {'复制图片'}
+        </button>
+        <button type='button' class={styles['button']} disabled={qrPngDataUrl() === undefined} onClick={downloadImage}>
+          {'下载'}
         </button>
       </div>
     </div>

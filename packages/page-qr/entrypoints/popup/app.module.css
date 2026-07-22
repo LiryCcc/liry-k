@@ -4,8 +4,8 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  min-width: 260px;
-  max-width: 320px;
+  min-width: 380px;
+  max-width: 420px;
   padding: 16px;
   color: var(--color-foreground);
   font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
