@@ -3,6 +3,7 @@ pub mod best_time_to_buy_and_sell_stock_121;
 pub mod find_greatest_common_divisor_of_array_1979;
 pub mod find_the_highest_altitude_1732;
 pub mod hot100;
+pub mod number_of_unique_xor_triplets_i_3513;
 pub mod process_string_with_special_operations_ii;
 pub mod remove_covered_intervals_1288;
 pub mod remove_element_2;
