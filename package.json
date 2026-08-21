@@ -11,7 +11,7 @@
     "lint": "pnpm pre-commit",
     "lint:rust": "cargo clippy --workspace --all-targets -- -D warnings",
     "lint:rustfmt": "cargo fmt --all --check",
-    "lint:style": "stylelint \"packages/**/*.css\" \"infra/**/*.css\"",
+    "lint:style": "stylelint \"*/**/*.css\"",
     "pre-commit": "pnpm check-format && pnpm check-spell && pnpm lint:style && pnpm -r lint && pnpm lint:rust && pnpm lint:rustfmt",
     "prepare": "simple-git-hooks"
   },

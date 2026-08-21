@@ -1402,6 +1402,9 @@ importers:
       express:
         specifier: ^5.2.1
         version: 5.2.1(supports-color@10.2.2)
+      normalize.css:
+        specifier: 'catalog:'
+        version: 8.0.1
       preact:
         specifier: ^10.29.1
         version: 10.29.8(preact-render-to-string@6.7.0)
@@ -1439,6 +1442,9 @@ importers:
       express:
         specifier: ^5.2.1
         version: 5.2.1(supports-color@10.2.2)
+      normalize.css:
+        specifier: 'catalog:'
+        version: 8.0.1
       react:
         specifier: ^19.2.4
         version: 19.2.7
@@ -1482,6 +1488,9 @@ importers:
       express:
         specifier: ^5.2.1
         version: 5.2.1(supports-color@10.2.2)
+      normalize.css:
+        specifier: 'catalog:'
+        version: 8.0.1
       sirv:
         specifier: ^3.0.2
         version: 3.0.2

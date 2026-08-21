@@ -1,5 +1,5 @@
 import { renderToString } from 'solid-js/web';
-import App from './App';
+import App from './app';
 
 export function render(_url: string) {
   const html = renderToString(() => <App />);
