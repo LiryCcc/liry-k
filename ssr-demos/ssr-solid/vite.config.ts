@@ -1,7 +1,15 @@
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [solid({ ssr: true })]
+const viteConfig = defineConfig({
+  plugins: [solid({ ssr: true })],
+  build: {
+    manifest: true,
+    rollupOptions: {
+      input: resolve(import.meta.dirname, 'src/client.ts')
+    }
+  }
 });
+
+export default viteConfig;

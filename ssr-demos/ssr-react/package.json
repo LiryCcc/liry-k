@@ -4,28 +4,36 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -b && npm run build:client && npm run build:server",
+    "build": "pnpm lint:type && pnpm build:client && pnpm build:server",
     "build:client": "vite build --outDir dist/client",
-    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
-    "dev": "node server",
-    "preview": "cross-env NODE_ENV=production node server"
+    "build:server": "vite build --ssr src/server.tsx --outDir dist/server",
+    "dev": "node src/index.ts",
+    "lint": "pnpm lint:type && pnpm lint:code",
+    "lint:code": "eslint . --cache",
+    "lint:type": "tsc -b",
+    "preview": "node src/index.ts --production"
   },
   "dependencies": {
-    "compression": "^1.8.1",
-    "express": "^5.2.1",
+    "@liry-k/ssr-server": "workspace:*",
     "normalize.css": "catalog:",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "sirv": "^3.0.2"
+    "react": "catalog:",
+    "react-dom": "catalog:"
   },
   "devDependencies": {
-    "@types/express": "^5.0.6",
-    "@types/node": "^25.5.2",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
-    "cross-env": "^10.1.0",
-    "typescript": "~6.0.2",
-    "vite": "^8.0.3"
+    "@eslint/css": "catalog:",
+    "@eslint/js": "catalog:",
+    "@liry-k/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
+    "@types/react": "catalog:",
+    "@types/react-dom": "catalog:",
+    "@vitejs/plugin-react": "catalog:",
+    "eslint": "catalog:",
+    "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-hooks": "catalog:",
+    "eslint-plugin-react-refresh": "catalog:",
+    "globals": "catalog:",
+    "typescript": "catalog:",
+    "typescript-eslint": "catalog:",
+    "vite": "catalog:"
   }
 }

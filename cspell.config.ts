@@ -84,6 +84,7 @@ const cspellConfig = defineConfig({
     'scrcpy',
     'undici',
     'hono',
+    'preact',
     'iconbutton',
     'protobufjs',
     'Mbps',

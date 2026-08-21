@@ -1,7 +1,15 @@
 import react from '@vitejs/plugin-react';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
-// https://vite.dev/config/
-export default defineConfig({
-  plugins: [react()]
+const viteConfig = defineConfig({
+  plugins: [react()],
+  build: {
+    manifest: true,
+    rollupOptions: {
+      input: resolve(import.meta.dirname, 'src/client.ts')
+    }
+  }
 });
+
+export default viteConfig;

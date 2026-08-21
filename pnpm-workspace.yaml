@@ -26,7 +26,9 @@ catalog:
   '@fluentui/react-components': ^9.74.4
   '@fluentui/react-file-type-icons': ^8.18.1
   '@fluentui/react-icons': ^2.0.333
+  '@hono/node-server': ^2.1.1
   '@lit-labs/signals': ^0.3.0
+  '@preact/preset-vite': ^2.10.6
   '@react-pdf/renderer': ^4.5.1
   '@rolldown/plugin-babel': ^0.2.3
   '@sentry/solid': ^10.67.0
@@ -84,6 +86,8 @@ catalog:
   i18next-browser-languagedetector: ^8.2.1
   lit: ^3.3.3
   normalize.css: ^8.0.1
+  preact: ^10.29.8
+  preact-render-to-string: ^6.7.0
   protobufjs: ^8.7.1
   protoc: ^35.1.0
   radash: ^12.1.1
