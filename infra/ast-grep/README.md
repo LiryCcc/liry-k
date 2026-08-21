@@ -10,7 +10,7 @@
 
 ```bash
 pnpm --filter @liry-k/infra-ast-grep build
-pnpm exec liry-sg find -l typescript -p 'function $NAME' packages/luna
+pnpm exec liry-sg find -l typescript -p 'function $NAME' apps/luna
 ```
 
 ### 子命令

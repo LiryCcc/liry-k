@@ -299,7 +299,7 @@ importers:
         version: 21.2.0
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:packages/tsconfig
+        version: link:infra/tsconfig
       '@types/node':
         specifier: 'catalog:'
         version: 24.13.3
@@ -337,255 +337,7 @@ importers:
         specifier: 'catalog:'
         version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
 
-  demos/r3f-d:
-    dependencies:
-      '@react-three/drei':
-        specifier: ^10.7.7
-        version: 10.7.7(@react-three/fiber@9.6.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.185.1))(@types/react@19.2.17)(@types/three@0.185.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.185.1)
-      '@react-three/fiber':
-        specifier: ^9.6.1
-        version: 9.6.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.185.1)
-      normalize.css:
-        specifier: 'catalog:'
-        version: 8.0.1
-      react:
-        specifier: ^19.2.7
-        version: 19.2.7
-      react-dom:
-        specifier: ^19.2.7
-        version: 19.2.7(react@19.2.7)
-      three:
-        specifier: ^0.185.1
-        version: 0.185.1
-    devDependencies:
-      '@babel/core':
-        specifier: ^7.29.7
-        version: 7.29.7(supports-color@10.2.2)
-      '@eslint/js':
-        specifier: ^10.0.1
-        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      '@rolldown/plugin-babel':
-        specifier: ^0.2.3
-        version: 0.2.3(@babel/core@7.29.7(supports-color@10.2.2))(@babel/runtime@7.29.7)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
-      '@types/babel__core':
-        specifier: ^7.20.5
-        version: 7.20.5
-      '@types/node':
-        specifier: ^24.13.3
-        version: 24.13.3
-      '@types/react':
-        specifier: ^19.2.17
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.17)
-      '@types/three':
-        specifier: ^0.185.1
-        version: 0.185.1
-      '@vitejs/plugin-react':
-        specifier: ^6.0.3
-        version: 6.0.3(@rolldown/plugin-babel@0.2.3(@babel/core@7.29.7(supports-color@10.2.2))(@babel/runtime@7.29.7)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)))(babel-plugin-react-compiler@1.0.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
-      babel-plugin-react-compiler:
-        specifier: ^1.0.0
-        version: 1.0.0
-      eslint:
-        specifier: ^10.6.0
-        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
-      eslint-plugin-react-compiler:
-        specifier: 19.1.0-rc.2
-        version: 19.1.0-rc.2(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)
-      eslint-plugin-react-hooks:
-        specifier: ^7.1.1
-        version: 7.1.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)
-      eslint-plugin-react-refresh:
-        specifier: ^0.5.3
-        version: 0.5.3(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      globals:
-        specifier: ^17.7.0
-        version: 17.7.0
-      typescript:
-        specifier: ~6.0.2
-        version: 6.0.3
-      typescript-eslint:
-        specifier: ^8.62.0
-        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
-      vite:
-        specifier: ^8.1.1
-        version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
-
-  infra/ast-grep:
-    devDependencies:
-      '@ast-grep/napi':
-        specifier: ^0.44.1
-        version: 0.44.1
-      '@eslint/js':
-        specifier: 'catalog:'
-        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      '@liry-k/build':
-        specifier: workspace:*
-        version: link:../../packages/build
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
-      eslint:
-        specifier: 'catalog:'
-        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
-      globals:
-        specifier: 'catalog:'
-        version: 17.7.0
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-      typescript-eslint:
-        specifier: 'catalog:'
-        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
-      zod:
-        specifier: 'catalog:'
-        version: 4.4.3
-
-  infra/core:
-    devDependencies:
-      '@eslint/js':
-        specifier: 'catalog:'
-        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      '@liry-k/build':
-        specifier: workspace:*
-        version: link:../../packages/build
-      '@liry-k/stellar':
-        specifier: workspace:*
-        version: link:../../packages/stellar
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
-      dayjs:
-        specifier: ^1.11.21
-        version: 1.11.21
-      eslint:
-        specifier: 'catalog:'
-        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
-      globals:
-        specifier: 'catalog:'
-        version: 17.7.0
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-      typescript-eslint:
-        specifier: 'catalog:'
-        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
-
-  infra/eslint-config:
-    dependencies:
-      '@eslint/css':
-        specifier: 'catalog:'
-        version: 1.4.0
-      '@eslint/js':
-        specifier: 'catalog:'
-        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
-      eslint:
-        specifier: 'catalog:'
-        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
-      eslint-plugin-react:
-        specifier: 'catalog:'
-        version: 7.37.5(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      eslint-plugin-react-hooks:
-        specifier: 'catalog:'
-        version: 7.1.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)
-      eslint-plugin-react-refresh:
-        specifier: 'catalog:'
-        version: 0.5.3(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      globals:
-        specifier: 'catalog:'
-        version: 17.7.0
-      typescript-eslint:
-        specifier: 'catalog:'
-        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
-    devDependencies:
-      '@liry-k/build':
-        specifier: workspace:*
-        version: link:../../packages/build
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-
-  infra/lc:
-    devDependencies:
-      '@eslint/js':
-        specifier: 'catalog:'
-        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      '@liry-k/build':
-        specifier: workspace:*
-        version: link:../../packages/build
-      '@liry-k/stellar':
-        specifier: workspace:*
-        version: link:../../packages/stellar
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../../packages/tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
-      dayjs:
-        specifier: ^1.11.21
-        version: 1.11.21
-      eslint:
-        specifier: 'catalog:'
-        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
-      globals:
-        specifier: 'catalog:'
-        version: 17.7.0
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-      typescript-eslint:
-        specifier: 'catalog:'
-        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
-      zod:
-        specifier: 'catalog:'
-        version: 4.4.3
-
-  infra/proto:
-    devDependencies:
-      '@bufbuild/buf':
-        specifier: 'catalog:'
-        version: 1.72.0
-      '@bufbuild/protobuf':
-        specifier: 'catalog:'
-        version: 2.12.1
-      '@bufbuild/protoc-gen-es':
-        specifier: 'catalog:'
-        version: 2.12.1(@bufbuild/protobuf@2.12.1)(supports-color@10.2.2)
-      '@liry-k/build':
-        specifier: workspace:*
-        version: link:../../packages/build
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
-      protoc:
-        specifier: 'catalog:'
-        version: 35.1.0
-      ts-proto:
-        specifier: 'catalog:'
-        version: 2.12.0
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-
-  packages/adb-web:
+  apps/adb-web:
     dependencies:
       '@fluentui/react-components':
         specifier: 'catalog:'
@@ -706,7 +458,7 @@ importers:
         specifier: 'catalog:'
         version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
 
-  packages/adb-web-new:
+  apps/adb-web-new:
     dependencies:
       '@fluentui/react-components':
         specifier: 'catalog:'
@@ -716,7 +468,7 @@ importers:
         version: 2.0.333(react@19.2.7)
       '@liry-k/stellar':
         specifier: workspace:*
-        version: link:../stellar
+        version: link:../../packages/stellar
       '@napi-rs/canvas':
         specifier: ^1.0.2
         version: 1.0.2
@@ -822,7 +574,7 @@ importers:
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../infra/tsconfig
       '@rolldown/plugin-babel':
         specifier: 'catalog:'
         version: 0.2.3(@babel/core@7.29.7(supports-color@10.2.2))(@babel/runtime@7.29.7)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
@@ -881,70 +633,14 @@ importers:
         specifier: 'catalog:'
         version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
 
-  packages/astra:
-    dependencies:
-      solid-js:
-        specifier: 'catalog:'
-        version: 1.9.14
-    devDependencies:
-      '@eslint/js':
-        specifier: 'catalog:'
-        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      '@liry-k/build':
-        specifier: workspace:*
-        version: link:../build
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      eslint:
-        specifier: 'catalog:'
-        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
-      globals:
-        specifier: 'catalog:'
-        version: 17.7.0
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-      typescript-eslint:
-        specifier: 'catalog:'
-        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
-      unplugin-solid:
-        specifier: 'catalog:'
-        version: 1.0.0(rollup@4.62.2)(solid-js@1.9.14)(supports-color@10.2.2)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
-      vite:
-        specifier: 'catalog:'
-        version: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.10(@opentelemetry/api@1.9.1)(@types/node@26.1.1)(@vitest/coverage-v8@4.1.10)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
-
-  packages/build:
-    dependencies:
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      rolldown:
-        specifier: 1.1.3
-        version: 1.1.3
-      tsdown:
-        specifier: ^0.22.12
-        version: 0.22.12(tsx@4.21.0)(typescript@6.0.3)(unrun@0.2.39)
-    devDependencies:
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-
-  packages/gomoku:
+  apps/gomoku:
     dependencies:
       '@liry-k/astra':
         specifier: workspace:*
-        version: link:../astra
+        version: link:../../packages/astra
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../infra/tsconfig
       normalize.css:
         specifier: 'catalog:'
         version: 8.0.1
@@ -986,66 +682,11 @@ importers:
         specifier: 'catalog:'
         version: 2.11.13(solid-js@1.9.14)(supports-color@10.2.2)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
 
-  packages/leetcode:
-    dependencies:
-      datastructures-js:
-        specifier: 'catalog:'
-        version: 13.0.0
-      dayjs:
-        specifier: 'catalog:'
-        version: 1.11.21
-      radash:
-        specifier: 'catalog:'
-        version: 12.1.1
-      zod:
-        specifier: 'catalog:'
-        version: 4.4.3
-    devDependencies:
-      '@eslint/js':
-        specifier: 'catalog:'
-        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
-      '@types/react':
-        specifier: 'catalog:'
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: 'catalog:'
-        version: 19.2.3(@types/react@19.2.17)
-      '@vitest/coverage-v8':
-        specifier: 'catalog:'
-        version: 4.1.10(vitest@4.1.10)
-      eslint:
-        specifier: 'catalog:'
-        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
-      globals:
-        specifier: 'catalog:'
-        version: 17.7.0
-      react:
-        specifier: 'catalog:'
-        version: 19.2.7
-      react-dom:
-        specifier: 'catalog:'
-        version: 19.2.7(react@19.2.7)
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-      typescript-eslint:
-        specifier: 'catalog:'
-        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
-      vitest:
-        specifier: 'catalog:'
-        version: 4.1.10(@opentelemetry/api@1.9.1)(@types/node@24.13.3)(@vitest/coverage-v8@4.1.10)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
-
-  packages/liry-cv:
+  apps/liry-cv:
     dependencies:
       '@liry-k/stellar':
         specifier: workspace:*
-        version: link:../stellar
+        version: link:../../packages/stellar
       '@react-pdf/renderer':
         specifier: 'catalog:'
         version: 4.5.1(react@19.2.7)
@@ -1067,7 +708,7 @@ importers:
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../infra/tsconfig
       '@rolldown/plugin-babel':
         specifier: 'catalog:'
         version: 0.2.3(@babel/core@8.0.1)(@babel/runtime@7.29.7)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
@@ -1111,7 +752,7 @@ importers:
         specifier: 'catalog:'
         version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
 
-  packages/liry-site-server:
+  apps/liry-site-server:
     dependencies:
       hono:
         specifier: ^4.12.31
@@ -1128,7 +769,7 @@ importers:
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../infra/tsconfig
       '@types/node':
         specifier: 'catalog:'
         version: 24.13.3
@@ -1151,14 +792,14 @@ importers:
         specifier: 'catalog:'
         version: 4.112.0(@cloudflare/workers-types@4.20260702.1)
 
-  packages/luna:
+  apps/luna:
     dependencies:
       '@liry-k/astra':
         specifier: workspace:*
-        version: link:../astra
+        version: link:../../packages/astra
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../infra/tsconfig
       '@tanstack/solid-router':
         specifier: 'catalog:'
         version: 1.170.18(solid-js@1.9.14)
@@ -1224,7 +865,7 @@ importers:
         specifier: 'catalog:'
         version: 2.11.13(solid-js@1.9.14)(supports-color@10.2.2)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
 
-  packages/multi-downloader:
+  apps/multi-downloader:
     dependencies:
       zod:
         specifier: 'catalog:'
@@ -1235,10 +876,10 @@ importers:
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@liry-k/build':
         specifier: workspace:*
-        version: link:../build
+        version: link:../../infra/build
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../infra/tsconfig
       '@types/node':
         specifier: 'catalog:'
         version: 24.13.3
@@ -1255,7 +896,7 @@ importers:
         specifier: 'catalog:'
         version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
 
-  packages/page-qr:
+  apps/page-qr:
     dependencies:
       '@material/web':
         specifier: ^2.5.0
@@ -1278,7 +919,7 @@ importers:
     devDependencies:
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../infra/tsconfig
       '@wxt-dev/module-solid':
         specifier: ^1.1.4
         version: 1.1.4(solid-js@1.9.14)(supports-color@10.2.2)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.27.7)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))(wxt@0.20.27(@types/node@26.1.1)(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(jiti@2.7.0)(rolldown@1.2.0)(rollup@4.62.2)(supports-color@10.2.2)(tsx@4.21.0)(yaml@2.9.0))
@@ -1289,7 +930,7 @@ importers:
         specifier: ^0.20.27
         version: 0.20.27(@types/node@26.1.1)(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(jiti@2.7.0)(rolldown@1.2.0)(rollup@4.62.2)(supports-color@10.2.2)(tsx@4.21.0)(yaml@2.9.0)
 
-  packages/polaris:
+  apps/polaris:
     dependencies:
       '@sentry/solid':
         specifier: 'catalog:'
@@ -1330,7 +971,7 @@ importers:
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../infra/tsconfig
       '@tauri-apps/cli':
         specifier: 'catalog:'
         version: 2.11.4
@@ -1359,100 +1000,86 @@ importers:
         specifier: 'catalog:'
         version: 2.11.13(solid-js@1.9.14)(supports-color@10.2.2)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
 
-  packages/rigel:
-    devDependencies:
-      '@liry-k/build':
-        specifier: workspace:*
-        version: link:../build
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@lit-labs/signals':
-        specifier: 'catalog:'
-        version: 0.3.0
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
-      lit:
-        specifier: 'catalog:'
-        version: 3.3.3
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-
-  packages/ssr-server:
+  demos/r3f-d:
     dependencies:
-      '@hono/node-server':
+      '@react-three/drei':
+        specifier: ^10.7.7
+        version: 10.7.7(@react-three/fiber@9.6.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.185.1))(@types/react@19.2.17)(@types/three@0.185.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.185.1)
+      '@react-three/fiber':
+        specifier: ^9.6.1
+        version: 9.6.1(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(three@0.185.1)
+      normalize.css:
         specifier: 'catalog:'
-        version: 2.1.1(hono@4.12.31)
-      hono:
-        specifier: 'catalog:'
-        version: 4.12.31
-      zod:
-        specifier: 'catalog:'
-        version: 4.4.3
+        version: 8.0.1
+      react:
+        specifier: ^19.2.7
+        version: 19.2.7
+      react-dom:
+        specifier: ^19.2.7
+        version: 19.2.7(react@19.2.7)
+      three:
+        specifier: ^0.185.1
+        version: 0.185.1
     devDependencies:
+      '@babel/core':
+        specifier: ^7.29.7
+        version: 7.29.7(supports-color@10.2.2)
       '@eslint/js':
-        specifier: 'catalog:'
+        specifier: ^10.0.1
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../tsconfig
+        version: link:../../infra/tsconfig
+      '@rolldown/plugin-babel':
+        specifier: ^0.2.3
+        version: 0.2.3(@babel/core@7.29.7(supports-color@10.2.2))(@babel/runtime@7.29.7)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
+      '@types/babel__core':
+        specifier: ^7.20.5
+        version: 7.20.5
       '@types/node':
-        specifier: 'catalog:'
+        specifier: ^24.13.3
         version: 24.13.3
+      '@types/react':
+        specifier: ^19.2.17
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19.2.3
+        version: 19.2.3(@types/react@19.2.17)
+      '@types/three':
+        specifier: ^0.185.1
+        version: 0.185.1
+      '@vitejs/plugin-react':
+        specifier: ^6.0.3
+        version: 6.0.3(@rolldown/plugin-babel@0.2.3(@babel/core@7.29.7(supports-color@10.2.2))(@babel/runtime@7.29.7)(rolldown@1.2.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)))(babel-plugin-react-compiler@1.0.0)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
+      babel-plugin-react-compiler:
+        specifier: ^1.0.0
+        version: 1.0.0
       eslint:
-        specifier: 'catalog:'
+        specifier: ^10.6.0
         version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
+      eslint-plugin-react-compiler:
+        specifier: 19.1.0-rc.2
+        version: 19.1.0-rc.2(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)
+      eslint-plugin-react-hooks:
+        specifier: ^7.1.1
+        version: 7.1.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)
+      eslint-plugin-react-refresh:
+        specifier: ^0.5.3
+        version: 0.5.3(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       globals:
-        specifier: 'catalog:'
+        specifier: ^17.7.0
         version: 17.7.0
-      tsdown:
-        specifier: 'catalog:'
-        version: 0.22.12(tsx@4.21.0)(typescript@6.0.3)(unrun@0.2.39)
       typescript:
-        specifier: 'catalog:'
+        specifier: ~6.0.2
         version: 6.0.3
       typescript-eslint:
-        specifier: 'catalog:'
+        specifier: ^8.62.0
         version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
       vite:
-        specifier: 'catalog:'
+        specifier: ^8.1.1
         version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
 
-  packages/stellar:
-    devDependencies:
-      '@eslint/js':
-        specifier: 'catalog:'
-        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
-      '@liry-k/build':
-        specifier: workspace:*
-        version: link:../build
-      '@liry-k/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@types/node':
-        specifier: 'catalog:'
-        version: 24.13.3
-      dayjs:
-        specifier: ^1.11.21
-        version: 1.11.21
-      eslint:
-        specifier: 'catalog:'
-        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
-      globals:
-        specifier: 'catalog:'
-        version: 17.7.0
-      typescript:
-        specifier: 'catalog:'
-        version: 6.0.3
-      typescript-eslint:
-        specifier: 'catalog:'
-        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
-
-  packages/tsconfig: {}
-
-  ssr-demos/ssr-preact:
+  demos/ssr-preact:
     dependencies:
       '@liry-k/ssr-server':
         specifier: workspace:*
@@ -1475,7 +1102,7 @@ importers:
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../../packages/tsconfig
+        version: link:../../infra/tsconfig
       '@preact/preset-vite':
         specifier: 'catalog:'
         version: 2.10.6(@babel/core@7.29.7(supports-color@10.2.2))(preact@10.29.8)(rollup@4.62.2)(supports-color@10.2.2)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
@@ -1501,7 +1128,7 @@ importers:
         specifier: 'catalog:'
         version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
 
-  ssr-demos/ssr-react:
+  demos/ssr-react:
     dependencies:
       '@liry-k/ssr-server':
         specifier: workspace:*
@@ -1524,7 +1151,7 @@ importers:
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../../packages/tsconfig
+        version: link:../../infra/tsconfig
       '@types/node':
         specifier: 'catalog:'
         version: 24.13.3
@@ -1562,7 +1189,7 @@ importers:
         specifier: 'catalog:'
         version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
 
-  ssr-demos/ssr-solid:
+  demos/ssr-solid:
     dependencies:
       '@liry-k/ssr-server':
         specifier: workspace:*
@@ -1582,7 +1209,7 @@ importers:
         version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
       '@liry-k/tsconfig':
         specifier: workspace:*
-        version: link:../../packages/tsconfig
+        version: link:../../infra/tsconfig
       '@types/node':
         specifier: 'catalog:'
         version: 24.13.3
@@ -1607,6 +1234,379 @@ importers:
       vite-plugin-solid:
         specifier: 'catalog:'
         version: 2.11.13(solid-js@1.9.14)(supports-color@10.2.2)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
+
+  infra/ast-grep:
+    devDependencies:
+      '@ast-grep/napi':
+        specifier: ^0.44.1
+        version: 0.44.1
+      '@eslint/js':
+        specifier: 'catalog:'
+        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../build
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      eslint:
+        specifier: 'catalog:'
+        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
+      globals:
+        specifier: 'catalog:'
+        version: 17.7.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      typescript-eslint:
+        specifier: 'catalog:'
+        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+      zod:
+        specifier: 'catalog:'
+        version: 4.4.3
+
+  infra/build:
+    dependencies:
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      rolldown:
+        specifier: 1.1.3
+        version: 1.1.3
+      tsdown:
+        specifier: ^0.22.12
+        version: 0.22.12(tsx@4.21.0)(typescript@6.0.3)(unrun@0.2.39)
+    devDependencies:
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
+  infra/core:
+    devDependencies:
+      '@eslint/js':
+        specifier: 'catalog:'
+        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../build
+      '@liry-k/stellar':
+        specifier: workspace:*
+        version: link:../../packages/stellar
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      dayjs:
+        specifier: ^1.11.21
+        version: 1.11.21
+      eslint:
+        specifier: 'catalog:'
+        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
+      globals:
+        specifier: 'catalog:'
+        version: 17.7.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      typescript-eslint:
+        specifier: 'catalog:'
+        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+
+  infra/eslint-config:
+    dependencies:
+      '@eslint/css':
+        specifier: 'catalog:'
+        version: 1.4.0
+      '@eslint/js':
+        specifier: 'catalog:'
+        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      eslint:
+        specifier: 'catalog:'
+        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
+      eslint-plugin-react:
+        specifier: 'catalog:'
+        version: 7.37.5(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      eslint-plugin-react-hooks:
+        specifier: 'catalog:'
+        version: 7.1.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)
+      eslint-plugin-react-refresh:
+        specifier: 'catalog:'
+        version: 0.5.3(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      globals:
+        specifier: 'catalog:'
+        version: 17.7.0
+      typescript-eslint:
+        specifier: 'catalog:'
+        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+    devDependencies:
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../build
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
+  infra/lc:
+    devDependencies:
+      '@eslint/js':
+        specifier: 'catalog:'
+        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../build
+      '@liry-k/stellar':
+        specifier: workspace:*
+        version: link:../../packages/stellar
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      dayjs:
+        specifier: ^1.11.21
+        version: 1.11.21
+      eslint:
+        specifier: 'catalog:'
+        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
+      globals:
+        specifier: 'catalog:'
+        version: 17.7.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      typescript-eslint:
+        specifier: 'catalog:'
+        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+      zod:
+        specifier: 'catalog:'
+        version: 4.4.3
+
+  infra/proto:
+    devDependencies:
+      '@bufbuild/buf':
+        specifier: 'catalog:'
+        version: 1.72.0
+      '@bufbuild/protobuf':
+        specifier: 'catalog:'
+        version: 2.12.1
+      '@bufbuild/protoc-gen-es':
+        specifier: 'catalog:'
+        version: 2.12.1(@bufbuild/protobuf@2.12.1)(supports-color@10.2.2)
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../build
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      protoc:
+        specifier: 'catalog:'
+        version: 35.1.0
+      ts-proto:
+        specifier: 'catalog:'
+        version: 2.12.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
+  infra/tsconfig: {}
+
+  packages/astra:
+    dependencies:
+      solid-js:
+        specifier: 'catalog:'
+        version: 1.9.14
+    devDependencies:
+      '@eslint/js':
+        specifier: 'catalog:'
+        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../../infra/build
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../../infra/tsconfig
+      eslint:
+        specifier: 'catalog:'
+        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
+      globals:
+        specifier: 'catalog:'
+        version: 17.7.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      typescript-eslint:
+        specifier: 'catalog:'
+        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+      unplugin-solid:
+        specifier: 'catalog:'
+        version: 1.0.0(rollup@4.62.2)(solid-js@1.9.14)(supports-color@10.2.2)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
+      vite:
+        specifier: 'catalog:'
+        version: 8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@opentelemetry/api@1.9.1)(@types/node@26.1.1)(@vitest/coverage-v8@4.1.10)(vite@8.1.5(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
+
+  packages/leetcode:
+    dependencies:
+      datastructures-js:
+        specifier: 'catalog:'
+        version: 13.0.0
+      dayjs:
+        specifier: 'catalog:'
+        version: 1.11.21
+      radash:
+        specifier: 'catalog:'
+        version: 12.1.1
+      zod:
+        specifier: 'catalog:'
+        version: 4.4.3
+    devDependencies:
+      '@eslint/js':
+        specifier: 'catalog:'
+        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../../infra/tsconfig
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      '@types/react':
+        specifier: 'catalog:'
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: 'catalog:'
+        version: 19.2.3(@types/react@19.2.17)
+      '@vitest/coverage-v8':
+        specifier: 'catalog:'
+        version: 4.1.10(vitest@4.1.10)
+      eslint:
+        specifier: 'catalog:'
+        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
+      globals:
+        specifier: 'catalog:'
+        version: 17.7.0
+      react:
+        specifier: 'catalog:'
+        version: 19.2.7
+      react-dom:
+        specifier: 'catalog:'
+        version: 19.2.7(react@19.2.7)
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      typescript-eslint:
+        specifier: 'catalog:'
+        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+      vitest:
+        specifier: 'catalog:'
+        version: 4.1.10(@opentelemetry/api@1.9.1)(@types/node@24.13.3)(@vitest/coverage-v8@4.1.10)(vite@8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0))
+
+  packages/rigel:
+    devDependencies:
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../../infra/build
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../../infra/tsconfig
+      '@lit-labs/signals':
+        specifier: 'catalog:'
+        version: 0.3.0
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      lit:
+        specifier: 'catalog:'
+        version: 3.3.3
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+
+  packages/ssr-server:
+    dependencies:
+      '@hono/node-server':
+        specifier: 'catalog:'
+        version: 2.1.1(hono@4.12.31)
+      hono:
+        specifier: 'catalog:'
+        version: 4.12.31
+      zod:
+        specifier: 'catalog:'
+        version: 4.4.3
+    devDependencies:
+      '@eslint/js':
+        specifier: 'catalog:'
+        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../../infra/tsconfig
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      eslint:
+        specifier: 'catalog:'
+        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
+      globals:
+        specifier: 'catalog:'
+        version: 17.7.0
+      tsdown:
+        specifier: 'catalog:'
+        version: 0.22.12(tsx@4.21.0)(typescript@6.0.3)(unrun@0.2.39)
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      typescript-eslint:
+        specifier: 'catalog:'
+        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+      vite:
+        specifier: 'catalog:'
+        version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
+
+  packages/stellar:
+    devDependencies:
+      '@eslint/js':
+        specifier: 'catalog:'
+        version: 10.0.1(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))
+      '@liry-k/build':
+        specifier: workspace:*
+        version: link:../../infra/build
+      '@liry-k/tsconfig':
+        specifier: workspace:*
+        version: link:../../infra/tsconfig
+      '@types/node':
+        specifier: 'catalog:'
+        version: 24.13.3
+      dayjs:
+        specifier: ^1.11.21
+        version: 1.11.21
+      eslint:
+        specifier: 'catalog:'
+        version: 10.7.0(jiti@2.7.0)(supports-color@10.2.2)
+      globals:
+        specifier: 'catalog:'
+        version: 17.7.0
+      typescript:
+        specifier: 'catalog:'
+        version: 6.0.3
+      typescript-eslint:
+        specifier: 'catalog:'
+        version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
 
 packages:
   '@1natsu/wait-element@4.2.0':

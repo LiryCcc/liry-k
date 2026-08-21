@@ -1,5 +1,5 @@
 [workspace]
-members = ["rust-packages/leetcode", "rust-packages/sirius", "packages/polaris/src-tauri"]
+members = ["rust-packages/leetcode", "rust-packages/sirius", "apps/polaris/src-tauri"]
 resolver = "2"
 
 [workspace.lints.rust]

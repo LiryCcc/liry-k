@@ -7,34 +7,43 @@
 - **包管理**：`pnpm` workspace monorepo；根目录脚本会做格式、拼写与各包 `lint`。
 - **环境**：`node >= 24`、`pnpm >= 10`（见根目录 `readme.md`）；Rust 由系统 `rustup` / `cargo` 管理；Java 由 Gradle toolchain 指定 JDK 21。
 - **包命名**：见下文「npm 包命名」；代号权威列表见根目录 `readme.md` 中的「项目代号表」。
-- **多语言**：Node.js / TypeScript（`packages/`、`infra/`）、Rust（`rust-packages/`、`packages/polaris/src-tauri/`）、Java（`mc-plugins/`）。更完整的环境说明见 `docs/development.md`。
+- **多语言**：Node.js / TypeScript（`apps/`、`packages/`、`infra/`、`demos/`）、Rust（`rust-packages/`、`apps/polaris/src-tauri/`）、Java（`mc-plugins/`）。更完整的环境说明见 `docs/development.md`。
 
 ## 技术栈与目录
 
-| 技术栈               | 主要目录                                        | 说明                           |
-| -------------------- | ----------------------------------------------- | ------------------------------ |
-| TypeScript / Node.js | `packages/`、`infra/`                           | 前端、工具库、共享 ESLint 配置 |
-| Rust                 | `rust-packages/`、`packages/polaris/src-tauri/` | 算法题包、Tauri 桌面后端       |
-| Java                 | `mc-plugins/`                                   | Paper / Minecraft 插件         |
-| Protocol Buffers     | `infra/proto/`                                  | `buf` 格式化 proto 定义        |
+| 技术栈               | 主要目录                                    | 说明                     |
+| -------------------- | ------------------------------------------- | ------------------------ |
+| TypeScript / Node.js | `apps/`、`packages/`、`infra/`、`demos/`    | 应用、库、基建、演示     |
+| Rust                 | `rust-packages/`、`apps/polaris/src-tauri/` | 算法题包、Tauri 桌面后端 |
+| Java                 | `mc-plugins/`                               | Paper / Minecraft 插件   |
+| Protocol Buffers     | `infra/proto/`                              | `buf` 格式化 proto 定义  |
+
+pnpm workspace 四区：
+
+| 目录        | 放什么                                       |
+| ----------- | -------------------------------------------- |
+| `apps/`     | 可独立运行的应用 / 扩展 / Workers / CLI 工具 |
+| `packages/` | 可被依赖的库与练习包                         |
+| `infra/`    | 工程基建：共享配置、构建、协议、内部工具     |
+| `demos/`    | 技术演示（含 SSR 示例）                      |
 
 ## 常用命令
 
 ### 根目录（全仓库）
 
-| 命令                | 说明                                                               |
-| ------------------- | ------------------------------------------------------------------ |
-| `pnpm install`      | 安装依赖；`postinstall` 会触发各包 `build`                         |
-| `pnpm build`        | 递归构建所有 workspace 包                                          |
-| `pnpm format`       | Prettier 格式化全仓库 + 各包自有 `format` 脚本（如 `infra/proto`） |
-| `pnpm check-format` | 仅检查 Prettier 格式，不写入                                       |
-| `pnpm check-spell`  | cspell 拼写检查                                                    |
-| `pnpm lint:style`   | stylelint，范围 `packages/**/*.css`、`infra/**/*.css`              |
-| `pnpm pre-commit`   | **提交前完整检查**（等同 git pre-commit hook）                     |
-| `pnpm lint`         | 别名，指向 `pnpm pre-commit`                                       |
-| `pnpm lint:rust`    | `cargo clippy --workspace --all-targets -- -D warnings`            |
-| `pnpm lint:rustfmt` | `cargo fmt --all --check`                                          |
-| `pnpm sg`           | ast-grep CLI（代码搜索与替换，见下文「ast-grep」）                 |
+| 命令                | 说明                                                                                     |
+| ------------------- | ---------------------------------------------------------------------------------------- |
+| `pnpm install`      | 安装依赖；`postinstall` 会触发各包 `build`                                               |
+| `pnpm build`        | 递归构建所有 workspace 包                                                                |
+| `pnpm format`       | Prettier 格式化全仓库 + 各包自有 `format` 脚本（如 `infra/proto`）                       |
+| `pnpm check-format` | 仅检查 Prettier 格式，不写入                                                             |
+| `pnpm check-spell`  | cspell 拼写检查                                                                          |
+| `pnpm lint:style`   | stylelint，范围 `apps/**/*.css`、`packages/**/*.css`、`infra/**/*.css`、`demos/**/*.css` |
+| `pnpm pre-commit`   | **提交前完整检查**（等同 git pre-commit hook）                                           |
+| `pnpm lint`         | 别名，指向 `pnpm pre-commit`                                                             |
+| `pnpm lint:rust`    | `cargo clippy --workspace --all-targets -- -D warnings`                                  |
+| `pnpm lint:rustfmt` | `cargo fmt --all --check`                                                                |
+| `pnpm sg`           | ast-grep CLI（代码搜索与替换，见下文「ast-grep」）                                       |
 
 `pnpm pre-commit` 依次执行：`check-format` → `check-spell` → `lint:style` → `pnpm -r lint` → `lint:rust` → `lint:rustfmt`。
 
@@ -106,7 +115,7 @@ Tauri 相关 Rust 检查见上文「Rust」小节中 polaris 封装命令。
 | `cargo format`       | `fmt --all`                                          |
 | `cargo format-check` | `fmt --all --check`                                  |
 
-`packages/polaris` 额外封装：
+`@liry-k/polaris` 额外封装：
 
 ```bash
 pnpm --filter @liry-k/polaris lint:rust      # cd src-tauri && cargo lint
@@ -114,7 +123,7 @@ pnpm --filter @liry-k/polaris lint:rustfmt   # cd src-tauri && cargo format-chec
 pnpm --filter @liry-k/polaris format:rust    # cd src-tauri && cargo format
 ```
 
-Workspace 成员：`rust-packages/leetcode`、`rust-packages/sirius`、`packages/polaris/src-tauri`。
+Workspace 成员：`rust-packages/leetcode`、`rust-packages/sirius`、`apps/polaris/src-tauri`。
 
 ### Java（Gradle）
 
@@ -142,10 +151,10 @@ pnpm --filter @liry-k/proto format   # buf format -w ./protos
 
 ```bash
 # 搜索：TypeScript 函数声明
-pnpm sg run -p 'function $NAME($$$)' -l typescript packages/
+pnpm sg run -p 'function $NAME($$$)' -l typescript apps/ packages/
 
 # 搜索：来自特定模块的 import
-pnpm sg run -p 'import $$$ from "$MODULE"' -l typescript packages/luna
+pnpm sg run -p 'import $$$ from "$MODULE"' -l typescript apps/luna
 
 # 替换：先不带 -U 预览匹配，确认后写回
 pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo
@@ -172,46 +181,59 @@ pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
 
 ## 包一览（当前）
 
-### 业务 / 应用包（`packages/`）
+### 应用（`apps/`）
 
-| 路径                        | npm 名                     | 说明                                |
-| --------------------------- | -------------------------- | ----------------------------------- |
-| `packages/luna`             | `@liry-k/luna`             | Solid + Vite 前端应用               |
-| `packages/polaris`          | `@liry-k/polaris`          | Tauri v2 桌面应用（Solid 前端）     |
-| `packages/gomoku`           | `@liry-k/gomoku`           | Solid 五子棋示例                    |
-| `packages/adb-web-new`      | `@liry-k/adb-web-new`      | ADB Web（React）                    |
-| `packages/adb-web`          | `adb-web`                  | ADB Web 旧版（React，无作用域前缀） |
-| `packages/liry-cv`          | `@liry-k/cv`               | React PDF 简历                      |
-| `packages/liry-site-server` | `@liry-k/liry-site-server` | Cloudflare Workers + Hono           |
-| `packages/leetcode`         | `@liry-k/leetcode`         | TypeScript 算法 / 练习（Vitest）    |
+| 路径                    | npm 名                     | 说明                                |
+| ----------------------- | -------------------------- | ----------------------------------- |
+| `apps/luna`             | `@liry-k/luna`             | Solid + Vite 前端应用               |
+| `apps/polaris`          | `@liry-k/polaris`          | Tauri v2 桌面应用（Solid 前端）     |
+| `apps/gomoku`           | `@liry-k/gomoku`           | Solid 五子棋示例                    |
+| `apps/adb-web-new`      | `@liry-k/adb-web-new`      | ADB Web（React）                    |
+| `apps/adb-web`          | `adb-web`                  | ADB Web 旧版（React，无作用域前缀） |
+| `apps/liry-cv`          | `@liry-k/cv`               | React PDF 简历                      |
+| `apps/liry-site-server` | `@liry-k/liry-site-server` | Cloudflare Workers + Hono           |
+| `apps/page-qr`          | `@liry-k/page-qr`          | 浏览器扩展：页面 URL 二维码         |
+| `apps/multi-downloader` | `@liry-k/multi-downloader` | 多源下载工具                        |
 
-### 库 / 组件包（`packages/`）
+### 库 / 练习（`packages/`）
 
-| 路径                | npm 名             | 说明                  |
-| ------------------- | ------------------ | --------------------- |
-| `packages/rigel`    | `@liry-k/rigel`    | Lit Web Components 库 |
-| `packages/astra`    | `@liry-k/astra`    | Solid UI 组件         |
-| `packages/stellar`  | `@liry-k/stellar`  | 共享类型 / 工具       |
-| `packages/tsconfig` | `@liry-k/tsconfig` | 共享 TypeScript 配置  |
+| 路径                  | npm 名               | 说明                             |
+| --------------------- | -------------------- | -------------------------------- |
+| `packages/rigel`      | `@liry-k/rigel`      | Lit Web Components 库            |
+| `packages/astra`      | `@liry-k/astra`      | Solid UI 组件                    |
+| `packages/stellar`    | `@liry-k/stellar`    | 共享类型 / 工具                  |
+| `packages/ssr-server` | `@liry-k/ssr-server` | Hono + Vite SSR 服务端库         |
+| `packages/leetcode`   | `@liry-k/leetcode`   | TypeScript 算法 / 练习（Vitest） |
 
 ### 基础设施（`infra/`）
 
-| 路径                  | npm 名                   | 说明                |
-| --------------------- | ------------------------ | ------------------- |
-| `infra/eslint-config` | `@liry-k/eslint-config`  | 共享 ESLint 配置    |
-| `infra/core`          | `@liry-k/infra-core`     | 通用 TS 工具        |
-| `infra/lc`            | `@liry-k/infra-lc`       | 解压等工具          |
-| `infra/ast-grep`      | `@liry-k/infra-ast-grep` | ast-grep NAPI 工具  |
-| `infra/proto`         | `@liry-k/proto`          | protobuf 定义与生成 |
+| 路径                  | npm 名                   | 说明                 |
+| --------------------- | ------------------------ | -------------------- |
+| `infra/tsconfig`      | `@liry-k/tsconfig`       | 共享 TypeScript 配置 |
+| `infra/build`         | `@liry-k/build`          | 构建 CLI / 打包辅助  |
+| `infra/eslint-config` | `@liry-k/eslint-config`  | 共享 ESLint 配置     |
+| `infra/core`          | `@liry-k/infra-core`     | 通用 TS 工具         |
+| `infra/lc`            | `@liry-k/infra-lc`       | 解压等工具           |
+| `infra/ast-grep`      | `@liry-k/infra-ast-grep` | ast-grep NAPI 工具   |
+| `infra/proto`         | `@liry-k/proto`          | protobuf 定义与生成  |
+
+### 演示（`demos/`）
+
+| 路径               | npm 名       | 说明                   |
+| ------------------ | ------------ | ---------------------- |
+| `demos/r3f-d`      | `r3f-d`      | React Three Fiber demo |
+| `demos/ssr-react`  | `ssr-react`  | React SSR 示例         |
+| `demos/ssr-solid`  | `ssr-solid`  | Solid SSR 示例         |
+| `demos/ssr-preact` | `ssr-preact` | Preact SSR 示例        |
 
 ### Rust / Java
 
-| 路径                         | 说明                          |
-| ---------------------------- | ----------------------------- |
-| `rust-packages/leetcode`     | Rust 算法题实现               |
-| `rust-packages/sirius`       | Rust HTTP 服务（Axum）        |
-| `packages/polaris/src-tauri` | polaris Tauri 后端 crate      |
-| `mc-plugins/vega`            | Paper 插件（`org.liry.vega`） |
+| 路径                     | 说明                          |
+| ------------------------ | ----------------------------- |
+| `rust-packages/leetcode` | Rust 算法题实现               |
+| `rust-packages/sirius`   | Rust HTTP 服务（Axum）        |
+| `apps/polaris/src-tauri` | polaris Tauri 后端 crate      |
+| `mc-plugins/vega`        | Paper 插件（`org.liry.vega`） |
 
 ## 模块导入与路径别名
 
@@ -245,7 +267,7 @@ pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
 
 ### 约束（与 ESLint / tsconfig 对齐）
 
-- **禁止修改 tsconfig**：不得改动仓库内任何 `tsconfig*.json`（含 `packages/tsconfig` 与各包中的配置）。类型或编译问题应在**业务代码**中按现有严格选项解决；若确需调整编译策略，须由维护者单独决策，**不**作为常规助手任务。
+- **禁止修改 tsconfig**：不得改动仓库内任何 `tsconfig*.json`（含 `infra/tsconfig` 与各包中的配置）。类型或编译问题应在**业务代码**中按现有严格选项解决；若确需调整编译策略，须由维护者单独决策，**不**作为常规助手任务。
 - **禁止用注释压制检查代替修代码**：不得使用 `eslint-disable` / `eslint-disable-next-line` 等 ESLint 禁用注释，以及 `@ts-expect-error`、`@ts-ignore`、`@ts-nocheck` 等 TypeScript 忽略指令来「过关」；应修正类型、实现或合法 API 用法，消除根因。
 - **禁止在非类型场景使用 `void` 运算符**：除 TypeScript **类型**中的 `void`（例如 `Promise<void>`、函数返回类型 `(): void`）外，**不得**书写 `void 表达式` 以丢弃值或规避告警。**不要**为此封装 `runPromise` 之类专用工具；在事件、副作用等场景**直接调用**异步函数即可（如 `foo()`、`(async () => { … })()`、`onMount(async () => { await … })`）。**不**为「暂时吞掉失败」而强行 `.catch` / `.then` 链；确需记录或恢复错误时再在业务处按需补充。
 - **多行注释**：一段说明占多行时，**必须**使用以 **`/**`** 开头、以 **`*/`** 结尾的**块注释**，续行使用 `*` 前缀；**禁止**用连续多行 `//` 表达同一段多行说明。单行说明仍可用 `//`。
@@ -306,8 +328,8 @@ pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
 
 ### 路径别名
 
-- `@/*` → `packages/luna/src/*`
-- `@@/*` → `packages/luna/*`（包根）
+- `@/*` → `apps/luna/src/*`
+- `@@/*` → `apps/luna/*`（包根）
 
 `vite.config.ts` 与 `tsconfig.app.json` 中已对齐上述别名；**业务代码优先** `import … from '@/…'`（或 `@@/`），**尽量不用** `../../../` 这类相对路径。导入扩展名与 `verbatimModuleSyntax` 对齐：业务代码中常见 `.js` 后缀指向 TS 源（由工具链解析）。
 
@@ -327,7 +349,7 @@ pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
 - 遵守上文「文件与目录命名」：新建或重命名文件、文件夹时保持全小写 kebab-case（Rust/Java 文件名除外，见各语言小节），不出现大写字母（路径段）。
 - 遵守上文「模块导入与路径别名」：在已有 paths / alias 下优先别名导入，少写 `..`；跨包用 workspace 包名。
 - 遵守 TypeScript / Rust 约束：不改 tsconfig，不靠 disable / `@ts-*` / `#[allow(…)]` 掩盖问题；多行说明用 `/** … */`，不用多行 `//`；**非类型场景不写 `void` 运算符**。
-- 新增 npm 包时：遵守上文「npm 包命名」与 `readme.md`「项目代号表」；业务包勿用表外代号，工具包勿脱离 `@liry-k/`。
+- 新增 npm 包时：遵守上文「npm 包命名」与 `readme.md`「项目代号表」；应用放 `apps/`，库放 `packages/`，工程基建放 `infra/`，演示放 `demos/`；业务包勿用表外代号，工具包勿脱离 `@liry-k/`。
 - 改动范围尽量贴合任务；不顺带大重构无关模块。
 - 修改后在本包或根目录执行与改动相关的 **format / lint / build**，确认通过后再声称完成。
 - 新增用户可见文案时：同步 `src/i18n/resources` 与 `translation-tree` 等类型定义，并走 `useTranslation` / `TypedT` 约定。

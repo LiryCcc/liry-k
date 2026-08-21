@@ -7,7 +7,7 @@ const cspellConfig = defineConfig({
     '**/pnpm-lock.yaml',
     '**/dist',
     'rust-packages/**/target',
-    'packages/polaris/src-tauri/**',
+    'apps/polaris/src-tauri/**',
     'infra/proto/src/generated/**',
     '**/gradlew.bat',
     '**/gradle-wrapper.properties',

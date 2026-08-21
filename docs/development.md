@@ -4,11 +4,11 @@
 
 本仓库是一个多语言 monorepo，包含以下技术栈：
 
-| 技术栈               | 用途                       | 涉及目录                                        |
-| -------------------- | -------------------------- | ----------------------------------------------- |
-| Node.js / TypeScript | 前端应用、工具库、基础设施 | `packages/`、`infra/`                           |
-| Rust                 | 桌面应用（Tauri）、算法包  | `packages/polaris/src-tauri/`、`rust-packages/` |
-| Java                 | Minecraft 插件             | `mc-plugins/`                                   |
+| 技术栈               | 用途                       | 涉及目录                                    |
+| -------------------- | -------------------------- | ------------------------------------------- |
+| Node.js / TypeScript | 前端应用、工具库、基础设施 | `apps/`、`packages/`、`infra/`、`demos/`    |
+| Rust                 | 桌面应用（Tauri）、算法包  | `apps/polaris/src-tauri/`、`rust-packages/` |
+| Java                 | Minecraft 插件             | `mc-plugins/`                               |
 
 ---
 
@@ -68,7 +68,7 @@ cargo --version
 
 ### Tauri 系统依赖
 
-`packages/polaris` 是基于 [Tauri v2](https://v2.tauri.app/) 的桌面应用，构建前需按平台安装系统依赖。
+`apps/polaris`（`@liry-k/polaris`）是基于 [Tauri v2](https://v2.tauri.app/) 的桌面应用，构建前需按平台安装系统依赖。
 
 **Linux（Ubuntu / Debian）：**
 

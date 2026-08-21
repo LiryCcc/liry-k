@@ -17,7 +17,7 @@ const printCliUsage = (): void => {
     '  -h, --help            Show help',
     '',
     'Examples:',
-    "  liry-sg find -l typescript -p 'function $NAME' packages/luna",
+    "  liry-sg find -l typescript -p 'function $NAME' apps/luna",
     "  liry-sg rewrite -l typescript -p 'function $NAME($$$) { $$$BODY }' \\",
     "    -r 'const $NAME = ($$$) => { $$$BODY }' -U packages/foo",
     '  liry-sg parse -l typescript -p \'import $$$ from "$M"\' file.ts',
