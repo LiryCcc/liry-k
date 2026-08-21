@@ -1388,9 +1388,6 @@ importers:
       hono:
         specifier: 'catalog:'
         version: 4.12.31
-      vite:
-        specifier: 'catalog:'
-        version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
       zod:
         specifier: 'catalog:'
         version: 4.4.3
@@ -1419,6 +1416,9 @@ importers:
       typescript-eslint:
         specifier: 'catalog:'
         version: 8.65.0(eslint@10.7.0(jiti@2.7.0)(supports-color@10.2.2))(supports-color@10.2.2)(typescript@6.0.3)
+      vite:
+        specifier: 'catalog:'
+        version: 8.1.5(@types/node@24.13.3)(esbuild@0.28.1)(jiti@2.7.0)(tsx@4.21.0)(yaml@2.9.0)
 
   packages/stellar:
     devDependencies:

@@ -6,12 +6,12 @@
   "scripts": {
     "build": "pnpm lint:type && pnpm build:client && pnpm build:server",
     "build:client": "vite build --outDir dist/client",
-    "build:server": "vite build --ssr src/server.tsx --outDir dist/server",
+    "build:server": "vite build --ssr src/preview.ts --outDir dist/server",
     "dev": "node src/index.ts",
     "lint": "pnpm lint:type && pnpm lint:code",
     "lint:code": "eslint . --cache",
     "lint:type": "tsc -b",
-    "preview": "node src/index.ts --production"
+    "preview": "node dist/server/preview.js"
   },
   "dependencies": {
     "@liry-k/ssr-server": "workspace:*",

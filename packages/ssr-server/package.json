@@ -25,7 +25,6 @@
   "dependencies": {
     "@hono/node-server": "catalog:",
     "hono": "catalog:",
-    "vite": "catalog:",
     "zod": "catalog:"
   },
   "devDependencies": {
@@ -36,6 +35,15 @@
     "globals": "catalog:",
     "tsdown": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:"
+    "typescript-eslint": "catalog:",
+    "vite": "catalog:"
+  },
+  "peerDependencies": {
+    "vite": "catalog:"
+  },
+  "peerDependenciesMeta": {
+    "vite": {
+      "optional": true
+    }
   }
 }

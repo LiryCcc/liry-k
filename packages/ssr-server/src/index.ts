@@ -5,9 +5,8 @@ import { compress } from 'hono/compress';
 import { readFile } from 'node:fs/promises';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { resolve } from 'node:path';
-import { pathToFileURL } from 'node:url';
-import type { ViteDevServer } from 'vite';
-import { ssrModuleSchema, ssrRenderResultSchema, type SsrRenderResult } from './ssr-render.schema.js';
+import type { InlineConfig, ViteDevServer } from 'vite';
+import { ssrModuleSchema, ssrRenderResultSchema, type SsrRender, type SsrRenderResult } from './ssr-render.schema.js';
 import { viteManifestSchema, type ViteManifestChunk } from './vite-manifest.schema.js';
 
 export type { SsrRender, SsrRenderResult } from './ssr-render.schema.js';
@@ -16,20 +15,39 @@ const DEFAULT_PORT = 5173;
 const DEFAULT_BASE = '/';
 const DEFAULT_ABORT_DELAY_MS = 10_000;
 const DEFAULT_CLIENT_ENTRY = '/src/client.ts';
+const DEFAULT_SERVER_MODULE = '/src/server.tsx';
 const HEAD_CLOSE = '</head>';
 const BODY_CLOSE = '</body>';
 
+export type CreateViteServer = (config?: InlineConfig) => Promise<ViteDevServer>;
+
 export type SsrServerOptions = {
-  root?: string;
-  base?: string;
-  port?: number;
-  isProduction?: boolean;
-  clientEntry?: string;
-  serverModule?: string;
-  productionServerModule?: string;
-  clientDist?: string;
-  abortDelayMs?: number;
+  readonly root?: string;
+  readonly base?: string;
+  readonly port?: number;
+  readonly isProduction?: boolean;
+  readonly clientEntry?: string;
+  readonly serverModule?: string;
+  readonly clientDist?: string;
+  readonly abortDelayMs?: number;
+  readonly render?: SsrRender;
+  readonly createViteServer?: CreateViteServer;
 };
+
+type DevRuntime = {
+  readonly mode: 'development';
+  readonly vite: ViteDevServer;
+  readonly clientEntry: string;
+  readonly serverModule: string;
+};
+
+type ProdRuntime = {
+  readonly mode: 'production';
+  readonly head: string;
+  readonly render: SsrRender;
+};
+
+type SsrRuntime = DevRuntime | ProdRuntime;
 
 const stripBasePath = (path: string, base: string) => {
   const normalizedBase = base.endsWith('/') ? base.slice(0, -1) : base;
@@ -68,12 +86,12 @@ const injectBefore = (html: string, marker: string, snippet: string) => {
 const splitAtMarker = (html: string, marker: string) => {
   const index = html.indexOf(marker);
   if (index === -1) {
-    return { htmlStart: html, htmlEnd: '' };
+    return { htmlStart: html, htmlEnd: '' } as const;
   }
   return {
     htmlStart: html.slice(0, index),
     htmlEnd: html.slice(index)
-  };
+  } as const;
 };
 
 const concatHtmlStream = (
@@ -108,7 +126,7 @@ const concatHtmlStream = (
   });
 };
 
-const resolveManifestEntry = (manifest: Record<string, ViteManifestChunk>, clientEntry: string) => {
+const resolveManifestEntry = (manifest: Readonly<Record<string, ViteManifestChunk>>, clientEntry: string) => {
   const normalized = clientEntry.replace(/^\//, '');
   const direct = manifest[normalized] ?? manifest[clientEntry];
   if (direct !== undefined) {
@@ -126,94 +144,144 @@ const renderProductionHead = (entry: ViteManifestChunk, base: string) => {
   return `${cssTags}<script type="module" src="${toPublicUrl(entry.file, base)}"></script>`;
 };
 
-export const startSsrServer = async (options: SsrServerOptions = {}) => {
-  const root = options.root ?? process.cwd();
-  const base = options.base ?? process.env['BASE'] ?? DEFAULT_BASE;
-  const port = options.port ?? Number(process.env['PORT'] ?? DEFAULT_PORT);
-  const isProduction =
-    options.isProduction ?? (process.argv.includes('--production') || process.env['NODE_ENV'] === 'production');
-  const clientEntry = options.clientEntry ?? DEFAULT_CLIENT_ENTRY;
-  const serverModule = options.serverModule ?? '/src/server.tsx';
-  const productionServerModule = resolve(root, options.productionServerModule ?? 'dist/server/server.js');
-  const clientDist = resolve(root, options.clientDist ?? 'dist/client');
-  const abortDelayMs = options.abortDelayMs ?? DEFAULT_ABORT_DELAY_MS;
+const createDevRuntime = async (options: {
+  readonly root: string;
+  readonly base: string;
+  readonly clientEntry: string;
+  readonly serverModule: string;
+  readonly createViteServer: CreateViteServer;
+}): Promise<DevRuntime> => {
+  const vite = await options.createViteServer({
+    root: options.root,
+    server: { middlewareMode: true },
+    appType: 'custom',
+    base: options.base
+  });
+  return {
+    mode: 'development',
+    vite,
+    clientEntry: options.clientEntry,
+    serverModule: options.serverModule
+  };
+};
 
+const createProdRuntime = async (options: {
+  readonly base: string;
+  readonly clientEntry: string;
+  readonly clientDist: string;
+  readonly render: SsrRender;
+}): Promise<ProdRuntime> => {
+  const manifestJson: unknown = JSON.parse(await readFile(resolve(options.clientDist, '.vite/manifest.json'), 'utf-8'));
+  const manifest = viteManifestSchema.parse(manifestJson);
+  return {
+    mode: 'production',
+    head: renderProductionHead(resolveManifestEntry(manifest, options.clientEntry), options.base),
+    render: options.render
+  };
+};
+
+const createRuntime = async (options: {
+  readonly root: string;
+  readonly base: string;
+  readonly isProduction: boolean;
+  readonly clientEntry: string;
+  readonly serverModule: string;
+  readonly clientDist: string;
+  readonly render: SsrRender | undefined;
+  readonly createViteServer: CreateViteServer | undefined;
+}): Promise<SsrRuntime> => {
+  if (options.isProduction) {
+    if (options.render === undefined) {
+      throw new Error('Production SSR requires a static `render` option');
+    }
+    return createProdRuntime({
+      base: options.base,
+      clientEntry: options.clientEntry,
+      clientDist: options.clientDist,
+      render: options.render
+    });
+  }
+  if (options.createViteServer === undefined) {
+    throw new Error('Development SSR requires a static `createViteServer` option');
+  }
+  return createDevRuntime({
+    root: options.root,
+    base: options.base,
+    clientEntry: options.clientEntry,
+    serverModule: options.serverModule,
+    createViteServer: options.createViteServer
+  });
+};
+
+const loadRender = async (runtime: SsrRuntime) => {
+  if (runtime.mode === 'production') {
+    return runtime.render;
+  }
+  const loaded: unknown = await runtime.vite.ssrLoadModule(runtime.serverModule);
+  return ssrModuleSchema.parse(loaded).render;
+};
+
+const prepareTemplate = async (runtime: SsrRuntime, pageUrl: string, document: string, head: string) => {
+  if (runtime.mode === 'development') {
+    const withClient = injectBefore(
+      document,
+      HEAD_CLOSE,
+      `<script type="module" src="${runtime.clientEntry}"></script>`
+    );
+    const transformed = await runtime.vite.transformIndexHtml(pageUrl, withClient);
+    return injectBefore(transformed, HEAD_CLOSE, head);
+  }
+  return injectBefore(injectBefore(document, HEAD_CLOSE, runtime.head), HEAD_CLOSE, head);
+};
+
+const renderPage = (rendered: SsrRenderResult, template: string, abortDelayMs: number) => {
+  const { htmlStart, htmlEnd } = splitAtMarker(template, BODY_CLOSE);
+  const bodyStream = rendered.stream;
+  if (bodyStream !== undefined) {
+    const timeoutId = setTimeout(() => {
+      bodyStream.cancel();
+    }, abortDelayMs);
+    return new Response(
+      concatHtmlStream(htmlStart, bodyStream, htmlEnd, () => clearTimeout(timeoutId)),
+      {
+        headers: { 'Content-Type': 'text/html; charset=utf-8' }
+      }
+    );
+  }
+  return new Response(`${htmlStart}${rendered.html ?? ''}${htmlEnd}`, {
+    headers: { 'Content-Type': 'text/html; charset=utf-8' }
+  });
+};
+
+const createApp = (
+  runtime: SsrRuntime,
+  options: { readonly base: string; readonly clientDist: string; readonly abortDelayMs: number }
+) => {
   const app = new Hono();
-  let vite: ViteDevServer | undefined;
-  let productionHead = '';
-
-  if (isProduction) {
-    const manifestJson: unknown = JSON.parse(await readFile(resolve(clientDist, '.vite/manifest.json'), 'utf-8'));
-    const manifest = viteManifestSchema.parse(manifestJson);
-    productionHead = renderProductionHead(resolveManifestEntry(manifest, clientEntry), base);
+  if (runtime.mode === 'production') {
     app.use(compress());
     app.use(
       '*',
       serveStatic({
-        root: clientDist,
-        rewriteRequestPath: (path) => stripBasePath(path, base)
+        root: options.clientDist,
+        rewriteRequestPath: (path) => stripBasePath(path, options.base)
       })
     );
-  } else {
-    const { createServer: createViteServer } = await import('vite');
-    vite = await createViteServer({
-      root,
-      server: { middlewareMode: true },
-      appType: 'custom',
-      base
-    });
   }
-
-  const loadRender = async () => {
-    if (vite !== undefined) {
-      const loaded: unknown = await vite.ssrLoadModule(serverModule);
-      return ssrModuleSchema.parse(loaded).render;
-    }
-    const loaded: unknown = await import(pathToFileURL(productionServerModule).href);
-    return ssrModuleSchema.parse(loaded).render;
-  };
-
-  const prepareTemplate = async (pageUrl: string, document: string, head: string) => {
-    let template = document;
-    if (vite !== undefined) {
-      template = injectBefore(template, HEAD_CLOSE, `<script type="module" src="${clientEntry}"></script>`);
-      template = await vite.transformIndexHtml(pageUrl, template);
-    } else {
-      template = injectBefore(template, HEAD_CLOSE, productionHead);
-    }
-    return injectBefore(template, HEAD_CLOSE, head);
-  };
-
-  const renderPage = (rendered: SsrRenderResult, template: string) => {
-    const { htmlStart, htmlEnd } = splitAtMarker(template, BODY_CLOSE);
-    const bodyStream = rendered.stream;
-    if (bodyStream !== undefined) {
-      const timeoutId = setTimeout(() => {
-        bodyStream.cancel();
-      }, abortDelayMs);
-      return new Response(
-        concatHtmlStream(htmlStart, bodyStream, htmlEnd, () => clearTimeout(timeoutId)),
-        {
-          headers: { 'Content-Type': 'text/html; charset=utf-8' }
-        }
-      );
-    }
-    return new Response(`${htmlStart}${rendered.html ?? ''}${htmlEnd}`, {
-      headers: { 'Content-Type': 'text/html; charset=utf-8' }
-    });
-  };
 
   app.all('*', async (c) => {
     const requestUrl = new URL(c.req.url);
-    const pageUrl = `${stripBasePath(requestUrl.pathname, base)}${requestUrl.search}`;
+    const pageUrl = `${stripBasePath(requestUrl.pathname, options.base)}${requestUrl.search}`;
     try {
-      const render = await loadRender();
+      const render = await loadRender(runtime);
       const rendered = ssrRenderResultSchema.parse(await render(pageUrl));
-      const template = await prepareTemplate(pageUrl, rendered.document, rendered.head ?? '');
-      return renderPage(rendered, template);
+      const template = await prepareTemplate(runtime, pageUrl, rendered.document, rendered.head ?? '');
+      return renderPage(rendered, template, options.abortDelayMs);
     } catch (error: unknown) {
       if (error instanceof Error) {
-        vite?.ssrFixStacktrace(error);
+        if (runtime.mode === 'development') {
+          runtime.vite.ssrFixStacktrace(error);
+        }
         console.error(error.stack);
         return c.text(error.stack ?? error.message, 500);
       }
@@ -221,13 +289,16 @@ export const startSsrServer = async (options: SsrServerOptions = {}) => {
     }
   });
 
+  return app;
+};
+
+const createNodeHandler = (runtime: SsrRuntime, app: Hono) => {
   const nodeListener = getRequestListener(app.fetch);
-  const handleNodeRequest = (req: IncomingMessage, res: ServerResponse) => {
-    if (vite === undefined) {
-      nodeListener(req, res);
-      return;
-    }
-    vite.middlewares(req, res, (error?: unknown) => {
+  if (runtime.mode === 'production') {
+    return nodeListener;
+  }
+  return (req: IncomingMessage, res: ServerResponse) => {
+    runtime.vite.middlewares(req, res, (error?: unknown) => {
       if (error !== undefined) {
         const message = error instanceof Error ? (error.stack ?? error.message) : String(error);
         if (!res.headersSent) {
@@ -240,8 +311,33 @@ export const startSsrServer = async (options: SsrServerOptions = {}) => {
       nodeListener(req, res);
     });
   };
+};
 
+export const startSsrServer = async (options: SsrServerOptions = {}) => {
+  const root = options.root ?? process.cwd();
+  const base = options.base ?? process.env['BASE'] ?? DEFAULT_BASE;
+  const port = options.port ?? Number(process.env['PORT'] ?? DEFAULT_PORT);
+  const isProduction =
+    options.isProduction ?? (process.argv.includes('--production') || process.env['NODE_ENV'] === 'production');
+  const clientEntry = options.clientEntry ?? DEFAULT_CLIENT_ENTRY;
+  const serverModule = options.serverModule ?? DEFAULT_SERVER_MODULE;
+  const clientDist = resolve(root, options.clientDist ?? 'dist/client');
+  const abortDelayMs = options.abortDelayMs ?? DEFAULT_ABORT_DELAY_MS;
+
+  const runtime = await createRuntime({
+    root,
+    base,
+    isProduction,
+    clientEntry,
+    serverModule,
+    clientDist,
+    render: options.render,
+    createViteServer: options.createViteServer
+  });
+  const app = createApp(runtime, { base, clientDist, abortDelayMs });
+  const handleNodeRequest = createNodeHandler(runtime, app);
   const server = createServer(handleNodeRequest);
+
   await new Promise<void>((resolveListen) => {
     server.listen(port, () => {
       console.log(`Server started at http://localhost:${port}`);
