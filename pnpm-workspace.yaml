@@ -2,6 +2,7 @@ packages:
   - packages/*
   - infra/*
   - demos/*
+  - ssr-demos/*
 
 allowBuilds:
   '@ast-grep/cli': false
