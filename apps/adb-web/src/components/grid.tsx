@@ -233,7 +233,7 @@ export const Grid = ({
   useLayoutEffect(() => {
     const el = bodyRef.current;
     if (autoScroll && el) {
-      el.offsetLeft;
+      el.getBoundingClientRect();
       el.scrollTop = el.scrollHeight;
     }
   });

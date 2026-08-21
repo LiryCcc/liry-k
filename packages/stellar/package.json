@@ -21,14 +21,12 @@
     "lint:type": "tsc -b"
   },
   "devDependencies": {
-    "@eslint/js": "catalog:",
     "@liry-k/build": "workspace:*",
+    "@liry-k/eslint-config": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
     "@types/node": "catalog:",
     "dayjs": "^1.11.21",
     "eslint": "catalog:",
-    "globals": "catalog:",
-    "typescript": "catalog:",
-    "typescript-eslint": "catalog:"
+    "typescript": "catalog:"
   }
 }

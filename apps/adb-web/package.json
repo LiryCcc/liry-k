@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc -b && vite build",
     "dev": "vite dev",
-    "lint": "echo 1 && tsc -b",
+    "lint": "eslint . --cache && tsc -b",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -35,7 +35,7 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:",
-    "@eslint/js": "catalog:",
+    "@liry-k/eslint-config": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@tanstack/react-router-devtools": "catalog:",
     "@types/babel__core": "catalog:",
@@ -45,11 +45,7 @@
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "eslint": "catalog:",
-    "eslint-plugin-react-hooks": "catalog:",
-    "eslint-plugin-react-refresh": "catalog:",
-    "globals": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "vite": "catalog:"
   }
 }

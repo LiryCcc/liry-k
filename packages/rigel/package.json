@@ -6,14 +6,16 @@
   "scripts": {
     "build": "liry-build",
     "lint": "pnpm lint:code && pnpm lint:type",
-    "lint:code": "echo lint:code",
+    "lint:code": "eslint . --cache",
     "lint:type": "tsc -b"
   },
   "devDependencies": {
     "@liry-k/build": "workspace:*",
+    "@liry-k/eslint-config": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
     "@lit-labs/signals": "catalog:",
     "@types/node": "catalog:",
+    "eslint": "catalog:",
     "lit": "catalog:",
     "typescript": "catalog:"
   },

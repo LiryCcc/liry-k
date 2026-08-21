@@ -1,25 +1,6 @@
 /// <reference types="node" />
-import js from '@eslint/js';
-import { defineConfig, globalIgnores } from 'eslint/config';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+import { ESLINT_CONFIG } from '@liry-k/eslint-config';
 
-const eslintConfig = defineConfig([
-  globalIgnores(['dist', 'node_modules']),
-  {
-    files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
-    extends: [js.configs.recommended, tseslint.configs.recommended],
-    languageOptions: {
-      globals: globals.node,
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname
-      }
-    },
-    rules: {
-      'no-void': 'error'
-    }
-  }
-]);
-
-export default eslintConfig;
+export default ESLINT_CONFIG.NODE_LIB({
+  tsconfigRootDir: import.meta.dirname
+});

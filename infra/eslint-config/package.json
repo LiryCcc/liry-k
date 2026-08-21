@@ -1,6 +1,16 @@
 {
   "name": "@liry-k/eslint-config",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "node build.ts",
     "lint": "tsc -b"
@@ -11,6 +21,7 @@
     "@types/node": "catalog:",
     "eslint": "catalog:",
     "eslint-plugin-react": "catalog:",
+    "eslint-plugin-react-compiler": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",
     "eslint-plugin-react-refresh": "catalog:",
     "globals": "catalog:",

@@ -20,13 +20,11 @@
     "lint:type": "tsc -b"
   },
   "devDependencies": {
-    "@eslint/js": "catalog:",
     "@liry-k/build": "workspace:*",
+    "@liry-k/eslint-config": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
     "eslint": "catalog:",
-    "globals": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "unplugin-solid": "catalog:",
     "vite": "catalog:",
     "vitest": "catalog:"

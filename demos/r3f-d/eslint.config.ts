@@ -1,24 +1,10 @@
-import js from '@eslint/js';
-import reactCompiler from 'eslint-plugin-react-compiler';
-import reactHooks from 'eslint-plugin-react-hooks';
-import reactRefresh from 'eslint-plugin-react-refresh';
-import { defineConfig, globalIgnores } from 'eslint/config';
-import globals from 'globals';
-import tseslint from 'typescript-eslint';
+/// <reference types="node" />
+import { ESLINT_CONFIG } from '@liry-k/eslint-config';
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      js.configs.recommended,
-      tseslint.configs.recommended,
-      reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
-      reactCompiler.configs.recommended
-    ],
-    languageOptions: {
-      globals: globals.browser
-    }
-  }
-]);
+export default ESLINT_CONFIG.REACT_APP({
+  tsconfigRootDir: import.meta.dirname,
+  compiler: true,
+  css: false,
+  /** Demo 文案直接写在 JSX 里，不做 i18n 字面量约束。 */
+  relaxed: true
+});

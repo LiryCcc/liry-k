@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "@babel/core": "catalog:babel8",
-    "@eslint/js": "catalog:",
+    "@liry-k/eslint-config": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
     "@rolldown/plugin-babel": "catalog:",
     "@types/babel__core": "catalog:",
@@ -28,11 +28,7 @@
     "@vitejs/plugin-react": "catalog:",
     "babel-plugin-react-compiler": "catalog:",
     "eslint": "catalog:",
-    "eslint-plugin-react-hooks": "catalog:",
-    "eslint-plugin-react-refresh": "catalog:",
-    "globals": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "vite": "catalog:"
   }
 }

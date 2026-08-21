@@ -15,7 +15,9 @@
     "dev:firefox": "wxt -b firefox",
     "dev:safari": "wxt -b safari",
     "postinstall": "wxt prepare",
-    "lint": "tsc -b",
+    "lint": "pnpm lint:type && pnpm lint:code",
+    "lint:code": "eslint . --cache",
+    "lint:type": "tsc -b",
     "zip": "node ./scripts/build-all.ts --zip",
     "zip:chrome": "wxt zip -b chrome",
     "zip:edge": "wxt zip -b edge",
@@ -31,8 +33,11 @@
     "zod": "catalog:"
   },
   "devDependencies": {
+    "@liry-k/eslint-config": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
+    "@types/node": "catalog:",
     "@wxt-dev/module-solid": "^1.1.4",
+    "eslint": "catalog:",
     "typescript": "catalog:",
     "wxt": "^0.20.27"
   }

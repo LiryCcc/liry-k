@@ -261,7 +261,7 @@ pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
 ### 工具链
 
 - **格式化**：根目录 Prettier（`.prettierrc.json`），`pnpm format` / `pnpm check-format`。
-- **Lint**：各包 `eslint.config.ts`，共享配置来自 `infra/eslint-config`；类型检查 `tsc -b`。
+- **Lint**：各包 `eslint.config.ts` 从 `@liry-k/eslint-config` 选用 preset（`NODE_LIB` / `WEB_LIB` / `ISOMORPHIC_LIB` / `SOLID_APP` / `REACT_APP` / `WORKER` / `LEETCODE`）；类型检查 `tsc -b`。
 - **CSS Lint**：根目录 `pnpm lint:style`（stylelint）。
 - **拼写**：根目录 `pnpm check-spell`（cspell）。
 

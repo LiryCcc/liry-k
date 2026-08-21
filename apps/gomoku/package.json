@@ -19,14 +19,10 @@
     "zod": "catalog:"
   },
   "devDependencies": {
-    "@eslint/css": "catalog:",
-    "@eslint/js": "catalog:",
+    "@liry-k/eslint-config": "workspace:*",
     "@types/node": "catalog:",
     "eslint": "catalog:",
-    "eslint-plugin-react": "catalog:",
-    "globals": "catalog:",
     "typescript": "catalog:",
-    "typescript-eslint": "catalog:",
     "vite": "catalog:",
     "vite-plugin-solid": "catalog:"
   }

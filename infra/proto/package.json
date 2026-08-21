@@ -18,7 +18,9 @@
     "build": "pnpm proto && liry-build",
     "format": "buf format -w ./protos",
     "postinstall": "pnpm proto",
-    "lint": "tsc -b",
+    "lint": "pnpm lint:type && pnpm lint:code",
+    "lint:code": "eslint . --cache",
+    "lint:type": "tsc -b",
     "proto": "node run-protoc.ts"
   },
   "devDependencies": {
@@ -26,7 +28,9 @@
     "@bufbuild/protobuf": "catalog:",
     "@bufbuild/protoc-gen-es": "catalog:",
     "@liry-k/build": "workspace:*",
+    "@liry-k/eslint-config": "workspace:*",
     "@types/node": "catalog:",
+    "eslint": "catalog:",
     "protoc": "catalog:",
     "ts-proto": "catalog:",
     "typescript": "catalog:"
