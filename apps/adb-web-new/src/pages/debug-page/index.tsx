@@ -61,9 +61,9 @@ const DebugPage = () => {
         console.log('[notif] notification object:', n);
         console.log('[notif] notification tag:', n.tag);
         console.log('[notif] notification silent:', n.silent);
-        n.onshow = () => console.log('[notif] onshow fired');
-        n.onclick = () => console.log('[notif] onclick fired');
-        n.onclose = () => console.log('[notif] onclose fired');
+        n.addEventListener('show', () => console.log('[notif] onshow fired'));
+        n.addEventListener('click', () => console.log('[notif] onclick fired'));
+        n.addEventListener('close', () => console.log('[notif] onclose fired'));
         n.onerror = (e) => console.log('[notif] onerror:', e);
         console.log(
           '[notif] if not shown, check: 1) macOS System Settings > Notifications > Chrome 2) Do Not Disturb / Focus mode'
@@ -83,9 +83,9 @@ const DebugPage = () => {
         try {
           const n = new Notification(notifTitle, { body: notifBody, requireInteraction: true });
           console.log('[notif] notification created:', n);
-          n.onshow = () => console.log('[notif] onshow fired');
-          n.onclick = () => console.log('[notif] onclick fired');
-          n.onclose = () => console.log('[notif] onclose fired');
+          n.addEventListener('show', () => console.log('[notif] onshow fired'));
+          n.addEventListener('click', () => console.log('[notif] onclick fired'));
+          n.addEventListener('close', () => console.log('[notif] onclose fired'));
           n.onerror = (e) => console.log('[notif] onerror:', e);
           setNotifStatus('sent (check Notification Center if not visible)');
         } catch (e) {
@@ -250,7 +250,7 @@ const DebugPage = () => {
         </Button>
         {traceEvents.length === 0 && <KV label={t('debug.noEvents')} value='' />}
         {[...traceEvents]
-          .reverse()
+          .toReversed()
           .slice(0, 50)
           .map((e) => (
             <KV

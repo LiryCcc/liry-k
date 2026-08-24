@@ -27,10 +27,8 @@ export const asyncEffect = <Args extends unknown[]>(
         }
       }
     } catch (e) {
-      if (e instanceof DOMException) {
-        if (e.name === 'AbortError') {
-          return;
-        }
+      if (e instanceof DOMException && e.name === 'AbortError') {
+        return;
       }
 
       console.error(e);

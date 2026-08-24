@@ -9,7 +9,7 @@ const myInstanceof = <T>(obj: unknown, constructor: Constructor<T>): obj is T =>
   // Step 2: 检查 Symbol.hasInstance
   const hasInstanceFn = constructor[Symbol.hasInstance];
   if (typeof hasInstanceFn === 'function') {
-    return Boolean(hasInstanceFn.call(constructor, obj));
+    return hasInstanceFn.call(constructor, obj);
   }
 
   // Step 3: prototype 必须是对象

@@ -6,7 +6,7 @@ import type { ParsedCli } from './parse-args.js';
 const DEFAULT_PATHS = ['.'];
 
 const formatMatchLine = (file: string, line: number, text: string): string => {
-  const compact = text.replace(/\s+/g, ' ').trim();
+  const compact = text.replaceAll(/\s+/g, ' ').trim();
   return `${file}:${line + 1}: ${compact}`;
 };
 

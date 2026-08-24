@@ -176,7 +176,7 @@ const App = () => {
     const scheme = colorScheme();
     const text = trimmedDraftUrl();
     if (text === '') {
-      return undefined;
+      return;
     }
     const dark = scheme === 'dark';
     const foreground = isUrlValid()
@@ -297,7 +297,7 @@ const App = () => {
           placeholder={pageUrl.loading ? t.url.loading() : 'https://'}
           error={urlFieldInvalid()}
           errorText={urlFieldInvalid() ? t.url.invalid() : ''}
-          supportingText={trimmedDraftUrl() === '' ? '\u00a0' : isUrlValid() ? t.url.valid() : ''}
+          supportingText={trimmedDraftUrl() === '' ? '\u{A0}' : isUrlValid() ? t.url.valid() : ''}
           onInput={(event) => {
             setDraftUrl(event.currentTarget.value);
           }}

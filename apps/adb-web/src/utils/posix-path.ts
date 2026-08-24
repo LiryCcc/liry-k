@@ -1,14 +1,14 @@
 export const posixResolve = (dir: string, name: string): string => {
   if (name.startsWith('/')) {
-    return name.replace(/\/+/g, '/');
+    return name.replaceAll(/\/+/g, '/');
   }
   const base = dir.endsWith('/') ? dir : `${dir}/`;
-  return (base + name).replace(/\/+/g, '/');
+  return (base + name).replaceAll(/\/+/g, '/');
 };
 
 export const posixBasename = (p: string): string => {
   const segments = p.split('/').filter(Boolean);
-  const last = segments[segments.length - 1];
+  const last = segments.at(-1);
   return last ?? p;
 };
 

@@ -4,6 +4,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 import type { EslintConfigOptions } from './options.js';
+import { leetcodeQualityRuleOverrides, qualityPluginConfigs } from './quality-plugins.js';
 import { mergeIgnores, resolveProjectService, zodRestrictedImportsRule } from './shared.js';
 
 /**
@@ -12,6 +13,7 @@ import { mergeIgnores, resolveProjectService, zodRestrictedImportsRule } from '.
 const createLeetcodeConfig = (options: EslintConfigOptions) =>
   defineConfig([
     globalIgnores(mergeIgnores(options.ignores)),
+    ...qualityPluginConfigs,
     {
       files: ['**/*.{ts,tsx}'],
       extends: [js.configs.recommended, tseslint.configs.recommended],
@@ -34,7 +36,8 @@ const createLeetcodeConfig = (options: EslintConfigOptions) =>
           }
         ],
         '@typescript-eslint/consistent-type-imports': ['error', { prefer: 'type-imports' }],
-        ...zodRestrictedImportsRule
+        ...zodRestrictedImportsRule,
+        ...leetcodeQualityRuleOverrides
       }
     },
     {
@@ -45,7 +48,8 @@ const createLeetcodeConfig = (options: EslintConfigOptions) =>
       },
       rules: {
         'no-void': 'error',
-        'no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }]
+        'no-unused-vars': ['error', { varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+        ...leetcodeQualityRuleOverrides
       }
     }
   ]);

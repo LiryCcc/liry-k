@@ -47,7 +47,7 @@ const resolveLang = (input: string): AstGrepLang => {
 /** 根据文件扩展名推断语言；无法推断时返回 null。 */
 const inferLangFromPath = (filePath: string): AstGrepLang | null => {
   const dot = filePath.lastIndexOf('.');
-  if (dot < 0) {
+  if (dot === -1) {
     return null;
   }
 

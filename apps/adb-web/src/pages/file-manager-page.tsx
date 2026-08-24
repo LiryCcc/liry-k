@@ -383,18 +383,18 @@ const createFileManagerController = (notify: () => void) => {
     bump();
   };
 
-  const toggleRow = (key: string, mod: boolean) => {
-    if (mod) {
-      const next = new Set(st.selectedKeys);
-      if (next.has(key)) {
-        next.delete(key);
-      } else {
-        next.add(key);
-      }
-      setSelection(next);
+  const toggleRowMulti = (key: string) => {
+    const next = new Set(st.selectedKeys);
+    if (next.has(key)) {
+      next.delete(key);
     } else {
-      setSelection(new Set([key]));
+      next.add(key);
     }
+    setSelection(next);
+  };
+
+  const selectOnlyRow = (key: string) => {
+    setSelection(new Set([key]));
   };
 
   const breadcrumbs = (navigate: (path: string) => void) => {
@@ -413,7 +413,7 @@ const createFileManagerController = (notify: () => void) => {
       { acc: '', items: [{ key: '/', text: strings.fileManager.rootCrumb }] }
     );
     if (items.length) {
-      items[items.length - 1] = { ...items[items.length - 1]!, current: true };
+      items[items.length - 1] = { ...items.at(-1)!, current: true };
     }
     return (
       <Breadcrumb className={styles.crumb}>
@@ -510,7 +510,8 @@ const createFileManagerController = (notify: () => void) => {
     },
     toggleSort,
     setSelection,
-    toggleRow,
+    toggleRowMulti,
+    selectOnlyRow,
     breadcrumbs,
     pushPath,
     changeDirectory,
@@ -647,7 +648,11 @@ export const FileManagerPage = () => {
                 key={item.key}
                 className={c.selectedKeys.has(item.key) ? styles['row-selected'] : undefined}
                 onClick={(e) => {
-                  c.toggleRow(item.key, e.metaKey || e.ctrlKey);
+                  if (e.metaKey || e.ctrlKey) {
+                    c.toggleRowMulti(item.key);
+                  } else {
+                    c.selectOnlyRow(item.key);
+                  }
                 }}
                 onDoubleClick={(e) => {
                   e.preventDefault();

@@ -24,6 +24,9 @@
     "eslint-plugin-react-compiler": "catalog:",
     "eslint-plugin-react-hooks": "catalog:",
     "eslint-plugin-react-refresh": "catalog:",
+    "eslint-plugin-security": "catalog:",
+    "eslint-plugin-sonarjs": "catalog:",
+    "eslint-plugin-unicorn": "catalog:",
     "globals": "catalog:",
     "typescript-eslint": "catalog:"
   },

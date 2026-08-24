@@ -76,9 +76,9 @@ const a = reactive([1]);
 
 effect(() => {
   console.log(`a ${a.join(' ')}`);
-  (() => {
+  {
     console.log(`em a ${a.join(' ')}`);
-  })();
+  }
 });
 
 a.push(2);

@@ -8,6 +8,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 import type { ReactAppOptions } from './options.js';
+import { qualityPluginConfigs, qualityRuleOverrides } from './quality-plugins.js';
 import {
   cssConfig,
   jsxNoLiteralsRule,
@@ -18,19 +19,33 @@ import {
 
 /**
  * React + Vite 应用配置。
+ *
+ * 默认启用：
+ * - `eslint-plugin-react`（`jsx-runtime`，适配新 JSX transform）
+ * - `eslint-plugin-react-hooks`
+ * - `eslint-plugin-react-refresh`（Vite）
+ * - `eslint-plugin-react-compiler`
  */
 const createReactAppConfig = (options: ReactAppOptions) => {
   const relaxed = options.relaxed === true;
+  const compilerEnabled = options.compiler !== false;
+  const reactJsxRuntime = react.configs.flat['jsx-runtime'];
+  if (reactJsxRuntime === undefined) {
+    throw new Error('eslint-plugin-react flat jsx-runtime config is missing');
+  }
+
   const extendsList = [
     js.configs.recommended,
     tseslint.configs.recommended,
+    reactJsxRuntime,
     reactHooks.configs.flat.recommended,
     reactRefresh.configs.vite,
-    ...(options.compiler === true ? [reactCompiler.configs.recommended] : [])
+    ...(compilerEnabled ? [reactCompiler.configs.recommended] : [])
   ];
 
   return defineConfig([
     globalIgnores(mergeIgnores(options.ignores)),
+    ...qualityPluginConfigs,
     {
       files: ['**/*.{ts,tsx}'],
       extends: extendsList,
@@ -42,11 +57,11 @@ const createReactAppConfig = (options: ReactAppOptions) => {
           tsconfigRootDir: options.tsconfigRootDir
         }
       },
-      plugins: { react },
       settings: { react: { version: 'detect' } },
       rules: {
         'no-void': 'error',
         ...zodRestrictedImportsRule,
+        ...qualityRuleOverrides,
         ...(relaxed ? {} : jsxNoLiteralsRule),
         ...(relaxed
           ? {

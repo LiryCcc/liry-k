@@ -15,7 +15,7 @@ export const readStoredColorScheme = (): ColorScheme | undefined => {
 export const resolveColorScheme = (): ColorScheme => readStoredColorScheme() ?? getPreferredColorScheme();
 
 export const applyColorScheme = (scheme: ColorScheme): void => {
-  document.documentElement.setAttribute('data-theme', scheme);
+  document.documentElement.dataset['theme'] = scheme;
 };
 
 export const persistColorScheme = (scheme: ColorScheme): void => {

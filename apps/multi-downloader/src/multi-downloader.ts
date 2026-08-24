@@ -139,8 +139,6 @@ const downloadFile = async (
 
   await ensureOutputFile(options.outputPath, resource.totalBytes);
 
-  const chunkProgress = new Map<number, number>(state.chunks.map((chunk) => [chunk.index, chunk.downloaded] as const));
-
   let downloadedBytes = getInitialDownloadedBytes(state);
   emitProgress(options.onProgress, resource.totalBytes, downloadedBytes, 0);
 
@@ -159,8 +157,7 @@ const downloadFile = async (
         resumeEnabled,
         state,
         chunk,
-        onChunkProgress: (index, downloaded) => {
-          chunkProgress.set(index, downloaded);
+        onChunkProgress: () => {
           downloadedBytes = state.chunks.reduce((sum, item) => sum + item.downloaded, 0);
           emitProgress(options.onProgress, resource.totalBytes, downloadedBytes, pendingChunks.length);
         }

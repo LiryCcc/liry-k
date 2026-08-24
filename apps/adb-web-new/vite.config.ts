@@ -1,7 +1,7 @@
 import babel from '@rolldown/plugin-babel';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
-import { randomBytes } from 'crypto';
-import { resolve } from 'path';
+import { randomBytes } from 'node:crypto';
+import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 
 const TOTP_SECRET = randomBytes(20).toString('hex');

@@ -111,7 +111,7 @@ export const addDeviceHistory = (device: AdbDaemonWebUsbDevice) => {
     manufacturer: device.raw.manufacturerName,
     lastConnectedAt: Date.now()
   };
-  if (existing >= 0) {
+  if (existing !== -1) {
     history[existing] = entry;
   } else {
     history.unshift(entry);

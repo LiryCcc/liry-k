@@ -6,7 +6,7 @@ export type PayloadFormat = z.infer<typeof payloadFormatSchema>;
 
 const hexPayloadSchema = z
   .string()
-  .transform((value) => value.replace(/\s/g, ''))
+  .transform((value) => value.replaceAll(/\s/g, ''))
   .refine((value) => value.length > 0, { message: 'empty' })
   .refine((value) => value.length % 2 === 0, { message: 'odd_length' })
   .refine((value) => /^[0-9a-fA-F]+$/.test(value), { message: 'invalid_chars' })
@@ -20,7 +20,7 @@ const hexPayloadSchema = z
 
 const base64PayloadSchema = z
   .string()
-  .transform((value) => value.replace(/\s/g, ''))
+  .transform((value) => value.replaceAll(/\s/g, ''))
   .refine((value) => value.length > 0, { message: 'empty' })
   .transform((value) => {
     const binary = atob(value);

@@ -4,6 +4,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 import type { EslintConfigOptions } from './options.js';
+import { qualityPluginConfigs, qualityRuleOverrides } from './quality-plugins.js';
 import { cssConfig, mergeIgnores, resolveProjectService, zodRestrictedImportsRule } from './shared.js';
 
 type GlobalsMode = 'node' | 'browser' | 'isomorphic';
@@ -24,6 +25,7 @@ const resolveGlobals = (mode: GlobalsMode) => {
 const createLibConfig = (mode: GlobalsMode, options: EslintConfigOptions) =>
   defineConfig([
     globalIgnores(mergeIgnores(options.ignores)),
+    ...qualityPluginConfigs,
     {
       files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
       extends: [js.configs.recommended, tseslint.configs.recommended],
@@ -37,7 +39,8 @@ const createLibConfig = (mode: GlobalsMode, options: EslintConfigOptions) =>
       },
       rules: {
         'no-void': 'error',
-        ...zodRestrictedImportsRule
+        ...zodRestrictedImportsRule,
+        ...qualityRuleOverrides
       }
     },
     ...(options.css === true ? [cssConfig] : [])

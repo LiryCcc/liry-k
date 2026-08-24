@@ -20,5 +20,5 @@ export const toText = (data: Uint8Array) => {
 };
 
 export const stripNullChars = (text: string) => {
-  return text.split('\0').join('');
+  return text.replaceAll('\u{0}', '');
 };

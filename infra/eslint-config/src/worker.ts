@@ -4,6 +4,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 import type { EslintConfigOptions } from './options.js';
+import { qualityPluginConfigs, qualityRuleOverrides } from './quality-plugins.js';
 import { mergeIgnores, resolveProjectService, zodRestrictedImportsRule } from './shared.js';
 
 /**
@@ -12,6 +13,7 @@ import { mergeIgnores, resolveProjectService, zodRestrictedImportsRule } from '.
 const createWorkerConfig = (options: EslintConfigOptions) =>
   defineConfig([
     globalIgnores(mergeIgnores(options.ignores)),
+    ...qualityPluginConfigs,
     {
       files: ['**/*.{js,mjs,cjs,ts,mts,cts}'],
       extends: [js.configs.recommended, tseslint.configs.recommended],
@@ -26,7 +28,8 @@ const createWorkerConfig = (options: EslintConfigOptions) =>
       rules: {
         'no-void': 'error',
         '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
-        ...zodRestrictedImportsRule
+        ...zodRestrictedImportsRule,
+        ...qualityRuleOverrides
       }
     }
   ]);

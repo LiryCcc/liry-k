@@ -1,7 +1,7 @@
 import { isLocale, LOCALE_STORAGE_KEY, type Locale } from './locale.js';
 
 const normalizeTag = (tag: string): Locale | undefined => {
-  const base = tag.trim().toLowerCase().split('-')[0];
+  const base = tag.trim().toLowerCase().split('-', 1)[0];
   if (base === 'zh') {
     return 'zh';
   }

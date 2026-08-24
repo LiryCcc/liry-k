@@ -28,7 +28,7 @@ const observer = new IntersectionObserver((items) => {
       const id = Math.random();
       imageMap.set(image, id);
     }
-    const dataSrc = image.getAttribute('data-src');
+    const dataSrc = image.dataset['src'];
     if (item.isIntersecting) {
       image.src = textToImage('图片加载中');
       const realImg = new Image();

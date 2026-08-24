@@ -4,6 +4,7 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 import type { SolidAppOptions } from './options.js';
+import { qualityPluginConfigs, qualityRuleOverrides } from './quality-plugins.js';
 import {
   cssConfig,
   jsxNoLiteralsBlock,
@@ -18,6 +19,7 @@ import {
 const createSolidAppConfig = (options: SolidAppOptions) =>
   defineConfig([
     globalIgnores(mergeIgnores(options.ignores)),
+    ...qualityPluginConfigs,
     {
       files: ['**/*.{js,mjs,cjs,ts,mts,cts,tsx,jsx}'],
       extends: [js.configs.recommended, tseslint.configs.recommended],
@@ -32,7 +34,8 @@ const createSolidAppConfig = (options: SolidAppOptions) =>
       },
       rules: {
         'no-void': 'error',
-        ...zodRestrictedImportsRule
+        ...zodRestrictedImportsRule,
+        ...qualityRuleOverrides
       }
     },
     jsxNoLiteralsBlock,

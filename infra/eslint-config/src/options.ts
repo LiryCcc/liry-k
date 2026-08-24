@@ -23,10 +23,13 @@ type SolidAppOptions = EslintConfigOptions & {
 type ReactAppOptions = EslintConfigOptions & {
   /** SSR 场景同时启用 browser + node globals。 */
   ssr?: boolean;
-  /** 启用 eslint-plugin-react-compiler。 */
+  /**
+   * 是否启用 eslint-plugin-react-compiler。
+   * 默认 `true`；传 `false` 可关闭。
+   */
   compiler?: boolean;
   /**
-   * 旧版应用兼容：关闭 jsx-no-literals / CSS，并放宽部分 react-hooks 规则。
+   * 旧版应用兼容：关闭 jsx-no-literals，并放宽部分 react-hooks 规则。
    * 仅用于尚未清理的历史包（如 `adb-web`）。
    */
   relaxed?: boolean;

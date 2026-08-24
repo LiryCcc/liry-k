@@ -102,7 +102,7 @@ export const Connect = () => {
 
       const dispose = async () => {
         try {
-          readable.cancel();
+          await readable.cancel();
         } catch {
           /* ignore */
         }

@@ -26,9 +26,9 @@ const transferPathArrayToPathTree = (cases: string[]): PathTree => {
     let root = res;
     seg.forEach((s) => {
       if (root.children) {
-        const newRoot = root.children.filter((v) => {
+        const newRoot = root.children.find((v) => {
           return v.name === s;
-        })[0];
+        });
         if (newRoot) {
           root = newRoot;
         } else {

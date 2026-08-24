@@ -5,10 +5,7 @@
 const longestPalindrome = (words: string[]): number => {
   const isPalindrome = (word1: string, word2?: string) => {
     if (word2) {
-      if (word2[1] === word1[0] && word2[0] === word1[1]) {
-        return true;
-      }
-      return false;
+      return word2[1] === word1[0] && word2[0] === word1[1];
     } else {
       return word1[0] === word1[1];
     }

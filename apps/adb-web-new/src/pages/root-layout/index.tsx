@@ -105,8 +105,8 @@ const RootLayout = () => {
     info('device.connect.start');
     const paired = await getPairedDevices();
     const knownSerials = new Set(devicesStore.state.devices.map((d) => d.serial));
-    const newPaired = paired.filter((d) => !knownSerials.has(d.serial));
-    let device = newPaired[0];
+    const newPaired = paired.find((d) => !knownSerials.has(d.serial));
+    let device = newPaired;
 
     if (!device) {
       const result = await requestAdbDaemonWebUsbDevice();
@@ -160,11 +160,7 @@ const RootLayout = () => {
     <div className={styles['shell']}>
       <header className={styles['title-bar']}>
         <Tooltip content={sidebarCollapseLabel} relationship='label'>
-          <Button
-            appearance='subtle'
-            icon={collapsed ? <NavigationRegular /> : <NavigationRegular />}
-            onClick={toggleCollapsed}
-          />
+          <Button appearance='subtle' icon={<NavigationRegular />} onClick={toggleCollapsed} />
         </Tooltip>
         <div className={styles['title']}>
           <span onClick={handleTitleClick} style={{ cursor: 'default' }}>

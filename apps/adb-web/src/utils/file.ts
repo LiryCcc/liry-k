@@ -25,13 +25,13 @@ export const pickFile = (async (options: { multiple?: boolean } & PickFileOption
       input.accept = options.accept;
     }
 
-    input.onchange = () => {
+    input.addEventListener('change', () => {
       if (options.multiple) {
         resolve(input.files!);
       } else {
         resolve(input.files!.item(0));
       }
-    };
+    });
 
     input.click();
   });

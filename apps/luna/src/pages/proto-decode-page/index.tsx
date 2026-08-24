@@ -88,7 +88,7 @@ export const ProtoDecodePage = () => {
       return;
     }
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.addEventListener('load', () => {
       if (typeof reader.result === 'string') {
         setProtoText(reader.result);
         const listed = listMessageTypes(reader.result);
@@ -96,7 +96,7 @@ export const ProtoDecodePage = () => {
           setMessageType(listed.value[0] ?? '');
         }
       }
-    };
+    });
     reader.readAsText(file);
     input.value = '';
   };
@@ -108,13 +108,13 @@ export const ProtoDecodePage = () => {
       return;
     }
     const reader = new FileReader();
-    reader.onload = () => {
+    reader.addEventListener('load', () => {
       if (reader.result instanceof ArrayBuffer) {
         setPayloadBytes(new Uint8Array(reader.result));
         setPayloadFileName(file.name);
         setPayloadText('');
       }
-    };
+    });
     reader.readAsArrayBuffer(file);
     input.value = '';
   };

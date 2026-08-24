@@ -1,6 +1,6 @@
 import { createCanvas } from '@napi-rs/canvas';
-import { writeFile } from 'fs/promises';
-import path from 'path';
+import { writeFile } from 'node:fs/promises';
+import path from 'node:path';
 
 // 输出目录（项目 public 文件夹）
 const OUTPUT_DIR = path.resolve(import.meta.dirname, 'public');

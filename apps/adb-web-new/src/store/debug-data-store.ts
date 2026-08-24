@@ -13,7 +13,7 @@ const getConnection = (): ConnType => {
   const nav = navigator as unknown as Record<string, unknown>;
   const c = nav['connection'] as ConnType | undefined;
   return c
-    ? { effectiveType: c.effectiveType, downlink: String(c.downlink), rtt: String(c.rtt) }
+    ? { effectiveType: c.effectiveType, downlink: c.downlink, rtt: c.rtt }
     : { effectiveType: 'unknown', downlink: 'unknown', rtt: 'unknown' };
 };
 
@@ -225,7 +225,7 @@ const initialWindow = (): DebugDataState['window'] => ({
 });
 
 const initialTime = (): DebugDataState['time'] => ({
-  timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  timezone: new Intl.DateTimeFormat().resolvedOptions().timeZone,
   timestamp: new Date().toISOString()
 });
 

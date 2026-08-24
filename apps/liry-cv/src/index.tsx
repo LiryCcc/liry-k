@@ -6,7 +6,7 @@ const main = async () => {
   const rootDiv = document.createElement('div');
   const reactRoot = createRoot(rootDiv);
   reactRoot.render(<App />);
-  document.body.appendChild(rootDiv);
+  document.body.append(rootDiv);
 };
 
 await main();

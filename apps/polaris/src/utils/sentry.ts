@@ -12,9 +12,9 @@ export const initSentry = () => {
     ],
 
     enableLogs: true,
-    tracesSampleRate: 1.0,
+    tracesSampleRate: 1,
 
-    replaysSessionSampleRate: 1.0,
-    replaysOnErrorSampleRate: 1.0
+    replaysSessionSampleRate: 1,
+    replaysOnErrorSampleRate: 1
   });
 };

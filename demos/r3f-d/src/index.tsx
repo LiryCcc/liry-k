@@ -12,7 +12,7 @@ rootDiv.className = rootClassName;
 const root = createRoot(rootDiv);
 const main = async () => {
   root.render(<App />);
-  document.body.appendChild(rootDiv);
+  document.body.append(rootDiv);
 };
 
 await main();

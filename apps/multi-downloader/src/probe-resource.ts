@@ -8,7 +8,7 @@ const DEFAULT_HEADERS: Record<string, string> = {
 
 const parseContentLength = (response: Response): number => {
   const raw = response.headers.get('content-length');
-  const parsed = raw ? Number.parseInt(raw, 10) : Number.NaN;
+  const parsed = raw ? Number.parseInt(raw, 10) : NaN;
   return Number.isFinite(parsed) && parsed >= 0 ? parsed : 0;
 };
 

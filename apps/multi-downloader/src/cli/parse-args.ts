@@ -35,7 +35,7 @@ const parseCliArgs = (argv: string[]): CliOptions | null => {
 
     if (arg === '--threads') {
       const next = argv[index + 1];
-      const parsed = next ? Number.parseInt(next, 10) : Number.NaN;
+      const parsed = next ? Number.parseInt(next, 10) : NaN;
 
       if (!Number.isFinite(parsed) || parsed <= 0) {
         return null;
@@ -48,7 +48,7 @@ const parseCliArgs = (argv: string[]): CliOptions | null => {
 
     if (arg === '--retries') {
       const next = argv[index + 1];
-      const parsed = next ? Number.parseInt(next, 10) : Number.NaN;
+      const parsed = next ? Number.parseInt(next, 10) : NaN;
 
       if (!Number.isFinite(parsed) || parsed < 0) {
         return null;

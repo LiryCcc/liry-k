@@ -73,5 +73,5 @@ export const computeButtonStyle = (
   const chosen = paints[variant];
   const tone = hovered && !disabled ? { ...chosen.rest, ...chosen.hover } : chosen.rest;
 
-  return { ...base, ...tone, ...(userStyle ?? {}) };
+  return { ...base, ...tone, ...userStyle };
 };

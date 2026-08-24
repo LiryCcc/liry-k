@@ -14,7 +14,7 @@ const versionCompare = (semver1: string, semver2: string): 1 | -1 | 0 => {
     .join('')
     .replace('..', '.0.')
     .split('.')
-    .map((v) => Number(v));
+    .map(Number);
   const ver2 = semver2
     .trim()
     .toLowerCase()
