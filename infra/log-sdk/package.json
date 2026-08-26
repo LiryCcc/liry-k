@@ -1,0 +1,38 @@
+{
+  "name": "@liry-k/log-sdk",
+  "version": "1.0.0",
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "liry-build",
+    "lint": "pnpm lint:type && pnpm lint:code",
+    "lint:code": "eslint . --cache",
+    "lint:type": "tsc -b"
+  },
+  "devDependencies": {
+    "@eslint/js": "catalog:",
+    "@liry-k/build": "workspace:*",
+    "@liry-k/eslint-config": "workspace:*",
+    "@liry-k/tsconfig": "workspace:*",
+    "@types/eslint-plugin-security": "^3.0.1",
+    "@types/node": "catalog:",
+    "dayjs": "^1.11.21",
+    "eslint": "catalog:",
+    "eslint-plugin-security": "catalog:",
+    "eslint-plugin-sonarjs": "catalog:",
+    "eslint-plugin-unicorn": "catalog:",
+    "globals": "catalog:",
+    "typescript": "catalog:"
+  }
+}
