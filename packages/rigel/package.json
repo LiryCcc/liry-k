@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "liry-build",
-    "lint": "pnpm lint:code && pnpm lint:type",
-    "lint:code": "eslint . --cache",
+    "lint": "nx lint:code && pnpm lint:type",
     "lint:type": "tsc -b"
   },
   "devDependencies": {

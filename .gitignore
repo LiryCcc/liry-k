@@ -10,3 +10,5 @@ build
 .nx/cache
 .nx/workspace-data
 .nx/migrate-runs
+vite.config.*.timestamp*
+vitest.config.*.timestamp*

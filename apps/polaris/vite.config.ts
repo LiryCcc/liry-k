@@ -1,12 +1,13 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [solid()],
+  plugins: [tsconfigPaths(), solid()],
 
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //

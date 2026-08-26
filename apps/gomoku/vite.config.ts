@@ -1,9 +1,10 @@
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import solid from 'vite-plugin-solid';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 const viteConfig = defineConfig({
-  plugins: [solid()],
+  plugins: [tsconfigPaths(), solid()],
   build: {
     target: false,
     minify: false,

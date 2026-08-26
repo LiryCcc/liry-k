@@ -3,11 +3,12 @@ import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { randomBytes } from 'node:crypto';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 const TOTP_SECRET = randomBytes(20).toString('hex');
 
 const viteConfig = defineConfig({
-  plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
+  plugins: [tsconfigPaths(), react(), babel({ presets: [reactCompilerPreset()] })],
   resolve: {
     alias: {
       '@': resolve(import.meta.dirname, 'src'),

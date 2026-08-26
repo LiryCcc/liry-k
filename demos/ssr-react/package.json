@@ -5,11 +5,10 @@
   "type": "module",
   "scripts": {
     "build": "pnpm lint:type && pnpm build:client && pnpm build:server",
-    "build:client": "vite build --outDir dist/client",
-    "build:server": "vite build --ssr src/preview.ts --outDir dist/server",
+    "build:client": "nx vite:build -- --outDir dist/client",
+    "build:server": "nx vite:build -- --ssr src/preview.ts --outDir dist/server",
     "dev": "node src/index.ts",
-    "lint": "pnpm lint:type && pnpm lint:code",
-    "lint:code": "eslint . --cache",
+    "lint": "pnpm lint:type && nx lint:code",
     "lint:type": "tsc -b",
     "preview": "node dist/server/preview.js"
   },

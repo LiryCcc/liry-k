@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -b && vite build",
-    "dev": "vite dev",
-    "lint": "eslint . --cache && tsc -b",
-    "preview": "vite preview"
+    "build": "tsc -b && nx vite:build",
+    "dev": "nx dev",
+    "lint": "nx lint:code && tsc -b",
+    "preview": "nx preview"
   },
   "dependencies": {
     "@fluentui/react-components": "catalog:",
@@ -46,6 +46,7 @@
     "babel-plugin-react-compiler": "catalog:",
     "eslint": "catalog:",
     "typescript": "catalog:",
-    "vite": "catalog:"
+    "vite": "catalog:",
+    "vite-tsconfig-paths": "catalog:"
   }
 }

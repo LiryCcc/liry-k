@@ -4,12 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm lint:type && vite build",
-    "dev": "vite dev",
-    "lint": "pnpm lint:type && pnpm lint:code",
-    "lint:code": "eslint . --cache",
+    "build": "pnpm lint:type && nx vite:build",
+    "dev": "nx dev",
+    "lint": "pnpm lint:type && nx lint:code",
     "lint:type": "tsc -b",
-    "preview": "vite preview"
+    "preview": "nx preview"
   },
   "dependencies": {
     "@liry-k/astra": "workspace:*",
@@ -24,6 +23,7 @@
     "eslint": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:",
-    "vite-plugin-solid": "catalog:"
+    "vite-plugin-solid": "catalog:",
+    "vite-tsconfig-paths": "catalog:"
   }
 }

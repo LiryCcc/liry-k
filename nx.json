@@ -8,13 +8,25 @@
       "{workspaceRoot}/Cargo.lock",
       "{workspaceRoot}/settings.gradle.kts",
       "{workspaceRoot}/build.gradle.kts"
-    ]
+    ],
+    "tsdown": ["{projectRoot}/tsdown.config.ts", "{projectRoot}/src/**/*", "production"]
   },
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
       "cache": true,
       "outputs": ["{projectRoot}/dist", "{projectRoot}/.output"]
+    },
+    "vite:build": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "outputs": ["{projectRoot}/dist", "{projectRoot}/.output"]
+    },
+    "tsdown": {
+      "dependsOn": ["^build"],
+      "cache": true,
+      "inputs": ["tsdown", "^production"],
+      "outputs": ["{projectRoot}/dist"]
     },
     "lint": {
       "dependsOn": ["^lint"],
@@ -38,6 +50,29 @@
   },
   "plugins": [
     {
+      "plugin": "@nx/eslint/plugin",
+      "options": {
+        "targetName": "lint:code"
+      }
+    },
+    {
+      "plugin": "@nx/vite/plugin",
+      "options": {
+        "buildTargetName": "vite:build",
+        "devTargetName": "dev",
+        "previewTargetName": "preview",
+        "serveTargetName": "serve"
+      }
+    },
+    {
+      "plugin": "@nx/vitest",
+      "options": {
+        "testTargetName": "test",
+        "ciTargetName": "test-ci",
+        "testMode": "run"
+      }
+    },
+    {
       "plugin": "@nx/gradle",
       "options": {
         "testTargetName": "test",
@@ -45,5 +80,6 @@
         "buildTargetName": "build"
       }
     }
-  ]
+  ],
+  "analytics": false
 }

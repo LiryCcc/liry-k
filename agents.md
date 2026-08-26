@@ -47,6 +47,10 @@ pnpm workspace 四区：
 | `nx show projects`    | 列出 Nx 项目（pnpm 包、Rust crate、Gradle 模块）                                         |
 | `nx run-many -t lint` | 按依赖顺序跑各项目 `lint`                                                                |
 | `nx affected -t lint` | 只跑相对基线受影响的项目                                                                 |
+| `nx vite:build`       | Vite 包构建（由 `@nx/vite` 从 `vite.config.ts` 推断）                                    |
+| `nx lint:code`        | ESLint（由 `@nx/eslint` 从 `eslint.config.ts` 推断）                                     |
+| `nx test`             | Vitest（由 `@nx/vitest` 从 `vitest.config.ts` 推断）                                     |
+| `nx tsdown`           | `@liry-k/ssr-server` 的 tsdown 构建（`project.json` 显式 target）                        |
 
 `pnpm pre-commit` 依次执行：根目录 `check-format` → `check-spell` → `lint:style` → `nx run-many -t lint,lint:rustfmt`。
 

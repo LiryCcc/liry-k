@@ -15,8 +15,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "node ./build.ts",
-    "lint": "pnpm lint:code",
-    "lint:code": "eslint . --cache",
+    "lint": "nx lint:code",
     "lint:type": "tsc -b"
   },
   "devDependencies": {

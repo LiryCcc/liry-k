@@ -18,8 +18,7 @@
     "build": "pnpm proto && liry-build",
     "format": "buf format -w ./protos",
     "postinstall": "pnpm proto",
-    "lint": "pnpm lint:type && pnpm lint:code",
-    "lint:code": "eslint . --cache",
+    "lint": "pnpm lint:type && nx lint:code",
     "lint:type": "tsc -b",
     "proto": "node run-protoc.ts"
   },

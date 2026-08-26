@@ -2,10 +2,11 @@ import babel from '@rolldown/plugin-babel';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
 import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), babel({ presets: [reactCompilerPreset()] })],
+  plugins: [tsconfigPaths(), react(), babel({ presets: [reactCompilerPreset()] })],
   resolve: {
     alias: {
       '@': resolve(import.meta.dirname, 'src'),

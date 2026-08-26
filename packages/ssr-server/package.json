@@ -18,8 +18,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsdown",
-    "lint": "pnpm lint:type && pnpm lint:code",
-    "lint:code": "eslint . --cache",
+    "lint": "pnpm lint:type && nx lint:code",
     "lint:type": "tsc -b"
   },
   "dependencies": {

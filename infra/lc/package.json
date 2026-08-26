@@ -16,8 +16,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "liry-build",
-    "lint": "pnpm lint:type && pnpm lint:code",
-    "lint:code": "eslint . --cache",
+    "lint": "pnpm lint:type && nx lint:code",
     "lint:type": "tsc -b"
   },
   "devDependencies": {
