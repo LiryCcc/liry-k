@@ -156,15 +156,15 @@ pnpm prepare
 
 ### 全局命令（根目录）
 
-| 命令                | 说明                                       |
-| ------------------- | ------------------------------------------ |
-| `pnpm install`      | 安装所有依赖并通过 Nx 构建 TypeScript 包   |
-| `pnpm build`        | `nx run-many -t build`（不含 Rust / Java） |
-| `pnpm format`       | 格式化所有代码                             |
-| `pnpm pre-commit`   | 运行完整检查（格式、拼写、TS/Rust lint）   |
-| `pnpm lint:rust`    | 各 crate clippy                            |
-| `pnpm lint:rustfmt` | 检查 Rust 代码格式                         |
-| `nx show projects`  | 列出 TS / Rust / Java 项目                 |
+| 命令                | 说明                                               |
+| ------------------- | -------------------------------------------------- |
+| `pnpm install`      | 安装所有依赖并通过 Nx 构建 TypeScript 包           |
+| `pnpm build`        | `pnpm nx run-many -t build`（不含 Rust / Java）    |
+| `pnpm format`       | 格式化所有代码                                     |
+| `pnpm pre-commit`   | 运行完整检查（格式、拼写、TS/Rust lint）           |
+| `pnpm lint:rust`    | 各 crate clippy                                    |
+| `pnpm lint:rustfmt` | 检查 Rust 代码格式                                 |
+| `pnpm nx …`         | 经 `scripts/nx.mjs` 调用 Nx（自动加载根 `nx.env`） |
 
 ### 单包命令
 
@@ -187,7 +187,7 @@ pnpm --filter @liry-k/polaris tauri dev
 ```bash
 # 构建 mc-plugins（Gradle / Nx 均可）
 ./gradlew build
-pnpm exec nx run-many -t build --projects=tag:lang:java
+pnpm nx run-many -t build --projects=tag:lang:java
 ```
 
 ---

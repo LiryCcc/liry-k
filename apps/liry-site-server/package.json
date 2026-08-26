@@ -6,7 +6,7 @@
     "cf-typegen": "wrangler types --env-interface CloudflareBindings",
     "deploy": "wrangler deploy --minify",
     "dev": "wrangler dev",
-    "lint": "nx lint:code"
+    "lint": "eslint ."
   },
   "dependencies": {
     "hono": "^4.12.31"

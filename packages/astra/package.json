@@ -15,7 +15,7 @@
   "types": "./dist/index.d.ts",
   "scripts": {
     "build": "node ./build.ts",
-    "lint": "nx lint:code",
+    "lint": "eslint .",
     "lint:type": "tsc -b"
   },
   "devDependencies": {

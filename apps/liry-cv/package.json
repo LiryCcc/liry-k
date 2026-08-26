@@ -4,10 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm lint && nx vite:build",
-    "dev": "nx dev",
-    "lint": "nx lint:code && tsc -b",
-    "preview": "nx preview"
+    "build": "pnpm lint && vite build",
+    "dev": "vite",
+    "lint": "eslint . && tsc -b",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@liry-k/stellar": "workspace:*",

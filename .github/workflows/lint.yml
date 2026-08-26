@@ -98,8 +98,8 @@ jobs:
 
       # ── Rust test ──
       - name: Rust test
-        run: pnpm exec nx run-many -t test --projects=tag:lang:rust
+        run: pnpm nx run-many -t test --projects=tag:lang:rust
 
       # ── Java build ──
       - name: Java build
-        run: pnpm exec nx run-many -t build --projects=tag:lang:java
+        run: pnpm nx run-many -t build --projects=tag:lang:java

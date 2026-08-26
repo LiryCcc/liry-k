@@ -15,7 +15,7 @@
     "dev:firefox": "wxt -b firefox",
     "dev:safari": "wxt -b safari",
     "postinstall": "wxt prepare",
-    "lint": "pnpm lint:type && nx lint:code",
+    "lint": "pnpm lint:type && eslint .",
     "lint:type": "tsc -b",
     "zip": "node ./scripts/build-all.ts --zip",
     "zip:chrome": "wxt zip -b chrome",

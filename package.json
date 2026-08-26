@@ -3,16 +3,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nx run-many -t build --exclude=tag:lang:rust,tag:lang:java",
+    "build": "node scripts/nx.mjs run-many -t build --exclude=tag:lang:rust,tag:lang:java",
     "check-format": "prettier --check --cache .",
     "check-spell": "cspell .",
     "format": "prettier --write --cache . && pnpm -r format",
     "postinstall": "pnpm build",
     "lint": "pnpm pre-commit",
-    "lint:rust": "nx run-many -t lint:rust",
-    "lint:rustfmt": "nx run-many -t lint:rustfmt",
+    "lint:rust": "node scripts/nx.mjs run-many -t lint:rust",
+    "lint:rustfmt": "node scripts/nx.mjs run-many -t lint:rustfmt",
     "lint:style": "stylelint \"*/**/*.css\"",
-    "pre-commit": "nx run @liry-k/monorepo:check-format && nx run @liry-k/monorepo:check-spell && nx run @liry-k/monorepo:lint:style && nx run-many -t lint,lint:rustfmt",
+    "nx": "node scripts/nx.mjs",
+    "pre-commit": "node scripts/nx.mjs run @liry-k/monorepo:check-format && node scripts/nx.mjs run @liry-k/monorepo:check-spell && node scripts/nx.mjs run @liry-k/monorepo:lint:style && node scripts/nx.mjs run-many -t lint,lint:rustfmt",
     "prepare": "simple-git-hooks"
   },
   "simple-git-hooks": {

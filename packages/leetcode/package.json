@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "lint": "pnpm lint:type && nx lint:code",
+    "lint": "pnpm lint:type && eslint .",
     "lint:type": "tsc -b",
-    "test": "nx test"
+    "test": "vitest run"
   },
   "dependencies": {
     "datastructures-js": "catalog:",

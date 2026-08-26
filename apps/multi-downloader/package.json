@@ -20,7 +20,7 @@
   "scripts": {
     "build": "node ./build.ts",
     "download": "node dist/cli.js",
-    "lint": "pnpm lint:type && nx lint:code",
+    "lint": "pnpm lint:type && eslint .",
     "lint:type": "tsc -b"
   },
   "dependencies": {

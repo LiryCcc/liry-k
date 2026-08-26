@@ -5,15 +5,15 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "pnpm lint:type && nx vite:build",
-    "dev": "nx dev",
+    "build": "pnpm lint:type && vite build",
+    "dev": "vite",
     "format:rust": "cd src-tauri && cargo format",
-    "lint": "pnpm lint:type && nx lint:code",
+    "lint": "pnpm lint:type && eslint .",
     "lint:rust": "cd src-tauri && cargo lint",
     "lint:rustfmt": "cd src-tauri && cargo format-check",
     "lint:type": "tsc -b",
-    "serve": "nx preview",
-    "start": "nx dev",
+    "serve": "vite preview",
+    "start": "vite",
     "tauri": "tauri"
   },
   "dependencies": {
