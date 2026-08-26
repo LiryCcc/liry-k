@@ -1,3 +1,4 @@
+import { resolve } from 'node:path';
 import { defineConfig } from 'vitest/config';
 
 const vitestConfig = defineConfig({
@@ -5,7 +6,7 @@ const vitestConfig = defineConfig({
     testTimeout: 30000000,
     pool: 'threads',
     cache: {
-      dir: '../../node_modules/.vitest/packages/leetcode'
+      dir: resolve(import.meta.dirname, 'node_modules/.vitest')
     }
   }
 });
