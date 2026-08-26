@@ -1,4 +1,11 @@
-/** 所有子项目共享的配置，单个子项目只写自身特有部分即可。 */
+/**
+ * Nx 通过 companion 插件读取 Gradle 项目图。
+ * 所有子项目共享的配置，单个子项目只写自身特有部分即可。
+ */
+plugins {
+    id("dev.nx.gradle.project-graph") version ("0.1.24")
+}
+
 subprojects {
     apply(plugin = "java")
 
@@ -18,5 +25,11 @@ subprojects {
 
     extensions.configure<JavaPluginExtension> {
         toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    }
+}
+
+allprojects {
+    apply {
+        plugin("dev.nx.gradle.project-graph")
     }
 }

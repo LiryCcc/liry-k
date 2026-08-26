@@ -1,0 +1,48 @@
+{
+  "name": "polaris",
+  "projectType": "application",
+  "sourceRoot": "apps/polaris/src-tauri/src",
+  "tags": ["lang:rust"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo build -p polaris",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo clippy -p polaris --all-targets -- -D warnings",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "lint:rust": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo clippy -p polaris --all-targets -- -D warnings",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "lint:rustfmt": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo fmt -p polaris -- --check",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo test -p polaris",
+        "cwd": "{workspaceRoot}"
+      }
+    }
+  }
+}

@@ -7,3 +7,6 @@ target
 .gradle
 build
 .pnpm-store
+.nx/cache
+.nx/workspace-data
+.nx/migrate-runs

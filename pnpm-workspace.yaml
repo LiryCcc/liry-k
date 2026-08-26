@@ -13,6 +13,7 @@ allowBuilds:
   simple-git-hooks: false
   spawn-sync: false
   workerd: false
+  nx: true
 
 catalog:
   '@babel/core': ^7.29.7

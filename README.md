@@ -2,7 +2,7 @@
 
 ## 介绍
 
-本仓库是一个`monorepo`, 使用`pnpm`管理
+本仓库是一个`monorepo`，使用`pnpm`管理 TypeScript 包，使用 **Nx** 编排 TS / Rust / Java 任务。
 
 ## 环境要求
 

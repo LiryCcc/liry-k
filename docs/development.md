@@ -2,7 +2,7 @@
 
 ## 环境总览
 
-本仓库是一个多语言 monorepo，包含以下技术栈：
+本仓库是一个多语言 monorepo，包含以下技术栈。任务编排由 **Nx** 负责（`nx run-many` / `nx affected`）；Node、JDK、Gradle 版本仍由本机 / CI / Gradle Wrapper 与 toolchain 钉死，Nx 不加载工具链。
 
 | 技术栈               | 用途                       | 涉及目录                                    |
 | -------------------- | -------------------------- | ------------------------------------------- |
@@ -156,14 +156,15 @@ pnpm prepare
 
 ### 全局命令（根目录）
 
-| 命令                | 说明                                   |
-| ------------------- | -------------------------------------- |
-| `pnpm install`      | 安装所有依赖并构建                     |
-| `pnpm build`        | 构建所有包                             |
-| `pnpm format`       | 格式化所有代码                         |
-| `pnpm pre-commit`   | 运行完整检查（格式、拼写、lint、Rust） |
-| `pnpm lint:rust`    | 运行 cargo clippy                      |
-| `pnpm lint:rustfmt` | 检查 Rust 代码格式                     |
+| 命令                | 说明                                       |
+| ------------------- | ------------------------------------------ |
+| `pnpm install`      | 安装所有依赖并通过 Nx 构建 TypeScript 包   |
+| `pnpm build`        | `nx run-many -t build`（不含 Rust / Java） |
+| `pnpm format`       | 格式化所有代码                             |
+| `pnpm pre-commit`   | 运行完整检查（格式、拼写、TS/Rust lint）   |
+| `pnpm lint:rust`    | 各 crate clippy                            |
+| `pnpm lint:rustfmt` | 检查 Rust 代码格式                         |
+| `nx show projects`  | 列出 TS / Rust / Java 项目                 |
 
 ### 单包命令
 
@@ -184,8 +185,9 @@ pnpm --filter @liry-k/polaris tauri dev
 ### Java 插件
 
 ```bash
-# 构建 mc-plugins
+# 构建 mc-plugins（Gradle / Nx 均可）
 ./gradlew build
+pnpm exec nx run-many -t build --projects=tag:lang:java
 ```
 
 ---

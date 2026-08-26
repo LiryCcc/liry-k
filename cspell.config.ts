@@ -5,6 +5,8 @@ const cspellConfig = defineConfig({
     'node_modules',
     '**/package.json',
     '**/pnpm-lock.yaml',
+    '**/nx.json',
+    '**/project.json',
     '**/dist',
     'rust-packages/**/target',
     'apps/polaris/src-tauri/**',
@@ -14,7 +16,8 @@ const cspellConfig = defineConfig({
     '**/gradlew',
     '**/build.gradle.kts',
     '**/settings.gradle.kts',
-    '**/worker-configuration.d.ts'
+    '**/worker-configuration.d.ts',
+    '.nx'
   ],
   useGitignore: true,
   version: '0.2',
@@ -106,7 +109,8 @@ const cspellConfig = defineConfig({
     'Lightformer',
     'Lightformers',
     'githack',
-    'multisampling'
+    'multisampling',
+    'run-many'
   ]
 });
 

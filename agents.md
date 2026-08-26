@@ -4,8 +4,8 @@
 
 ## 仓库概览
 
-- **包管理**：`pnpm` workspace monorepo；根目录脚本会做格式、拼写与各包 `lint`。
-- **环境**：`node >= 24`、`pnpm >= 10`（见根目录 `readme.md`）；Rust 由系统 `rustup` / `cargo` 管理；Java 由 Gradle toolchain 指定 JDK 21。
+- **包管理**：`pnpm` workspace + Cargo workspace + Gradle；**Nx** 负责任务编排（缓存、依赖顺序、`affected`）。
+- **环境**：`node >= 24`、`pnpm >= 10`（见根目录 `readme.md`）；Rust 由系统 `rustup` / `cargo` 管理；Java 由 Gradle toolchain 指定 JDK 21。Nx **不**下载或切换这些工具链版本。
 - **包命名**：见下文「npm 包命名」；代号权威列表见根目录 `readme.md` 中的「项目代号表」。
 - **多语言**：Node.js / TypeScript（`apps/`、`packages/`、`infra/`、`demos/`）、Rust（`rust-packages/`、`apps/polaris/src-tauri/`）、Java（`mc-plugins/`）。更完整的环境说明见 `docs/development.md`。
 
@@ -31,21 +31,24 @@ pnpm workspace 四区：
 
 ### 根目录（全仓库）
 
-| 命令                | 说明                                                                                     |
-| ------------------- | ---------------------------------------------------------------------------------------- |
-| `pnpm install`      | 安装依赖；`postinstall` 会触发各包 `build`                                               |
-| `pnpm build`        | 递归构建所有 workspace 包                                                                |
-| `pnpm format`       | Prettier 格式化全仓库 + 各包自有 `format` 脚本（如 `infra/proto`）                       |
-| `pnpm check-format` | 仅检查 Prettier 格式，不写入                                                             |
-| `pnpm check-spell`  | cspell 拼写检查                                                                          |
-| `pnpm lint:style`   | stylelint，范围 `apps/**/*.css`、`packages/**/*.css`、`infra/**/*.css`、`demos/**/*.css` |
-| `pnpm pre-commit`   | **提交前完整检查**（等同 git pre-commit hook）                                           |
-| `pnpm lint`         | 别名，指向 `pnpm pre-commit`                                                             |
-| `pnpm lint:rust`    | `cargo clippy --workspace --all-targets -- -D warnings`                                  |
-| `pnpm lint:rustfmt` | `cargo fmt --all --check`                                                                |
-| `pnpm sg`           | ast-grep CLI（代码搜索与替换，见下文「ast-grep」）                                       |
+| 命令                  | 说明                                                                                     |
+| --------------------- | ---------------------------------------------------------------------------------------- |
+| `pnpm install`        | 安装依赖；`postinstall` 会通过 Nx 构建 pnpm 包（不含 Rust / Java）                       |
+| `pnpm build`          | `nx run-many -t build`，仅 TypeScript 包                                                 |
+| `pnpm format`         | Prettier 格式化全仓库 + 各包自有 `format` 脚本（如 `infra/proto`）                       |
+| `pnpm check-format`   | 仅检查 Prettier 格式，不写入                                                             |
+| `pnpm check-spell`    | cspell 拼写检查                                                                          |
+| `pnpm lint:style`     | stylelint，范围 `apps/**/*.css`、`packages/**/*.css`、`infra/**/*.css`、`demos/**/*.css` |
+| `pnpm pre-commit`     | **提交前完整检查**（等同 git pre-commit hook）                                           |
+| `pnpm lint`           | 别名，指向 `pnpm pre-commit`                                                             |
+| `pnpm lint:rust`      | `nx run-many -t lint:rust`（各 crate clippy）                                            |
+| `pnpm lint:rustfmt`   | `nx run-many -t lint:rustfmt`                                                            |
+| `pnpm sg`             | ast-grep CLI（代码搜索与替换，见下文「ast-grep」）                                       |
+| `nx show projects`    | 列出 Nx 项目（pnpm 包、Rust crate、Gradle 模块）                                         |
+| `nx run-many -t lint` | 按依赖顺序跑各项目 `lint`                                                                |
+| `nx affected -t lint` | 只跑相对基线受影响的项目                                                                 |
 
-`pnpm pre-commit` 依次执行：`check-format` → `check-spell` → `lint:style` → `pnpm -r lint` → `lint:rust` → `lint:rustfmt`。
+`pnpm pre-commit` 依次执行：根目录 `check-format` → `check-spell` → `lint:style` → `nx run-many -t lint,lint:rustfmt`。
 
 ### 单包（TypeScript / Node.js）
 

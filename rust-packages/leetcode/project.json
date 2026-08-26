@@ -1,0 +1,48 @@
+{
+  "name": "leetcode",
+  "projectType": "library",
+  "sourceRoot": "rust-packages/leetcode/src",
+  "tags": ["lang:rust"],
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo build -p leetcode",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo clippy -p leetcode --all-targets -- -D warnings",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "lint:rust": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo clippy -p leetcode --all-targets -- -D warnings",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "lint:rustfmt": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo fmt -p leetcode -- --check",
+        "cwd": "{workspaceRoot}"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "cargo test -p leetcode",
+        "cwd": "{workspaceRoot}"
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # 在 ubuntu / macos / windows 三个平台并行运行，每个平台内串行完成：
 #   1. 安装所有语言依赖（pnpm / Rust toolchain / Java）
-#   2. 执行各语言 lint/build（pnpm pre-commit / cargo clippy+fmt / gradlew build）
+#   2. 通过 Nx 执行各语言 lint / test / build
 name: Lint
 
 on:
@@ -92,20 +92,14 @@ jobs:
       - name: Download Gradle dependencies
         run: ./gradlew dependencies --no-daemon
 
-      # ── JS/TS lint ──
-      - name: JS/TS lint
+      # ── 全仓库检查（TS lint + Rust clippy/fmt）──
+      - name: Lint TypeScript and Rust
         run: pnpm pre-commit
 
-      # ── Rust lint ──
-      - name: Rust clippy
-        run: cargo clippy --workspace --all-targets -- -D warnings
-
-      - name: Rust rustfmt
-        run: cargo fmt --all --check
-
+      # ── Rust test ──
       - name: Rust test
-        run: cargo test --workspace
+        run: pnpm exec nx run-many -t test --projects=tag:lang:rust
 
       # ── Java build ──
       - name: Java build
-        run: ./gradlew build --no-daemon
+        run: pnpm exec nx run-many -t build --projects=tag:lang:java
