@@ -3,17 +3,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "turbo run build",
     "check-format": "prettier --check --cache .",
     "check-spell": "cspell .",
-    "format": "prettier --write --cache . && pnpm -r format",
+    "format": "prettier --write --cache . && turbo run format",
     "postinstall": "pnpm build",
     "lint": "pnpm pre-commit",
     "lint:rust": "cargo clippy --workspace --all-targets -- -D warnings",
     "lint:rustfmt": "cargo fmt --all --check",
     "lint:style": "stylelint \"*/**/*.css\"",
-    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm lint:style && pnpm -r lint && pnpm lint:rust && pnpm lint:rustfmt",
-    "prepare": "simple-git-hooks"
+    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm lint:style && turbo run lint && pnpm lint:rust && pnpm lint:rustfmt",
+    "prepare": "simple-git-hooks",
+    "test": "turbo run test"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm pre-commit",
@@ -35,6 +36,8 @@
     "simple-git-hooks": "^2.13.1",
     "stylelint": "^17.14.1",
     "stylelint-config-standard": "^40.0.0",
+    "turbo": "^2.10.11",
     "typescript-eslint": "catalog:"
-  }
+  },
+  "packageManager": "pnpm@11.17.0+sha512.cca3cea332ad254bb84145f966d19f4879615210346fc92c79a047f23a0d7b3cca3c3792f0076ba1f1831d277efbcf0a9119b31a9a60eca7fb3d6231f331ef72"
 }
