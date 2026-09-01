@@ -1,5 +1,6 @@
-# Enable JavaScript via Node + pnpm. Versions are not pinned here so moon
-# uses the machine / CI toolchain (see readme.md: node >= 24, pnpm >= 10).
+# Enable JavaScript via Node + pnpm, and Rust via Cargo. Versions are not
+# pinned here so moon uses the machine / CI toolchain (node >= 24, pnpm >= 10,
+# rustup, JDK 21 via Gradle). Java tasks use the system Gradle Wrapper.
 javascript:
   packageManager: 'pnpm'
   inferTasksFromScripts: true
@@ -12,3 +13,6 @@ javascript:
 
 node: {}
 pnpm: {}
+
+rust:
+  installDependencies: false

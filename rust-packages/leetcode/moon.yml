@@ -1,0 +1,3 @@
+id: rust-leetcode
+language: rust
+layer: library

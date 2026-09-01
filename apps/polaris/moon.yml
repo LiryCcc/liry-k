@@ -1,0 +1,11 @@
+# Keep package.json rust helpers for `pnpm --filter`; do not run them via :task.
+tasks:
+  format-rust:
+    options:
+      internal: true
+  lint-rust:
+    options:
+      internal: true
+  lint-rustfmt:
+    options:
+      internal: true

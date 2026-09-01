@@ -8,7 +8,7 @@
     "build": "pnpm lint:type && vite build",
     "dev": "vite dev",
     "format:rust": "cd src-tauri && cargo format",
-    "lint": "pnpm lint:type && pnpm lint:code && pnpm lint:rust && pnpm lint:rustfmt",
+    "lint": "pnpm lint:type && pnpm lint:code",
     "lint:code": "eslint . --cache",
     "lint:rust": "cd src-tauri && cargo lint",
     "lint:rustfmt": "cd src-tauri && cargo format-check",

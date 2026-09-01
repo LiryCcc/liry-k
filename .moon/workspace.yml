@@ -1,11 +1,17 @@
 # Configures all projects within the workspace to create a project graph.
-# npm packages only (apps / packages / infra / demos). Rust and Java stay
-# outside moon for now.
+# npm packages via globs; Rust crates and the nested Tauri crate via sources
+# (`rust-packages/*` would also match files like `.gitignore`).
 projects:
-  - 'apps/*'
-  - 'packages/*'
-  - 'infra/*'
-  - 'demos/*'
+  globs:
+    - 'apps/*'
+    - 'packages/*'
+    - 'infra/*'
+    - 'demos/*'
+    - 'mc-plugins/*'
+  sources:
+    polaris-tauri: 'apps/polaris/src-tauri'
+    rust-leetcode: 'rust-packages/leetcode'
+    sirius: 'rust-packages/sirius'
 
 vcs:
   defaultBranch: 'main'

@@ -4,7 +4,7 @@
 
 ## 仓库概览
 
-- **包管理**：`pnpm` workspace monorepo；**moon** 负责任务编排与缓存（目前仅覆盖 npm 包：`apps/`、`packages/`、`infra/`、`demos/`）。
+- **包管理**：`pnpm` workspace monorepo；**moon** 负责任务编排与缓存（npm 包、Rust crate、Java 插件）。
 - **环境**：`node >= 24`、`pnpm >= 10`（见根目录 `readme.md`）；Rust 由系统 `rustup` / `cargo` 管理；Java 由 Gradle toolchain 指定 JDK 21。moon **不**下载或切换这些工具链版本。
 - **包命名**：见下文「npm 包命名」；代号权威列表见根目录 `readme.md` 中的「项目代号表」。
 - **多语言**：Node.js / TypeScript（`apps/`、`packages/`、`infra/`、`demos/`）、Rust（`rust-packages/`、`apps/polaris/src-tauri/`）、Java（`mc-plugins/`）。更完整的环境说明见 `docs/development.md`。
@@ -34,21 +34,21 @@ pnpm workspace 四区：
 | 命令                | 说明                                                                                     |
 | ------------------- | ---------------------------------------------------------------------------------------- |
 | `pnpm install`      | 安装依赖；`postinstall` 会通过 moon 构建有 `build` 脚本的 npm 包                         |
-| `pnpm build`        | `moon run :build`，按依赖图构建并缓存                                                    |
-| `pnpm test`         | `moon run :test`（仅有 `test` 脚本的包，如 `@liry-k/leetcode`）                          |
+| `pnpm build`        | `moon run :build`（仅 JavaScript；不含 Rust / Java，避免 postinstall 编译 Tauri）        |
+| `pnpm test`         | `moon run :test`（Vitest、Cargo、Gradle）                                                |
 | `pnpm format`       | Prettier 格式化全仓库 + `moon run :format`（各包自有 `format`，如 `infra/proto`）        |
 | `pnpm check-format` | 仅检查 Prettier 格式，不写入                                                             |
 | `pnpm check-spell`  | cspell 拼写检查                                                                          |
 | `pnpm lint:style`   | stylelint，范围 `apps/**/*.css`、`packages/**/*.css`、`infra/**/*.css`、`demos/**/*.css` |
 | `pnpm pre-commit`   | **提交前完整检查**（等同 git pre-commit hook）                                           |
 | `pnpm lint`         | 别名，指向 `pnpm pre-commit`                                                             |
-| `pnpm lint:rust`    | `cargo clippy --workspace --all-targets -- -D warnings`                                  |
-| `pnpm lint:rustfmt` | `cargo fmt --all --check`                                                                |
+| `pnpm lint:rust`    | `moon run :lint --query language=rust`（各 crate clippy）                                |
+| `pnpm lint:rustfmt` | `moon run :lint-rustfmt --query language=rust`                                           |
 | `pnpm sg`           | ast-grep CLI（代码搜索与替换，见下文「ast-grep」）                                       |
 
-`pnpm pre-commit` 依次执行：`check-format` → `check-spell` → `lint:style` → `moon run :lint` → `lint:rust` → `lint:rustfmt`。
+`pnpm pre-commit` 依次执行：`check-format` → `check-spell` → `lint:style` → `moon run :lint` → `pnpm lint:rustfmt`。
 
-任务图与缓存见 `.moon/workspace.yml`、`.moon/toolchains.yml`。moon 从各包 `package.json` scripts 推断任务（`javascript.inferTasksFromScripts`）。Rust / Java 暂不纳入 moon。
+任务图与缓存见 `.moon/workspace.yml`、`.moon/toolchains.yml`。moon 从各包 `package.json` scripts 推断 npm 任务（`javascript.inferTasksFromScripts`）；Rust / Java 任务分别见 `.moon/tasks/rust.yml` 与各 crate / `mc-plugins/vega` 的 `moon.yml`。
 
 ### 单包（TypeScript / Node.js）
 
@@ -294,7 +294,7 @@ pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
 
 ### 工具链
 
-- **Lint**：`pnpm lint:rust` 或 `cargo lint`（workspace 级 clippy，`-D warnings`）。
+- **Lint**：`pnpm lint:rust`（moon 对各 crate clippy）或 `cargo lint`（workspace 级 clippy，`-D warnings`）。
 - **格式化**：`pnpm lint:rustfmt` 检查；`cargo format` 写入。`rust-packages/sirius` 使用 `rustfmt.toml`（`style_edition = "2024"`、`tab_spaces = 2`）。
 - **编译**：根 `Cargo.toml` workspace；`.cargo/config.toml` 配置编译期 `-D warnings`，使警告视为错误。
 

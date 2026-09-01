@@ -1,0 +1,39 @@
+language: java
+layer: application
+
+tasks:
+  build:
+    command: ./gradlew
+    args:
+      - :vega:build
+      - --no-daemon
+    inputs:
+      - 'src/**/*'
+      - 'build.gradle.kts'
+    options:
+      runFromWorkspaceRoot: true
+      cache: false
+      mergeArgs: replace
+  lint:
+    command: ./gradlew
+    args:
+      - :vega:classes
+      - --no-daemon
+    inputs:
+      - 'src/**/*'
+      - 'build.gradle.kts'
+    options:
+      runFromWorkspaceRoot: true
+      mergeArgs: replace
+  test:
+    command: ./gradlew
+    args:
+      - :vega:test
+      - --no-daemon
+    inputs:
+      - 'src/**/*'
+      - 'build.gradle.kts'
+    options:
+      runFromWorkspaceRoot: true
+      cache: false
+      mergeArgs: replace

@@ -1,0 +1,56 @@
+# Only Rust crates inherit these tasks. Without inheritedBy, moon applies this
+# file to every project and merges cargo args into pnpm / Gradle commands.
+inheritedBy:
+  language: rust
+
+env:
+  CARGO_TERM_COLOR: always
+
+fileGroups:
+  sources:
+    - 'src/**/*'
+    - 'Cargo.toml'
+    - 'build.rs'
+    - 'rustfmt.toml'
+  tests:
+    - 'tests/**/*'
+    - 'benches/**/*'
+    - 'src/**/*.rs'
+
+implicitInputs:
+  - '/Cargo.toml'
+  - '/Cargo.lock'
+
+tasks:
+  build:
+    command: cargo build
+    inputs:
+      - '@globs(sources)'
+    options:
+      # Cargo incremental cache lives in target/; do not tarball it.
+      cache: false
+  lint:
+    command: cargo clippy
+    args:
+      - --all-targets
+      - --all-features
+      - '--'
+      - -D
+      - warnings
+    inputs:
+      - '@globs(sources)'
+      - '@globs(tests)'
+  lint-rustfmt:
+    command: cargo fmt
+    args:
+      - --check
+    inputs:
+      - '@globs(sources)'
+      - '@globs(tests)'
+  test:
+    command: cargo test
+    inputs:
+      - '@globs(sources)'
+      - '@globs(tests)'
+    options:
+      cache: false

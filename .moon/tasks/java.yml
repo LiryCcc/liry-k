@@ -1,0 +1,7 @@
+inheritedBy:
+  language: java
+
+implicitInputs:
+  - '/build.gradle.kts'
+  - '/settings.gradle.kts'
+  - '/gradle/wrapper/gradle-wrapper.properties'

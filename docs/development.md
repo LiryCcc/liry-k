@@ -2,7 +2,7 @@
 
 ## 环境总览
 
-本仓库是一个多语言 monorepo。npm 包任务由 **moon**（`.moon/`）编排与缓存；Rust / Java 仍分别由 Cargo / Gradle 管理，尚未纳入 moon。
+本仓库是一个多语言 monorepo。任务由 **moon**（`.moon/`）编排与缓存；Node / Rust / JDK 版本仍由本机、CI、Gradle toolchain 管理，moon 不下载这些工具链。
 
 | 技术栈               | 用途                       | 涉及目录                                    |
 | -------------------- | -------------------------- | ------------------------------------------- |
@@ -156,15 +156,15 @@ pnpm prepare
 
 ### 全局命令（根目录）
 
-| 命令                | 说明                                       |
-| ------------------- | ------------------------------------------ |
-| `pnpm install`      | 安装所有依赖并通过 moon 构建 TypeScript 包 |
-| `pnpm build`        | `moon run :build`（按依赖图构建并缓存）    |
-| `pnpm test`         | `moon run :test`                           |
-| `pnpm format`       | Prettier + `moon run :format`              |
-| `pnpm pre-commit`   | 运行完整检查（格式、拼写、lint、Rust）     |
-| `pnpm lint:rust`    | 运行 cargo clippy                          |
-| `pnpm lint:rustfmt` | 检查 Rust 代码格式                         |
+| 命令                | 说明                                             |
+| ------------------- | ------------------------------------------------ |
+| `pnpm install`      | 安装所有依赖并通过 moon 构建 TypeScript 包       |
+| `pnpm build`        | `moon run :build`（仅 npm 包，不含 Rust / Java） |
+| `pnpm test`         | `moon run :test`（Vitest / Cargo / Gradle）      |
+| `pnpm format`       | Prettier + `moon run :format`                    |
+| `pnpm pre-commit`   | 运行完整检查（格式、拼写、TS/Rust/Java lint）    |
+| `pnpm lint:rust`    | 各 crate clippy                                  |
+| `pnpm lint:rustfmt` | 检查 Rust 代码格式                               |
 
 ### 单包命令
 
@@ -185,8 +185,9 @@ pnpm --filter @liry-k/polaris tauri dev
 ### Java 插件
 
 ```bash
-# 构建 mc-plugins
+# 构建 mc-plugins（Gradle / moon 均可）
 ./gradlew build
+pnpm exec moon run vega:build
 ```
 
 ---
