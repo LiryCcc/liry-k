@@ -303,6 +303,9 @@ importers:
       '@ast-grep/cli':
         specifier: ^0.44.1
         version: 0.44.1
+      '@bazel/bazelisk':
+        specifier: ^1.28.1
+        version: 1.28.1
       '@commitlint/cli':
         specifier: ^21.2.1
         version: 21.2.1(@types/node@24.13.3)(conventional-commits-parser@7.1.0)(typescript@6.0.3)
@@ -1890,6 +1893,11 @@ packages:
     resolution:
       { integrity: sha512-K8ponJDxBwDHigkeFqaqT5wLGl4bTlwMafR8k7b5CPxr6Ww+UG9ls8Yx6Tcpboxu97eeGVEEyKcHmEyOwN1vSw== }
     engines: { node: ^22.18.0 || >=24.11.0 }
+
+  '@bazel/bazelisk@1.28.1':
+    resolution:
+      { integrity: sha512-K21x83NXOtd0yb2qzjMES3UV4xEWZ1q1vnXFhADA1u7IoiMVQkJAVQRK3oZ5txpnrGafY15HS+YYr2nmsEP4Tg== }
+    hasBin: true
 
   '@bcoe/v8-coverage@1.0.2':
     resolution:
@@ -11247,6 +11255,8 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 8.0.0
       '@babel/helper-validator-identifier': 8.0.2
+
+  '@bazel/bazelisk@1.28.1': {}
 
   '@bcoe/v8-coverage@1.0.2': {}
 

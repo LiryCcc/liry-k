@@ -4,8 +4,8 @@
 
 ## 仓库概览
 
-- **包管理**：`pnpm` workspace monorepo；根目录脚本会做格式、拼写与各包 `lint`。
-- **环境**：`node >= 24`、`pnpm >= 10`（见根目录 `readme.md`）；Rust 由系统 `rustup` / `cargo` 管理；Java 由 Gradle toolchain 指定 JDK 21。
+- **包管理**：`pnpm` workspace monorepo；**Bazel**（`MODULE.bazel`、`tasks/`）编排 lint / test / build（npm、Rust、Java）。Node / Rust / JDK 仍由本机或 CI 工具链提供，Bazel 不下载这些运行时。
+- **环境**：`node >= 24`、`pnpm >= 10`（见根目录 `readme.md`）；Bazel 由 `@bazel/bazelisk` 或系统 `bazelisk` 提供（见 `.bazelversion`）；Rust 由系统 `rustup` / `cargo` 管理；Java 由 Gradle toolchain 指定 JDK 21。
 - **包命名**：见下文「npm 包命名」；代号权威列表见根目录 `readme.md` 中的「项目代号表」。
 - **多语言**：Node.js / TypeScript（`apps/`、`packages/`、`infra/`、`demos/`）、Rust（`rust-packages/`、`apps/polaris/src-tauri/`）、Java（`mc-plugins/`）。更完整的环境说明见 `docs/development.md`。
 
@@ -33,19 +33,22 @@ pnpm workspace 四区：
 
 | 命令                | 说明                                                                                     |
 | ------------------- | ---------------------------------------------------------------------------------------- |
-| `pnpm install`      | 安装依赖；`postinstall` 会触发各包 `build`                                               |
-| `pnpm build`        | 递归构建所有 workspace 包                                                                |
+| `pnpm install`      | 安装依赖；`postinstall` 会通过 Bazel 构建 npm 包                                         |
+| `pnpm build`        | `bazel run //tasks:npm_build`                                                            |
+| `pnpm test`         | `bazel test //tasks:all_test`（Vitest / Cargo / Gradle）                                 |
 | `pnpm format`       | Prettier 格式化全仓库 + 各包自有 `format` 脚本（如 `infra/proto`）                       |
 | `pnpm check-format` | 仅检查 Prettier 格式，不写入                                                             |
 | `pnpm check-spell`  | cspell 拼写检查                                                                          |
 | `pnpm lint:style`   | stylelint，范围 `apps/**/*.css`、`packages/**/*.css`、`infra/**/*.css`、`demos/**/*.css` |
 | `pnpm pre-commit`   | **提交前完整检查**（等同 git pre-commit hook）                                           |
 | `pnpm lint`         | 别名，指向 `pnpm pre-commit`                                                             |
-| `pnpm lint:rust`    | `cargo clippy --workspace --all-targets -- -D warnings`                                  |
-| `pnpm lint:rustfmt` | `cargo fmt --all --check`                                                                |
+| `pnpm lint:rust`    | `bazel test //tasks:rust_lint`                                                           |
+| `pnpm lint:rustfmt` | `bazel test //tasks:rust_rustfmt`                                                        |
 | `pnpm sg`           | ast-grep CLI（代码搜索与替换，见下文「ast-grep」）                                       |
 
-`pnpm pre-commit` 依次执行：`check-format` → `check-spell` → `lint:style` → `pnpm -r lint` → `lint:rust` → `lint:rustfmt`。
+`pnpm pre-commit` 依次执行：`check-format` → `check-spell` → `lint:style` → `bazel test`（npm / Rust / Java lint targets）。
+
+Bazel 任务定义见 `tasks/BUILD.bazel` 与 `tools/bazel/run-in-workspace.sh`；`pnpm exec bazel test //tasks/...` 可直接调用单个 target。
 
 ### 单包（TypeScript / Node.js）
 
@@ -291,7 +294,7 @@ pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
 
 ### 工具链
 
-- **Lint**：`pnpm lint:rust` 或 `cargo lint`（workspace 级 clippy，`-D warnings`）。
+- **Lint**：`pnpm lint:rust`（Bazel `//tasks:rust_lint`）或 `cargo lint`（workspace 级 clippy，`-D warnings`）。
 - **格式化**：`pnpm lint:rustfmt` 检查；`cargo format` 写入。`rust-packages/sirius` 使用 `rustfmt.toml`（`style_edition = "2024"`、`tab_spaces = 2`）。
 - **编译**：根 `Cargo.toml` workspace；`.cargo/config.toml` 配置编译期 `-D warnings`，使警告视为错误。
 

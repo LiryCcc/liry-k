@@ -106,7 +106,14 @@ const cspellConfig = defineConfig({
     'Lightformer',
     'Lightformers',
     'githack',
-    'multisampling'
+    'multisampling',
+    'bazel',
+    'bazelisk',
+    'bazelversion',
+    'bzlmod',
+    'srcs',
+    'starlark',
+    'runfiles'
   ]
 });
 

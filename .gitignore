@@ -8,3 +8,5 @@ target
 build
 .pnpm-store
 .nx
+bazel-*
+.bazelbazel

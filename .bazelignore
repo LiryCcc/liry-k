@@ -1,0 +1,8 @@
+node_modules
+.moon
+.nx
+.turbo
+target
+.gradle
+dist
+.pnpm-store

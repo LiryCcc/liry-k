@@ -1,6 +1,6 @@
 # 在 ubuntu / macos / windows 三个平台并行运行，每个平台内串行完成：
 #   1. 安装所有语言依赖（pnpm / Rust toolchain / Java）
-#   2. 执行各语言 lint/build（pnpm pre-commit / cargo clippy+fmt / gradlew build）
+#   2. 通过 Bazel 执行各语言 lint / test / build
 name: Lint
 
 on:
@@ -50,6 +50,9 @@ jobs:
           node-version: '24'
           cache: 'pnpm'
 
+      - name: Setup Bazel
+        uses: bazel-contrib/setup-bazel@v0.9.0
+
       - name: Install pnpm dependencies
         run: pnpm install
 
@@ -92,20 +95,18 @@ jobs:
       - name: Download Gradle dependencies
         run: ./gradlew dependencies --no-daemon
 
-      # ── JS/TS lint ──
-      - name: JS/TS lint
-        run: pnpm pre-commit
+      # ── JS / Rust / Java lint（Bazel）──
+      - name: Lint
+        run: |
+          pnpm run check-format
+          pnpm run check-spell
+          pnpm run lint:style
+          bazel test //tasks:npm_lint //tasks:rust_lint //tasks:rust_rustfmt //tasks:java_lint
 
-      # ── Rust lint ──
-      - name: Rust clippy
-        run: cargo clippy --workspace --all-targets -- -D warnings
-
-      - name: Rust rustfmt
-        run: cargo fmt --all --check
-
-      - name: Rust test
-        run: cargo test --workspace
+      # ── Rust + Java + npm test ──
+      - name: Test
+        run: bazel test //tasks:all_test
 
       # ── Java build ──
       - name: Java build
-        run: ./gradlew build --no-daemon
+        run: bazel run //tasks:java_build

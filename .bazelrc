@@ -1,0 +1,11 @@
+# Common Bazel settings for the liry-k monorepo.
+common --enable_bzlmod
+
+# Orchestration targets shell out to pnpm / cargo / Gradle on the host.
+build --spawn_strategy=local
+test --spawn_strategy=local
+test --test_output=errors
+test --test_summary=short
+test --test_env=HOME
+test --test_env=USER
+test --test_env=PATH

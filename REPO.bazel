@@ -1,0 +1,2 @@
+# Bazel 8+: ignore pnpm node_modules trees in the source tree.
+ignore_directories(["/node_modules"])

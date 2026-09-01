@@ -2,7 +2,7 @@
 
 ## 环境总览
 
-本仓库是一个多语言 monorepo，包含以下技术栈：
+本仓库是一个多语言 monorepo。任务由 **Bazel**（`MODULE.bazel`、`tasks/`）编排；Node / Rust / JDK 版本仍由本机、CI、Gradle toolchain 管理，Bazel 不下载这些工具链。
 
 | 技术栈               | 用途                       | 涉及目录                                    |
 | -------------------- | -------------------------- | ------------------------------------------- |
@@ -156,14 +156,17 @@ pnpm prepare
 
 ### 全局命令（根目录）
 
-| 命令                | 说明                                   |
-| ------------------- | -------------------------------------- |
-| `pnpm install`      | 安装所有依赖并构建                     |
-| `pnpm build`        | 构建所有包                             |
-| `pnpm format`       | 格式化所有代码                         |
-| `pnpm pre-commit`   | 运行完整检查（格式、拼写、lint、Rust） |
-| `pnpm lint:rust`    | 运行 cargo clippy                      |
-| `pnpm lint:rustfmt` | 检查 Rust 代码格式                     |
+| 命令                | 说明                                                   |
+| ------------------- | ------------------------------------------------------ |
+| `pnpm install`      | 安装所有依赖并通过 Bazel 构建 npm 包                   |
+| `pnpm build`        | `bazel run //tasks:npm_build`                          |
+| `pnpm test`         | `bazel test //tasks:all_test`                          |
+| `pnpm format`       | Prettier + 各包 `format`                               |
+| `pnpm pre-commit`   | `bazel test //tasks:pre_commit`（TS/Rust/Java 全检查） |
+| `pnpm lint:rust`    | `bazel test //tasks:rust_lint`                         |
+| `pnpm lint:rustfmt` | `bazel test //tasks:rust_rustfmt`                      |
+
+安装 [Bazelisk](https://github.com/bazelbuild/bazelisk) 或使用 `@bazel/bazelisk`（`pnpm exec bazel …`）。版本见根目录 `.bazelversion`。
 
 ### 单包命令
 
@@ -184,8 +187,9 @@ pnpm --filter @liry-k/polaris tauri dev
 ### Java 插件
 
 ```bash
-# 构建 mc-plugins
+# 构建 mc-plugins（Gradle / Bazel 均可）
 ./gradlew build
+pnpm exec bazel run //tasks:java_build
 ```
 
 ---

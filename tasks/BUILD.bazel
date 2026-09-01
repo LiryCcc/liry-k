@@ -1,0 +1,96 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+load("@rules_shell//shell:sh_test.bzl", "sh_test")
+
+_COMMON_TAGS = [
+    "local",
+    "requires-network",
+]
+
+_RUNNER = "//tools/bazel:run-in-workspace.sh"
+
+sh_binary(
+    name = "npm_build",
+    srcs = [_RUNNER],
+    args = ["pnpm", "-r", "build"],
+    tags = _COMMON_TAGS,
+)
+
+sh_test(
+    name = "npm_lint",
+    srcs = [_RUNNER],
+    args = ["pnpm", "-r", "lint"],
+    tags = _COMMON_TAGS,
+)
+
+sh_test(
+    name = "npm_test",
+    srcs = [_RUNNER],
+    args = ["pnpm", "-r", "--if-present", "test"],
+    tags = _COMMON_TAGS,
+)
+
+sh_test(
+    name = "pre_commit",
+    srcs = ["//tools/bazel:pre-commit.sh"],
+    tags = _COMMON_TAGS,
+)
+
+sh_test(
+    name = "rust_lint",
+    srcs = [_RUNNER],
+    args = [
+        "cargo",
+        "clippy",
+        "--workspace",
+        "--all-targets",
+        "--all-features",
+        "--",
+        "-D",
+        "warnings",
+    ],
+    tags = _COMMON_TAGS,
+)
+
+sh_test(
+    name = "rust_rustfmt",
+    srcs = [_RUNNER],
+    args = ["cargo", "fmt", "--all", "--check"],
+    tags = _COMMON_TAGS,
+)
+
+sh_test(
+    name = "rust_test",
+    srcs = [_RUNNER],
+    args = ["cargo", "test", "--workspace"],
+    tags = _COMMON_TAGS,
+)
+
+sh_test(
+    name = "java_lint",
+    srcs = [_RUNNER],
+    args = ["./gradlew", ":vega:classes", "--no-daemon"],
+    tags = _COMMON_TAGS,
+)
+
+sh_binary(
+    name = "java_build",
+    srcs = [_RUNNER],
+    args = ["./gradlew", ":vega:build", "--no-daemon"],
+    tags = _COMMON_TAGS,
+)
+
+sh_test(
+    name = "java_test",
+    srcs = [_RUNNER],
+    args = ["./gradlew", ":vega:test", "--no-daemon"],
+    tags = _COMMON_TAGS,
+)
+
+test_suite(
+    name = "all_test",
+    tests = [
+        ":npm_test",
+        ":rust_test",
+        ":java_test",
+    ],
+)
