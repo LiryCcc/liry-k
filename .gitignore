@@ -5,6 +5,15 @@ dist
 .DS_Store
 target
 .gradle
-build
 .pnpm-store
 .nx
+.turbo
+# Gradle / Java output; keep the `infra/build` package tracked
+build
+!infra/build
+!infra/build/**
+infra/build/node_modules
+
+# moon
+.moon/cache
+.moon/docker

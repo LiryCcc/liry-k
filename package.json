@@ -3,17 +3,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "pnpm -r build",
+    "build": "moon run :build",
     "check-format": "prettier --check --cache .",
     "check-spell": "cspell .",
-    "format": "prettier --write --cache . && pnpm -r format",
+    "format": "prettier --write --cache . && moon run :format",
     "postinstall": "pnpm build",
     "lint": "pnpm pre-commit",
     "lint:rust": "cargo clippy --workspace --all-targets -- -D warnings",
     "lint:rustfmt": "cargo fmt --all --check",
     "lint:style": "stylelint \"*/**/*.css\"",
-    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm lint:style && pnpm -r lint && pnpm lint:rust && pnpm lint:rustfmt",
-    "prepare": "simple-git-hooks"
+    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm lint:style && moon run :lint && pnpm lint:rust && pnpm lint:rustfmt",
+    "prepare": "simple-git-hooks",
+    "test": "moon run :test"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm pre-commit",
@@ -24,6 +25,7 @@
     "@commitlint/cli": "^21.2.1",
     "@commitlint/config-conventional": "^21.2.0",
     "@liry-k/tsconfig": "workspace:*",
+    "@moonrepo/cli": "^2.5.3",
     "@types/node": "catalog:",
     "cspell": "^10.0.1",
     "eslint": "catalog:",

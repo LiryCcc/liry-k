@@ -1,0 +1,12 @@
+# Configures all projects within the workspace to create a project graph.
+# npm packages only (apps / packages / infra / demos). Rust and Java stay
+# outside moon for now.
+projects:
+  - 'apps/*'
+  - 'packages/*'
+  - 'infra/*'
+  - 'demos/*'
+
+vcs:
+  defaultBranch: 'main'
+  provider: 'github'

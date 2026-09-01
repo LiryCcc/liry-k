@@ -106,7 +106,8 @@ const cspellConfig = defineConfig({
     'Lightformer',
     'Lightformers',
     'githack',
-    'multisampling'
+    'multisampling',
+    'moonrepo'
   ]
 });
 

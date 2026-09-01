@@ -2,7 +2,7 @@
 
 ## 环境总览
 
-本仓库是一个多语言 monorepo，包含以下技术栈：
+本仓库是一个多语言 monorepo。npm 包任务由 **moon**（`.moon/`）编排与缓存；Rust / Java 仍分别由 Cargo / Gradle 管理，尚未纳入 moon。
 
 | 技术栈               | 用途                       | 涉及目录                                    |
 | -------------------- | -------------------------- | ------------------------------------------- |
@@ -156,14 +156,15 @@ pnpm prepare
 
 ### 全局命令（根目录）
 
-| 命令                | 说明                                   |
-| ------------------- | -------------------------------------- |
-| `pnpm install`      | 安装所有依赖并构建                     |
-| `pnpm build`        | 构建所有包                             |
-| `pnpm format`       | 格式化所有代码                         |
-| `pnpm pre-commit`   | 运行完整检查（格式、拼写、lint、Rust） |
-| `pnpm lint:rust`    | 运行 cargo clippy                      |
-| `pnpm lint:rustfmt` | 检查 Rust 代码格式                     |
+| 命令                | 说明                                       |
+| ------------------- | ------------------------------------------ |
+| `pnpm install`      | 安装所有依赖并通过 moon 构建 TypeScript 包 |
+| `pnpm build`        | `moon run :build`（按依赖图构建并缓存）    |
+| `pnpm test`         | `moon run :test`                           |
+| `pnpm format`       | Prettier + `moon run :format`              |
+| `pnpm pre-commit`   | 运行完整检查（格式、拼写、lint、Rust）     |
+| `pnpm lint:rust`    | 运行 cargo clippy                          |
+| `pnpm lint:rustfmt` | 检查 Rust 代码格式                         |
 
 ### 单包命令
 

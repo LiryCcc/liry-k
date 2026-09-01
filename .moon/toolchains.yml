@@ -1,0 +1,14 @@
+# Enable JavaScript via Node + pnpm. Versions are not pinned here so moon
+# uses the machine / CI toolchain (see readme.md: node >= 24, pnpm >= 10).
+javascript:
+  packageManager: 'pnpm'
+  inferTasksFromScripts: true
+  # Keep existing workspace:* / catalog: ranges; do not rewrite package.json.
+  syncPackageManagerField: false
+  syncProjectWorkspaceDependencies: false
+  dedupeOnLockfileChange: false
+  # Repo already installs via pnpm; auto-install would re-enter postinstall -> build.
+  installDependencies: false
+
+node: {}
+pnpm: {}
