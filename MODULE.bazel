@@ -1,9 +1,9 @@
-# Bazel module for the liry-k monorepo. Task orchestration uses rules_shell
-# wrappers around pnpm / cargo / Gradle; toolchains stay on the host / CI.
+# Bazel module for the liry-k monorepo.
 module(
     name = "liry_k",
     version = "0.0.0",
 )
 
+bazel_dep(name = "aspect_bazel_lib", version = "2.22.5")
 bazel_dep(name = "rules_shell", version = "0.8.0")
 bazel_dep(name = "platforms", version = "0.0.11")

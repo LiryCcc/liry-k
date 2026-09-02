@@ -1,6 +1,27 @@
+load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
+
 package(default_visibility = ["//visibility:public"])
 
 exports_files([
     "run-in-workspace.sh",
-    "pre-commit.sh",
+    "pnpm.sh",
+    "npm-package-build.sh",
+    "npm-package-test.sh",
+    "npm-lint.sh",
 ])
+
+sh_binary(
+    name = "pnpm",
+    srcs = ["pnpm.sh"],
+)
+
+sh_binary(
+    name = "npm_package_build",
+    srcs = ["npm-package-build.sh"],
+)
+
+sh_binary(
+    name = "npm_package_test",
+    srcs = ["npm-package-test.sh"],
+    testonly = True,
+)

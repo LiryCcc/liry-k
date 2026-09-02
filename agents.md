@@ -34,10 +34,11 @@ pnpm workspace 四区：
 | 命令                | 说明                                                                                     |
 | ------------------- | ---------------------------------------------------------------------------------------- |
 | `pnpm install`      | 安装依赖；`postinstall` 会通过 Bazel 构建 npm 包                                         |
-| `pnpm build`        | `bazel run //tasks:npm_build`                                                            |
+| `pnpm build`        | `bazel build //javascript:build`（按包输入/输出缓存，未改动包会跳过）                    |
 | `pnpm test`         | `bazel test //tasks:all_test`（Vitest / Cargo / Gradle）                                 |
 | `pnpm format`       | Prettier 格式化全仓库 + 各包自有 `format` 脚本（如 `infra/proto`）                       |
 | `pnpm check-format` | 仅检查 Prettier 格式，不写入                                                             |
+| `pnpm check:root`   | 并行执行 `check-format`、`check-spell`、`lint:style`                                     |
 | `pnpm check-spell`  | cspell 拼写检查                                                                          |
 | `pnpm lint:style`   | stylelint，范围 `apps/**/*.css`、`packages/**/*.css`、`infra/**/*.css`、`demos/**/*.css` |
 | `pnpm pre-commit`   | **提交前完整检查**（等同 git pre-commit hook）                                           |
@@ -46,9 +47,9 @@ pnpm workspace 四区：
 | `pnpm lint:rustfmt` | `bazel test //tasks:rust_rustfmt`                                                        |
 | `pnpm sg`           | ast-grep CLI（代码搜索与替换，见下文「ast-grep」）                                       |
 
-`pnpm pre-commit` 依次执行：`check-format` → `check-spell` → `lint:style` → `bazel test`（npm / Rust / Java lint targets）。
+`pnpm pre-commit` 依次执行：`check:root`（格式 / 拼写 / CSS 并行）→ `bazel test`（npm / Rust / Java lint targets）。
 
-Bazel 任务定义见 `tasks/BUILD.bazel` 与 `tools/bazel/run-in-workspace.sh`；`pnpm exec bazel test //tasks/...` 可直接调用单个 target。
+Bazel：**npm 构建**见各包 `BUILD.bazel` 与 `//javascript:build`（`tools/bazel/js_package.bzl`）；**lint / test / Rust / Java** 见 `tasks/BUILD.bazel` 与 `tools/bazel/run-in-workspace.sh`。新增带 `build` 脚本的包或调整 workspace 依赖后运行 `node tools/bazel/generate-js-builds.mjs`。
 
 ### 单包（TypeScript / Node.js）
 

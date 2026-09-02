@@ -156,17 +156,19 @@ pnpm prepare
 
 ### 全局命令（根目录）
 
-| 命令                | 说明                                                   |
-| ------------------- | ------------------------------------------------------ |
-| `pnpm install`      | 安装所有依赖并通过 Bazel 构建 npm 包                   |
-| `pnpm build`        | `bazel run //tasks:npm_build`                          |
-| `pnpm test`         | `bazel test //tasks:all_test`                          |
-| `pnpm format`       | Prettier + 各包 `format`                               |
-| `pnpm pre-commit`   | `bazel test //tasks:pre_commit`（TS/Rust/Java 全检查） |
-| `pnpm lint:rust`    | `bazel test //tasks:rust_lint`                         |
-| `pnpm lint:rustfmt` | `bazel test //tasks:rust_rustfmt`                      |
+| 命令                | 说明                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| `pnpm install`      | 安装所有依赖并通过 Bazel 构建 npm 包                         |
+| `pnpm build`        | `bazel build //javascript:build`（按包缓存，未改动包会跳过） |
+| `pnpm test`         | `bazel test //tasks:all_test`                                |
+| `pnpm format`       | Prettier + 各包 `format`                                     |
+| `pnpm pre-commit`   | `bazel test //tasks:pre_commit`（TS/Rust/Java 全检查）       |
+| `pnpm lint:rust`    | `bazel test //tasks:rust_lint`                               |
+| `pnpm lint:rustfmt` | `bazel test //tasks:rust_rustfmt`                            |
 
 安装 [Bazelisk](https://github.com/bazelbuild/bazelisk) 或使用 `@bazel/bazelisk`（`pnpm exec bazel …`）。版本见根目录 `.bazelversion`。
+
+各 npm 包在 `BUILD.bazel` 中声明 `//<path>:build`（由 `tools/bazel/js_package.bzl` 生成）；聚合入口为 `//javascript:build`。新增或调整 workspace 依赖后运行 `node tools/bazel/generate-js-builds.mjs` 刷新依赖边。
 
 ### 单包命令
 

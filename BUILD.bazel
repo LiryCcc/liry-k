@@ -1,1 +1,1 @@
-# Root package marker. Task targets live under //tasks.
+# Root package marker. npm packages define //<path>:build via js_npm_package.

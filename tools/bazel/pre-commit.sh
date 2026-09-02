@@ -27,10 +27,8 @@ if [[ -z "${workspace}" ]]; then
 fi
 
 cd "${workspace}"
-pnpm run check-format
-pnpm run check-spell
-pnpm run lint:style
-pnpm -r lint
+bash tools/bazel/check-root.sh
+pnpm -r --parallel lint
 cargo clippy --workspace --all-targets --all-features -- -D warnings
 cargo fmt --all --check
 ./gradlew :vega:classes --no-daemon

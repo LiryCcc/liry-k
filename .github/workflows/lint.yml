@@ -98,9 +98,7 @@ jobs:
       # ── JS / Rust / Java lint（Bazel）──
       - name: Lint
         run: |
-          pnpm run check-format
-          pnpm run check-spell
-          pnpm run lint:style
+          pnpm run check:root
           bazel test //tasks:npm_lint //tasks:rust_lint //tasks:rust_rustfmt //tasks:java_lint
 
       # ── Rust + Java + npm test ──

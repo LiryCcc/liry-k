@@ -7,20 +7,25 @@ resolve_workspace() {
     return 0
   fi
 
-  local dir
-  dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+  local dir="${PWD}"
   while [[ "${dir}" != "/" ]]; do
-    if [[ -f "${dir}/MODULE.bazel" && -f "${dir}/package.json" ]]; then
+    if [[ -f "${dir}/MODULE.bazel" && -f "${dir}/package.json" && -d "${dir}/.git" ]]; then
       printf '%s' "${dir}"
       return 0
     fi
     dir="$(dirname "${dir}")"
   done
 
-  if [[ -n "${TEST_SRCDIR:-}" && -d "${TEST_SRCDIR}/_main" ]]; then
-    printf '%s' "${TEST_SRCDIR}/_main"
-    return 0
-  fi
+  local script_dir
+  script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+  dir="${script_dir}"
+  while [[ "${dir}" != "/" ]]; do
+    if [[ -f "${dir}/MODULE.bazel" && -f "${dir}/package.json" && -d "${dir}/.git" ]]; then
+      printf '%s' "${dir}"
+      return 0
+    fi
+    dir="$(dirname "${dir}")"
+  done
 
   return 1
 }

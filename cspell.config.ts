@@ -113,7 +113,10 @@ const cspellConfig = defineConfig({
     'bzlmod',
     'srcs',
     'starlark',
-    'runfiles'
+    'runfiles',
+    'testonly',
+    'genrule',
+    'filegroup'
   ]
 });
 

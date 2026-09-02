@@ -1,0 +1,7 @@
+load("//tools/bazel:js_package.bzl", "js_npm_package")
+
+js_npm_package(
+    deps = [
+        "//infra/eslint-config:build",
+    ],
+)

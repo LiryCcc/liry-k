@@ -17,8 +17,7 @@ sh_binary(
 
 sh_test(
     name = "npm_lint",
-    srcs = [_RUNNER],
-    args = ["pnpm", "-r", "lint"],
+    srcs = ["//tools/bazel:npm-lint.sh"],
     tags = _COMMON_TAGS,
 )
 

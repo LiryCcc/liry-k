@@ -1,8 +1,10 @@
 # Common Bazel settings for the liry-k monorepo.
 common --enable_bzlmod
 
-# Orchestration targets shell out to pnpm / cargo / Gradle on the host.
 build --spawn_strategy=local
+test --spawn_strategy=local
+# Local action cache (repeat builds skip unchanged packages).
+build --disk_cache=~/.cache/bazel-disk
 test --spawn_strategy=local
 test --test_output=errors
 test --test_summary=short
