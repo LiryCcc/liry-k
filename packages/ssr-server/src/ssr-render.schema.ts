@@ -6,8 +6,10 @@ const readableStreamSchema = z.custom<ReadableStream<Uint8Array>>(
 
 export const ssrRenderResultSchema = z.object({
   document: z.string().min(1),
+  headers: z.record(z.string(), z.string()).optional(),
   html: z.string().optional(),
   head: z.string().optional(),
+  status: z.number().int().min(100).max(599).optional(),
   stream: readableStreamSchema.optional()
 });
 

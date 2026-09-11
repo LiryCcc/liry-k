@@ -4,5 +4,6 @@ import { createServer as createViteServer } from 'vite';
 
 await startSsrServer({
   root: resolve(import.meta.dirname, '..'),
+  healthPath: '/healthz',
   createViteServer
 });

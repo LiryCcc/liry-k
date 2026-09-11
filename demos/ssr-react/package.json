@@ -11,7 +11,8 @@
     "lint": "pnpm lint:type && pnpm lint:code",
     "lint:code": "eslint . --cache",
     "lint:type": "tsc -b",
-    "preview": "node dist/server/preview.js"
+    "preview": "node dist/server/preview.js",
+    "start": "node dist/server/preview.js"
   },
   "dependencies": {
     "@liry-k/ssr-server": "workspace:*",
@@ -29,5 +30,8 @@
     "eslint": "catalog:",
     "typescript": "catalog:",
     "vite": "catalog:"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

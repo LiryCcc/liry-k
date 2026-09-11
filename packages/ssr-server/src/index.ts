@@ -19,6 +19,8 @@ const DEFAULT_SERVER_MODULE = '/src/server.tsx';
 const HEAD_CLOSE = '</head>';
 const BODY_CLOSE = '</body>';
 
+export const SSR_OUTLET = '__LIRY_SSR_OUTLET__';
+
 export type CreateViteServer = (config?: InlineConfig) => Promise<ViteDevServer>;
 
 export type SsrServerOptions = {
@@ -30,6 +32,7 @@ export type SsrServerOptions = {
   readonly serverModule?: string;
   readonly clientDist?: string;
   readonly abortDelayMs?: number;
+  readonly healthPath?: string;
   readonly render?: SsrRender;
   readonly createViteServer?: CreateViteServer;
 };
@@ -91,6 +94,17 @@ const splitAtMarker = (html: string, marker: string) => {
   return {
     htmlStart: html.slice(0, index),
     htmlEnd: html.slice(index)
+  } as const;
+};
+
+const splitTemplate = (html: string) => {
+  const outletIndex = html.indexOf(SSR_OUTLET);
+  if (outletIndex === -1) {
+    return splitAtMarker(html, BODY_CLOSE);
+  }
+  return {
+    htmlStart: html.slice(0, outletIndex),
+    htmlEnd: html.slice(outletIndex + SSR_OUTLET.length)
   } as const;
 };
 
@@ -234,8 +248,20 @@ const prepareTemplate = async (runtime: SsrRuntime, pageUrl: string, document: s
   return injectBefore(injectBefore(document, HEAD_CLOSE, runtime.head), HEAD_CLOSE, head);
 };
 
+const createResponseInit = (rendered: SsrRenderResult) => {
+  const headers = new Headers(rendered.headers);
+  if (!headers.has('Content-Type')) {
+    headers.set('Content-Type', 'text/html; charset=utf-8');
+  }
+  return {
+    headers,
+    ...(rendered.status === undefined ? {} : { status: rendered.status })
+  } satisfies ResponseInit;
+};
+
 const renderPage = (rendered: SsrRenderResult, template: string, abortDelayMs: number) => {
-  const { htmlStart, htmlEnd } = splitAtMarker(template, BODY_CLOSE);
+  const { htmlStart, htmlEnd } = splitTemplate(template);
+  const responseInit = createResponseInit(rendered);
   const bodyStream = rendered.stream;
   if (bodyStream !== undefined) {
     const timeoutId = setTimeout(() => {
@@ -243,28 +269,37 @@ const renderPage = (rendered: SsrRenderResult, template: string, abortDelayMs: n
     }, abortDelayMs);
     return new Response(
       concatHtmlStream(htmlStart, bodyStream, htmlEnd, () => clearTimeout(timeoutId)),
-      {
-        headers: { 'Content-Type': 'text/html; charset=utf-8' }
-      }
+      responseInit
     );
   }
-  return new Response(`${htmlStart}${rendered.html ?? ''}${htmlEnd}`, {
-    headers: { 'Content-Type': 'text/html; charset=utf-8' }
-  });
+  return new Response(`${htmlStart}${rendered.html ?? ''}${htmlEnd}`, responseInit);
 };
 
 const createApp = (
   runtime: SsrRuntime,
-  options: { readonly base: string; readonly clientDist: string; readonly abortDelayMs: number }
+  options: {
+    readonly base: string;
+    readonly clientDist: string;
+    readonly abortDelayMs: number;
+    readonly healthPath: string | undefined;
+  }
 ) => {
   const app = new Hono();
+  if (options.healthPath !== undefined) {
+    app.get(options.healthPath, (c) => c.json({ status: 'ok' }));
+  }
   if (runtime.mode === 'production') {
     app.use(compress());
     app.use(
       '*',
       serveStatic({
         root: options.clientDist,
-        rewriteRequestPath: (path) => stripBasePath(path, options.base)
+        rewriteRequestPath: (path) => stripBasePath(path, options.base),
+        onFound: (path, c) => {
+          if (path.includes('/assets/')) {
+            c.header('Cache-Control', 'public, max-age=31536000, immutable');
+          }
+        }
       })
     );
   }
@@ -283,7 +318,8 @@ const createApp = (
           runtime.vite.ssrFixStacktrace(error);
         }
         console.error(error.stack);
-        return c.text(error.stack ?? error.message, 500);
+        const message = runtime.mode === 'development' ? (error.stack ?? error.message) : 'Internal Server Error';
+        return c.text(message, 500);
       }
       throw error;
     }
@@ -323,6 +359,11 @@ export const startSsrServer = async (options: SsrServerOptions = {}) => {
   const serverModule = options.serverModule ?? DEFAULT_SERVER_MODULE;
   const clientDist = resolve(root, options.clientDist ?? 'dist/client');
   const abortDelayMs = options.abortDelayMs ?? DEFAULT_ABORT_DELAY_MS;
+  const healthPath = options.healthPath;
+
+  if (!Number.isInteger(port) || port < 1 || port > 65_535) {
+    throw new Error(`Invalid server port: ${port}`);
+  }
 
   const runtime = await createRuntime({
     root,
@@ -334,15 +375,23 @@ export const startSsrServer = async (options: SsrServerOptions = {}) => {
     render: options.render,
     createViteServer: options.createViteServer
   });
-  const app = createApp(runtime, { base, clientDist, abortDelayMs });
+  const app = createApp(runtime, { base, clientDist, abortDelayMs, healthPath });
   const handleNodeRequest = createNodeHandler(runtime, app);
   const server = createServer(handleNodeRequest);
 
-  await new Promise<void>((resolveListen) => {
-    server.listen(port, () => {
+  await new Promise<void>((resolveListen, rejectListen) => {
+    const handleError = (error: Error) => {
+      server.off('listening', handleListening);
+      rejectListen(error);
+    };
+    const handleListening = () => {
+      server.off('error', handleError);
       console.log(`Server started at http://localhost:${port}`);
       resolveListen();
-    });
+    };
+    server.once('error', handleError);
+    server.once('listening', handleListening);
+    server.listen(port);
   });
   return server;
 };

@@ -1,9 +1,42 @@
-# React + Vite
+# React streaming SSR
 
-This template sets up server-side rendering (SSR) with streaming for a React application using Vite.
+A production-oriented React 19 streaming SSR example powered by Vite and the workspace `@liry-k/ssr-server` package.
 
-Note that this template does not fully support [React Suspense](https://react.dev/reference/react/Suspense). If they are used, the site will only hydrate when suspense if fully resolved on the server-side.
+## Development
 
-Why? Suspense works by sending the initial HTML with placeholders, and then stream additional scripts to replace the placeholders when the resource is ready on the server-side. This delay in the stream interferes with script execution as module scripts in Vite are only executed when the DOM is ready (when the stream ends). To remedy this, suspense requires module scripts to be [async](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/script#async) and in the correct HTML order for it to hydrate as soon as possible. This is too complex to implement in a template right now.
+```bash
+pnpm dev
+```
 
-Check out the [React docs](https://react.dev/learn/creating-a-react-app) for suggested full-stack frameworks that implement this.
+The development server uses Vite in middleware mode, including SSR module loading, transforms, and React Fast Refresh.
+
+## Production
+
+```bash
+pnpm build
+PORT=5173 pnpm start
+```
+
+The build creates separate outputs:
+
+- `dist/client`: hashed browser assets and the Vite manifest.
+- `dist/server`: the executable Node.js SSR server.
+
+Configure `PORT` to change the listening port and `BASE` when the application is served from a path other than `/`. The process handles `SIGINT` and `SIGTERM` by stopping the HTTP server gracefully. `GET /healthz` is available for health checks.
+
+Deploy the server behind a TLS-terminating reverse proxy or platform load balancer. HTML responses are revalidated, while hashed files under `assets/` are served with immutable one-year caching.
+
+## Rendering flow
+
+1. `src/server.tsx` renders the HTML document and the React application stream.
+2. `@liry-k/ssr-server` injects the stream at `SSR_OUTLET` inside the stable `#root` element.
+3. Development injects the Vite client entry directly; production resolves hashed CSS and JavaScript from the manifest.
+4. `src/client.ts` hydrates the existing `#root` markup.
+
+`normalize.css` is injected by `HtmlDocument` as a JSX `<style>` element so that normalization is present in the initial HTML before client assets load. Production CSP permits only this exact inline stylesheet through its SHA-256 hash; arbitrary inline styles remain blocked.
+
+Server and client renders must remain deterministic. Request-specific state should be validated, safely serialized into the document, and passed to both renders rather than being recreated independently in the browser.
+
+## Current limitation
+
+React Suspense can stream replacement instructions after the initial shell, but Vite module scripts normally execute after the document stream finishes. Supporting early selective hydration requires ordered async scripts and is outside this example's current scope.
