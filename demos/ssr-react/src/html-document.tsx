@@ -1,5 +1,5 @@
 import { SSR_OUTLET } from '@liry-k/ssr-server';
-import { NORMALIZE_CSS } from './normalize-css.js';
+import { DOCUMENT_CSS } from './document-css.js';
 import { PAGE_TITLE, ROOT_ID } from './ssr-constants.js';
 
 const HtmlDocument = () => (
@@ -10,7 +10,7 @@ const HtmlDocument = () => (
       <meta name='description' content='React streaming server-side rendering with Vite' />
       <meta name='theme-color' content='#111827' />
       <title>{PAGE_TITLE}</title>
-      <style>{NORMALIZE_CSS}</style>
+      <style>{DOCUMENT_CSS}</style>
     </head>
     <body>
       <div id={ROOT_ID}>{SSR_OUTLET}</div>

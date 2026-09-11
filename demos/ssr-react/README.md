@@ -33,7 +33,7 @@ Deploy the server behind a TLS-terminating reverse proxy or platform load balanc
 3. Development injects the Vite client entry directly; production resolves hashed CSS and JavaScript from the manifest.
 4. `src/client.ts` hydrates the existing `#root` markup.
 
-`normalize.css` is injected by `HtmlDocument` as a JSX `<style>` element so that normalization is present in the initial HTML before client assets load. Production CSP permits only this exact inline stylesheet through its SHA-256 hash; arbitrary inline styles remain blocked.
+`normalize.css` and the application stylesheet are injected by `HtmlDocument` as a JSX `<style>` element, so all above-the-fold styling is available before the body is parsed and no client-side style injection is required. Production CSP permits only this exact inline stylesheet through its SHA-256 hash; arbitrary inline styles remain blocked.
 
 Server and client renders must remain deterministic. Request-specific state should be validated, safely serialized into the document, and passed to both renders rather than being recreated independently in the browser.
 

@@ -1,7 +1,6 @@
 import { createElement, StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import App from './app.js';
-import './index.css';
 import { ROOT_ID } from './ssr-constants.js';
 
 const root = document.getElementById(ROOT_ID);
