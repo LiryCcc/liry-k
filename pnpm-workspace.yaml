@@ -29,6 +29,7 @@ catalog:
   '@hono/node-server': ^2.1.1
   '@lit-labs/signals': ^0.3.0
   '@preact/preset-vite': ^2.10.6
+  '@playwright/test': ^1.63.0
   '@react-pdf/renderer': ^4.5.1
   '@rolldown/plugin-babel': ^0.2.3
   '@sentry/solid': ^10.67.0

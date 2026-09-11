@@ -10,12 +10,14 @@
     "dev": "node src/index.ts",
     "lint": "pnpm lint:type && pnpm lint:code",
     "lint:code": "eslint . --cache",
-    "lint:type": "tsc -b",
+    "lint:type": "tsc -b && tsc -p e2e/tsconfig.json",
     "preview": "node dist/server/preview.js",
-    "start": "node dist/server/preview.js"
+    "start": "node dist/server/preview.js",
+    "test:e2e": "playwright test --config e2e/playwright.config.ts"
   },
   "dependencies": {
     "@liry-k/ssr-server": "workspace:*",
+    "@tanstack/react-router": "catalog:",
     "normalize.css": "catalog:",
     "react": "catalog:",
     "react-dom": "catalog:"
@@ -23,6 +25,7 @@
   "devDependencies": {
     "@liry-k/eslint-config": "workspace:*",
     "@liry-k/tsconfig": "workspace:*",
+    "@playwright/test": "catalog:",
     "@types/node": "catalog:",
     "@types/react": "catalog:",
     "@types/react-dom": "catalog:",

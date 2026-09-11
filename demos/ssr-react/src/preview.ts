@@ -1,6 +1,6 @@
+import { render } from '@/server.js';
 import { startSsrServer } from '@liry-k/ssr-server';
 import { resolve } from 'node:path';
-import { render } from './server.js';
 
 const server = await startSsrServer({
   root: resolve(import.meta.dirname, '../..'),

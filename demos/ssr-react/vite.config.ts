@@ -4,6 +4,12 @@ import { defineConfig } from 'vite';
 
 const viteConfig = defineConfig({
   plugins: [react()],
+  resolve: {
+    alias: {
+      '@': resolve(import.meta.dirname, 'src'),
+      '@@': resolve(import.meta.dirname)
+    }
+  },
   build: {
     manifest: true,
     rollupOptions: {

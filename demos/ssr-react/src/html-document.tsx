@@ -1,6 +1,6 @@
+import { DOCUMENT_CSS } from '@/document-css.js';
+import { PAGE_TITLE, ROOT_ID } from '@/ssr-constants.js';
 import { SSR_OUTLET } from '@liry-k/ssr-server';
-import { DOCUMENT_CSS } from './document-css.js';
-import { PAGE_TITLE, ROOT_ID } from './ssr-constants.js';
 
 const HtmlDocument = () => (
   <html lang='en'>

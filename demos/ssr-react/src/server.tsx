@@ -1,9 +1,10 @@
+import { DOCUMENT_CSS } from '@/document-css.js';
+import HtmlDocument from '@/html-document.js';
+import { createAppRouter } from '@/routes.js';
+import { RouterProvider } from '@tanstack/react-router';
 import { createHash } from 'node:crypto';
 import { StrictMode } from 'react';
 import { renderToReadableStream, renderToString } from 'react-dom/server';
-import App from './app.js';
-import { DOCUMENT_CSS } from './document-css.js';
-import HtmlDocument from './html-document.js';
 
 const DOCUMENT_CSS_HASH = createHash('sha256').update(DOCUMENT_CSS).digest('base64');
 
@@ -20,16 +21,19 @@ const HTML_HEADERS = {
     : {})
 };
 
-export const render = async () => {
+export const render = async (url: string) => {
+  const router = createAppRouter(url);
+  await router.load();
   const document = `<!DOCTYPE html>${renderToString(<HtmlDocument />)}`;
   const stream = await renderToReadableStream(
     <StrictMode>
-      <App />
+      <RouterProvider router={router} />
     </StrictMode>
   );
   return {
     document,
     headers: HTML_HEADERS,
+    status: router.stores.statusCode.get(),
     stream
   };
 };
