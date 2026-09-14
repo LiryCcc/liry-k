@@ -1,21 +1,33 @@
 #!/usr/bin/env node
 import { once } from 'node:events';
 import { createReadStream, createWriteStream, existsSync } from 'node:fs';
-import { appendFile, cp, lstat, mkdir, readdir, readlink, rm, stat } from 'node:fs/promises';
-import { dirname, join, relative, sep } from 'node:path';
+import { cp, lstat, mkdir, readdir, readlink, rm, stat } from 'node:fs/promises';
+import { join, relative, sep } from 'node:path';
 import { pipeline } from 'node:stream/promises';
 import { createGzip, type Gzip } from 'node:zlib';
 
 const workspaceRoot = import.meta.dirname;
-const stagingDir = join(workspaceRoot, 'release-artifacts');
+const outputDir = join(workspaceRoot, 'release-archives');
 const skipDirectoryNames = new Set(['node_modules', '.git']);
 const distSearchRoots = ['apps', 'packages', 'infra', 'demos'] as const;
 const tarBlockSize = 512;
 
-const copyPreservingParents = async (absolutePath: string): Promise<void> => {
-  const destination = join(stagingDir, relative(workspaceRoot, absolutePath));
-  await mkdir(dirname(destination), { recursive: true });
-  await cp(absolutePath, destination, { recursive: true, force: true });
+const allocateOutputName = (used: Set<string>, desired: string): string => {
+  if (!used.has(desired)) {
+    used.add(desired);
+    return desired;
+  }
+  const tarGzSuffix = '.tar.gz';
+  const isTarGz = desired.endsWith(tarGzSuffix);
+  const stem = isTarGz ? desired.slice(0, -tarGzSuffix.length) : desired.replace(/(\.[^./]+)$/, '');
+  const extension = isTarGz ? tarGzSuffix : desired.slice(stem.length);
+  for (let index = 2; ; index += 1) {
+    const candidate = `${stem}-${index}${extension}`;
+    if (!used.has(candidate)) {
+      used.add(candidate);
+      return candidate;
+    }
+  }
 };
 
 const walk = async (
@@ -38,57 +50,6 @@ const walk = async (
     }
   }
 };
-
-const collectDistDirectories = async (): Promise<void> => {
-  for (const rootName of distSearchRoots) {
-    await walk(join(workspaceRoot, rootName), async (entryPath, name, isDirectory) => {
-      if (isDirectory && name === 'dist') {
-        await copyPreservingParents(entryPath);
-        return false;
-      }
-      return true;
-    });
-  }
-};
-
-const collectPluginJars = async (): Promise<void> => {
-  const jarParentMarker = `${sep}build${sep}libs${sep}`;
-  await walk(join(workspaceRoot, 'mc-plugins'), async (entryPath, name, isDirectory) => {
-    if (!isDirectory && name.endsWith('.jar') && entryPath.includes(jarParentMarker)) {
-      await copyPreservingParents(entryPath);
-    }
-    return true;
-  });
-};
-
-const collectRustReleaseBinaries = async (): Promise<void> => {
-  const releaseDir = join(workspaceRoot, 'target', 'release');
-  if (!existsSync(releaseDir)) {
-    return;
-  }
-  const entries = await readdir(releaseDir, { withFileTypes: true });
-  for (const entry of entries) {
-    if (!entry.isFile()) {
-      continue;
-    }
-    const entryPath = join(releaseDir, entry.name);
-    const fileStat = await stat(entryPath);
-    if ((fileStat.mode & 0o111) === 0) {
-      continue;
-    }
-    await copyPreservingParents(entryPath);
-  }
-};
-
-const writeGithubOutput = async (archiveName: string): Promise<void> => {
-  const githubOutput = process.env['GITHUB_OUTPUT'];
-  if (githubOutput === undefined) {
-    return;
-  }
-  await appendFile(githubOutput, `archive_name=${archiveName}\n`);
-};
-
-const toPosixPath = (absolutePath: string): string => relative(stagingDir, absolutePath).split(sep).join('/');
 
 const writeOctal = (header: Buffer, offset: number, length: number, value: number): void => {
   const encoded = value.toString(8).padStart(length - 1, '0');
@@ -214,10 +175,21 @@ const writeTarFileBody = async (gzip: Gzip, absolutePath: string, size: number):
   await padToTarBlock(gzip, size);
 };
 
-const appendTarEntry = async (gzip: Gzip, absolutePath: string): Promise<void> => {
+const toArchivePath = (absolutePath: string, rootDir: string, pathPrefix: string): string => {
+  const relativePath = relative(rootDir, absolutePath).split(sep).join('/');
+  if (relativePath === '') {
+    return pathPrefix;
+  }
+  if (pathPrefix === '') {
+    return relativePath;
+  }
+  return `${pathPrefix}/${relativePath}`;
+};
+
+const appendTarEntry = async (gzip: Gzip, absolutePath: string, rootDir: string, pathPrefix: string): Promise<void> => {
   const entryStat = await lstat(absolutePath);
   const mtime = Math.floor(entryStat.mtimeMs / 1000);
-  const posixPath = toPosixPath(absolutePath);
+  const posixPath = toArchivePath(absolutePath, rootDir, pathPrefix);
 
   if (entryStat.isSymbolicLink()) {
     const linkname = await readlink(absolutePath);
@@ -236,39 +208,80 @@ const appendTarEntry = async (gzip: Gzip, absolutePath: string): Promise<void> =
   await writeTarFileBody(gzip, absolutePath, entryStat.size);
 };
 
-const walkStagingForArchive = async (directory: string, gzip: Gzip): Promise<void> => {
+const walkForArchive = async (directory: string, gzip: Gzip, rootDir: string, pathPrefix: string): Promise<void> => {
   const entries = await readdir(directory, { withFileTypes: true });
   for (const entry of entries) {
     const entryPath = join(directory, entry.name);
-    await appendTarEntry(gzip, entryPath);
+    await appendTarEntry(gzip, entryPath, rootDir, pathPrefix);
     if (entry.isDirectory()) {
-      await walkStagingForArchive(entryPath, gzip);
+      await walkForArchive(entryPath, gzip, rootDir, pathPrefix);
     }
   }
 };
 
-const writeTarGzipArchive = async (archivePath: string): Promise<void> => {
+const writeTarGzipFromDirectory = async (rootDir: string, archivePath: string, pathPrefix: string): Promise<void> => {
   const gzip = createGzip();
   const output = createWriteStream(archivePath);
   const done = pipeline(gzip, output);
-  await walkStagingForArchive(stagingDir, gzip);
+  await appendTarEntry(gzip, rootDir, rootDir, pathPrefix);
+  await walkForArchive(rootDir, gzip, rootDir, pathPrefix);
   await writeToGzip(gzip, Buffer.alloc(tarBlockSize * 2));
   gzip.end();
   await done;
 };
 
-const packageReleaseArtifacts = async (): Promise<void> => {
-  const sha = process.env['GITHUB_SHA'] ?? 'local';
-  const archiveName = `liry-k-${sha}.tar.gz`;
-  const archivePath = join(workspaceRoot, archiveName);
+const packageDistDirectories = async (usedOutputNames: Set<string>): Promise<void> => {
+  for (const rootName of distSearchRoots) {
+    await walk(join(workspaceRoot, rootName), async (entryPath, name, isDirectory) => {
+      if (!(isDirectory && name === 'dist')) {
+        return true;
+      }
+      const packageDir = relative(workspaceRoot, join(entryPath, '..'));
+      const archiveFileName = allocateOutputName(usedOutputNames, `${packageDir.split(sep).join('-')}.tar.gz`);
+      await writeTarGzipFromDirectory(entryPath, join(outputDir, archiveFileName), 'dist');
+      return false;
+    });
+  }
+};
 
-  await rm(stagingDir, { recursive: true, force: true });
-  await mkdir(stagingDir, { recursive: true });
-  await collectDistDirectories();
-  await collectPluginJars();
-  await collectRustReleaseBinaries();
-  await writeTarGzipArchive(archivePath);
-  await writeGithubOutput(archiveName);
+const packagePluginJars = async (usedOutputNames: Set<string>): Promise<void> => {
+  const jarParentMarker = `${sep}build${sep}libs${sep}`;
+  await walk(join(workspaceRoot, 'mc-plugins'), async (entryPath, name, isDirectory) => {
+    if (!isDirectory && name.endsWith('.jar') && entryPath.includes(jarParentMarker)) {
+      const outputName = allocateOutputName(usedOutputNames, name);
+      await cp(entryPath, join(outputDir, outputName), { force: true });
+    }
+    return true;
+  });
+};
+
+const packageRustReleaseBinaries = async (usedOutputNames: Set<string>): Promise<void> => {
+  const releaseDir = join(workspaceRoot, 'target', 'release');
+  if (!existsSync(releaseDir)) {
+    return;
+  }
+  const entries = await readdir(releaseDir, { withFileTypes: true });
+  for (const entry of entries) {
+    if (!entry.isFile()) {
+      continue;
+    }
+    const entryPath = join(releaseDir, entry.name);
+    const fileStat = await stat(entryPath);
+    if ((fileStat.mode & 0o111) === 0) {
+      continue;
+    }
+    const outputName = allocateOutputName(usedOutputNames, entry.name);
+    await cp(entryPath, join(outputDir, outputName), { force: true });
+  }
+};
+
+const packageReleaseArtifacts = async (): Promise<void> => {
+  const usedOutputNames = new Set<string>();
+  await rm(outputDir, { recursive: true, force: true });
+  await mkdir(outputDir, { recursive: true });
+  await packageDistDirectories(usedOutputNames);
+  await packagePluginJars(usedOutputNames);
+  await packageRustReleaseBinaries(usedOutputNames);
 };
 
 if (import.meta.main) {

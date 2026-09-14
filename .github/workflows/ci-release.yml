@@ -88,7 +88,6 @@ jobs:
         run: pnpm exec moon run vega:build
 
       - name: Package build artifacts
-        id: package
         run: node package-release-artifacts.ts
 
       - name: Publish GitHub Release
@@ -99,4 +98,4 @@ jobs:
           name: CI build ${{ github.sha }}
           prerelease: true
           generate_release_notes: true
-          files: ${{ steps.package.outputs.archive_name }}
+          files: release-archives/*

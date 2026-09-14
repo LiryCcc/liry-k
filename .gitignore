@@ -19,5 +19,4 @@ infra/build/node_modules
 .moon/docker
 
 # CI 预发布打包产物
-release-artifacts
-liry-k-*.tar.gz
+release-archives
