@@ -12,7 +12,7 @@
     "lint:rust": "moon run :lint --query \"language=rust\"",
     "lint:rustfmt": "moon run :lint-rustfmt --query \"language=rust\"",
     "lint:style": "stylelint \"*/**/*.css\"",
-    "pre-commit": "pnpm check-format && pnpm check-spell && pnpm lint:style && moon run :lint && pnpm lint:rustfmt",
+    "pre-commit": "moon run :lint :lint-rustfmt",
     "prepare": "simple-git-hooks",
     "test": "moon run :test"
   },

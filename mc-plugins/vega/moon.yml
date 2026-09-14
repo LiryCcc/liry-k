@@ -36,6 +36,9 @@ tasks:
     args:
       - 'vega:test'
       - --no-daemon
+    deps:
+      # 与 lint 共用同一 Gradle 输出目录，不能并行。
+      - lint
     inputs:
       - 'src/**/*'
       - 'build.gradle.kts'

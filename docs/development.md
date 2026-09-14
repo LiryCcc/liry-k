@@ -156,15 +156,15 @@ pnpm prepare
 
 ### 全局命令（根目录）
 
-| 命令                | 说明                                             |
-| ------------------- | ------------------------------------------------ |
-| `pnpm install`      | 安装所有依赖并通过 moon 构建 TypeScript 包       |
-| `pnpm build`        | `moon run :build`（仅 npm 包，不含 Rust / Java） |
-| `pnpm test`         | `moon run :test`（Vitest / Cargo / Gradle）      |
-| `pnpm format`       | Prettier + `moon run :format`                    |
-| `pnpm pre-commit`   | 运行完整检查（格式、拼写、TS/Rust/Java lint）    |
-| `pnpm lint:rust`    | 各 crate clippy                                  |
-| `pnpm lint:rustfmt` | 检查 Rust 代码格式                               |
+| 命令                | 说明                                                         |
+| ------------------- | ------------------------------------------------------------ |
+| `pnpm install`      | 安装所有依赖并通过 moon 构建 TypeScript 包                   |
+| `pnpm build`        | `moon run :build`（仅 npm 包，不含 Rust / Java）             |
+| `pnpm test`         | `moon run :test`（Vitest / Cargo / Gradle）                  |
+| `pnpm format`       | Prettier + `moon run :format`                                |
+| `pnpm pre-commit`   | `moon run :lint :lint-rustfmt`（格式、拼写、各包 lint 并行） |
+| `pnpm lint:rust`    | 各 crate clippy                                              |
+| `pnpm lint:rustfmt` | 检查 Rust 代码格式                                           |
 
 ### 单包命令
 

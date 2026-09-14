@@ -1,0 +1,33 @@
+# 仓库级检查（Prettier / cspell / stylelint）。挂到 `lint` 上，这样
+# `moon run :lint` 会和其他包的 lint 一起并行，而不是在 pnpm 脚本里用 && 串行。
+language: unknown
+layer: tool
+
+taskOptions:
+  cache: false
+  runFromWorkspaceRoot: true
+
+tasks:
+  check-format:
+    command: pnpm
+    args:
+      - run
+      - check-format
+  check-spell:
+    command: pnpm
+    args:
+      - run
+      - check-spell
+  lint-style:
+    command: pnpm
+    args:
+      - run
+      - lint:style
+  # 无 command：只编排上面三个独立检查，moon 默认并行跑 deps。
+  lint:
+    deps:
+      - check-format
+      - check-spell
+      - lint-style
+    options:
+      runDepsInParallel: true

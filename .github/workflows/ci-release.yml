@@ -75,11 +75,8 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts', '**/gradle-wrapper.properties') }}
           restore-keys: ${{ runner.os }}-gradle-
 
-      - name: Lint
-        run: pnpm pre-commit
-
-      - name: Test
-        run: pnpm test
+      - name: Lint and test
+        run: pnpm exec moon run :lint :lint-rustfmt :test
 
       - name: Build JavaScript packages
         run: pnpm build

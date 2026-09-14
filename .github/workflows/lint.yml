@@ -1,6 +1,6 @@
-# 在 ubuntu / macos / windows 三个平台并行运行，每个平台内串行完成：
-#   1. 安装所有语言依赖（pnpm / Rust toolchain / Java）
-#   2. 通过 moon 执行各语言 lint / test / build
+# 在 ubuntu / macos / windows 三个平台并行运行。每个平台先安装依赖，
+# 再由 moon 在同一张任务图里并行跑 lint / rustfmt / test，Java build 仍单独执行
+#（与 vega:test 共用 Gradle 输出目录）。
 name: Lint
 
 on:
@@ -98,13 +98,9 @@ jobs:
         if: runner.os == 'Windows'
         run: echo "C:\Program Files\Git\bin" >> $env:GITHUB_PATH
 
-      # ── JS / Rust / Java lint（moon）──
-      - name: Lint
-        run: pnpm pre-commit
-
-      # ── Rust + Java test ──
-      - name: Test
-        run: pnpm test
+      # ── JS / Rust / Java lint + test（moon 并行）──
+      - name: Lint and test
+        run: pnpm exec moon run :lint :lint-rustfmt :test
 
       # ── Java build ──
       - name: Java build

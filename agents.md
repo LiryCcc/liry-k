@@ -40,13 +40,13 @@ pnpm workspace 四区：
 | `pnpm check-format` | 仅检查 Prettier 格式，不写入                                                             |
 | `pnpm check-spell`  | cspell 拼写检查                                                                          |
 | `pnpm lint:style`   | stylelint，范围 `apps/**/*.css`、`packages/**/*.css`、`infra/**/*.css`、`demos/**/*.css` |
-| `pnpm pre-commit`   | **提交前完整检查**（等同 git pre-commit hook）                                           |
+| `pnpm pre-commit`   | **提交前完整检查**（`moon run :lint :lint-rustfmt`，各检查并行）                         |
 | `pnpm lint`         | 别名，指向 `pnpm pre-commit`                                                             |
 | `pnpm lint:rust`    | `moon run :lint --query language=rust`（各 crate clippy）                                |
 | `pnpm lint:rustfmt` | `moon run :lint-rustfmt --query language=rust`                                           |
 | `pnpm sg`           | ast-grep CLI（代码搜索与替换，见下文「ast-grep」）                                       |
 
-`pnpm pre-commit` 依次执行：`check-format` → `check-spell` → `lint:style` → `moon run :lint` → `pnpm lint:rustfmt`。
+`pnpm pre-commit` 即 `moon run :lint :lint-rustfmt`。`:lint` 会并行跑各包 ESLint/tsc、Rust clippy、Java `vega:classes`，以及仓库级 Prettier / cspell / stylelint（`infra/quality`）；`:lint-rustfmt` 与它们并行。需要单独跑某一项时仍可用 `pnpm check-format` / `pnpm check-spell` / `pnpm lint:style`。
 
 任务图与缓存见 `.moon/workspace.yml`、`.moon/toolchains.yml`。moon 从各包 `package.json` scripts 推断 npm 任务（`javascript.inferTasksFromScripts`）；Rust / Java 任务分别见 `.moon/tasks/rust.yml` 与各 crate / `mc-plugins/vega` 的 `moon.yml`。
 
@@ -343,7 +343,7 @@ pnpm sg run -p 'OLD' -r 'NEW' -l typescript packages/foo -U
 
 ## 质量与 Git
 
-- **提交前**：根目录 `pnpm pre-commit`（Prettier、cspell、stylelint、各包 `lint`、Rust clippy + rustfmt）。
+- **提交前**：根目录 `pnpm pre-commit`（moon 并行跑 Prettier、cspell、stylelint、各包 `lint`、Rust clippy + rustfmt）。
 - **提交信息**：遵循 [Conventional Commits](https://www.conventionalcommits.org/)，由 `commitlint` 校验；**正文单行不超过 100 字符**（`body-max-line-length`），否则 hook 失败。
 - **单包检查示例**：`pnpm --filter @liry-k/luna lint`、`pnpm --filter @liry-k/luna build`；改 Rust 题解后至少跑 `pnpm lint:rust` 与 `pnpm lint:rustfmt`。
 
