@@ -95,13 +95,20 @@ jobs:
         shell: bash
         run: |
           archive_name="liry-k-${GITHUB_SHA}.tar.gz"
-          mkdir release-artifacts
-          find apps packages infra demos -type d -name dist -prune -exec cp -R --parents {} release-artifacts \
-            ;
-          find mc-plugins -type f -path '*/build/libs/*.jar' -exec cp --parents {} release-artifacts \
-            ;
-          find target/release -maxdepth 1 -type f -executable -exec cp --parents {} release-artifacts \
-            ;
+          mkdir -p release-artifacts
+          # 跳过 node_modules：pnpm 目录树里也有大量 dist，复制会因超长路径或环状符号链接失败
+          find apps packages infra demos \
+            \( -name node_modules -o -name .git \) -prune -o \
+            -type d -name dist \
+            -exec cp -a --parents {} release-artifacts \;
+          find mc-plugins \
+            \( -name node_modules -o -name .git \) -prune -o \
+            -type f -name '*.jar' -path '*/build/libs/*' \
+            -exec cp --parents {} release-artifacts \;
+          if [ -d target/release ]; then
+            find target/release -maxdepth 1 -type f -executable \
+              -exec cp --parents {} release-artifacts \;
+          fi
           tar -C release-artifacts -czf "$archive_name" .
           echo "archive_name=$archive_name" >> "$GITHUB_OUTPUT"
 

@@ -1,11 +1,17 @@
 language: java
 layer: application
 
+# Windows 默认 pwsh 会把 `:vega:classes` 解析成 label。任务选择器去掉前导冒号，
+# 并从本项目强制走 Git Bash，避免只靠 workspace 继承时 bash 不在 PATH 上又回退到 pwsh。
+taskOptions:
+  shell: true
+  windowsShell: bash
+
 tasks:
   build:
     command: ./gradlew
     args:
-      - :vega:build
+      - 'vega:build'
       - --no-daemon
     inputs:
       - 'src/**/*'
@@ -17,7 +23,7 @@ tasks:
   lint:
     command: ./gradlew
     args:
-      - :vega:classes
+      - 'vega:classes'
       - --no-daemon
     inputs:
       - 'src/**/*'
@@ -28,7 +34,7 @@ tasks:
   test:
     command: ./gradlew
     args:
-      - :vega:test
+      - 'vega:test'
       - --no-daemon
     inputs:
       - 'src/**/*'

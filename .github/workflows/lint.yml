@@ -92,6 +92,12 @@ jobs:
       - name: Download Gradle dependencies
         run: ./gradlew dependencies --no-daemon
 
+      # moon 的 windowsShell: bash 依赖 bash.exe 在 PATH 上；
+      # GitHub Windows runner 默认只有 Git\cmd，没有 Git\bin。
+      - name: Add Git Bash to PATH
+        if: runner.os == 'Windows'
+        run: echo "C:\Program Files\Git\bin" >> $env:GITHUB_PATH
+
       # ── JS / Rust / Java lint（moon）──
       - name: Lint
         run: pnpm pre-commit

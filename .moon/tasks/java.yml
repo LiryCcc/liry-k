@@ -5,3 +5,9 @@ implicitInputs:
   - '/build.gradle.kts'
   - '/settings.gradle.kts'
   - '/gradle/wrapper/gradle-wrapper.properties'
+
+# Windows 默认 pwsh 会把 `:vega:classes` 这类 Gradle 任务名解析成 label。
+# 这里改走 Git Bash；CI 的 Windows runner 还需把 Git 的 bin 加进 PATH，moon 才能找到 bash。
+taskOptions:
+  shell: true
+  windowsShell: bash
