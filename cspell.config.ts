@@ -63,6 +63,8 @@ const cspellConfig = defineConfig({
     'protoc',
     'rustup',
     'tlsv',
+    'ustar',
+    'typeflag',
     'libwebkit',
     'libxdo',
     'libayatana',
